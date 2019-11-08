@@ -69,7 +69,7 @@ export class ProductComponent {
             "description": "15 gallon capacity rolling garden cart",
             "price": 32.99,
             "starRating": 4.2,
-            "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png"
+            "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81UkZNZICyL._SX466_.jpg"
           },
           {
             _id: '5a05dacc734d1d68d42d31f3',
@@ -91,7 +91,7 @@ export class ProductComponent {
             "description": "15 gallon capacity rolling garden cart",
             "price": 32.99,
             "starRating": 4.2,
-            "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png"
+            "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/81UkZNZICyL._SX466_.jpg"
           },
           {
             _id: '5a05dacc734d1d68d42d31f3',
@@ -102,7 +102,7 @@ export class ProductComponent {
             "description": "Leaf rake with 48-inch wooden handle.",
             "price": 19.95,
             "starRating": 3.5,
-            "imageUrl": "http://openclipart.org/image/300px/svg_to_png/26215/Anonymous_Leaf_Rake.png"
+            "imageUrl": "https://www.telegraph.co.uk/content/dam/health-fitness/2019/02/08/pinchinghand_trans_NvBQzQNjv4BqdODRziddS8JXpVz-XfUVR2LvJF5WfpqnBZShRL_tOZw.jpg?imwidth=450"
           }
     ];
 
