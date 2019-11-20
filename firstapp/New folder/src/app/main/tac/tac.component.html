@@ -1,0 +1,183 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Terms and Conditions</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Terms and Conditions
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <!-- <div class="row">
+           <div class="col-md-12">
+              <form #tac='ngForm' (ngSubmit)="GetFilterTerms(tac.value)">
+              <div class="card">
+                 <div class="card-header">
+                    <h4 class="card-title">Search Terms and Conditions <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i></h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                 </div>
+                 <div class="card-body collapse in">
+                    <div class="card-block">
+                       <div class="row">
+                          <div class="col-md-12">
+                             <div class="row">
+                                <div class="col-md-2">
+                                   <fieldset class="form-group-xs">
+                                      <label for="basicInput">Name</label>
+                                      <input type="text" class="form-control input-sm" id="TermName" [(ngModel)]='TermName' name="TermName" required>
+                                   </fieldset>
+                                </div>
+                                <!-- <div class="col-md-2">
+                                   <fieldset class="form-group">
+                                      <label for="basicInput">Division</label>
+                                      <dx-tag-box [items]="DivisionsList" [showSelectionControls]="true" applyValueMode="useButtons" displayExpr="Name" valueExpr="Name"
+                                      (valueChanged)='SetSelectedDivision($event)' [(ngModel)]='selDivisionList' name='selDivisionList' required>
+                                      </dx-tag-box>
+                                   </fieldset>
+                                </div> -->
+  <!-- <div class="col-md-2">
+                                   <fieldset class="form-group-xs">
+                                      <label for="basicInput">Description</label>
+                                      <input type="text" class="form-control input-sm" id="Description" [(ngModel)]='Description' name="Description" required>
+                                   </fieldset>
+                                </div>
+                                <div class="col-md-2">
+                                <fieldset class="form-group">
+                                  <label for="basicInput">Status</label>
+                                  <dx-select-box
+                                  [items]="['All', 'Active', 'In-Active']"
+                                  [(value)]="Status" name="Status">
+                                  </dx-select-box>
+                               </fieldset>
+                              </div>
+                             </div>
+                             <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='TermClearParameters()'>Clear <i class="fa fa-times"></i></a>
+                             <button class="btn btn-danger btn-min-width pull-right mr-1" [disabled]='!tac.valid'>Search <i class="fa fa-search"></i></button>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+            </form>
+           </div>
+        </div> -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Terms and Conditions list
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid id="gridContainer" [dataSource]="TermsAndConditionList" [allowColumnReordering]="true" (onEditingStart)="logEvent('EditingStart')" (onEditorPreparing)="onTermsEditorPreparing($event)"
+                  (onRowInserted)="AddNewTermsandCondition($event)" (onRowUpdated)="EditTermsAndConditions($event)" (onRowRemoving)="DeleteTermsandConditions($event)"
+                  (onRowRemoved)="AfterTermsandConditionsDelete()" (onToolbarPreparing)="onToolbarPreparing($event)" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+                  [showBorders]="true"(onInitNewRow)="initNewRow($event)">
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000069" [allowDeleting]="UserPermissionsList.PL000070" [allowAdding]="UserPermissionsList.PL000068">
+                    <dxo-popup title="Add/Edit Terms and Conditions" [showTitle]="true" [height]="300" [width]="750">
+                    </dxo-popup>
+                    <dxo-form [colCount]="2" [formData]="options" class="col-md-11 col-sm-11 row">
+                      <dxi-item dataField="Name" editorType="dxTextBox"[editorOptions]="{ maxLength: 80, min:0 }">
+                        <dxi-validation-rule type="required" message="Please enter Name."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="DefaultTermsAndConditions" editorType="dxTextBox">
+                      </dxi-item>
+                      <dxi-item dataField="TermsAndConditions" [colCount]="4" [colSpan]="2" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter TermsAndConditions."></dxi-validation-rule>
+                      </dxi-item>
+                    </dxo-form>
+                  </dxo-editing>
+                  <dxo-export [enabled]="true" fileName="TermsAndConditionList"></dxo-export>
+                  <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxi-column dataField="Name" cellTemplate="cellTemplateTermName"[width]="110"></dxi-column>
+                  <dxi-column dataField="TermsAndConditions" caption="Description"></dxi-column>
+                  <dxi-column dataField="DefaultTermsAndConditions" dataType="boolean" caption="Default" [width]="70"></dxi-column>
+                  <dxi-column dataField="DivisionName" [visible]="false"></dxi-column>
+                  <dxi-column dataField="CreatedBy" caption="Created By"[editorOptions]="{ maxLength: 128, min:0 }" [width]="130" ></dxi-column>
+                  <dxi-column dataField="CreatedDate" caption="Created Dt" dataType="date" [width]="95"></dxi-column>
+                  <dxi-column dataField="LastModifiedBy" caption="Revised By"[editorOptions]="{ maxLength: 128, min:0 }" [width]="130"></dxi-column>
+                  <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date" [width]="95"></dxi-column>
+                  <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+                  
+                  <dxo-remote-operations [sorting]="true" [paging]="true">
+                  </dxo-remote-operations>
+                  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplate" caption="Division"
+                    [width]="70">
+                  </dxi-column>
+                  <div *dxTemplate="let data of 'cellTemplate'">
+                    <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openTermtoDivisionMappingModal(data)">
+                      <i class="fa fa-plus-square-o"></i>
+                    </button>
+                  </div>
+                  <div *dxTemplate="let data of 'cellTemplateTermName'">
+                    <a class="Termclr" title="{{data.value}}">{{data.value | ellipsis: 20}}</a>
+                  </div>
+                  <!-- <div *dxTemplate="let dt of 'cellTemplate'">
+                              <button *ngIf="!dt.row.data.DefaultTermsAndConditions" data-placement="right" type="button" title="This is not a Default Term. Please mark as Default to map Divisions." class="btn btn-icon btn-success mr-1 btn-sm disabled"><i class="fa fa-plus-square-o"></i></button>
+                              <button *ngIf="dt.row.data.DefaultTermsAndConditions" type="button" (click)="openDivisionTermsModal(dt)" class="btn btn-icon btn-success mr-1 btn-sm ItemCount"><i class="fa fa-plus-square-o"></i></button>
+                          </div> -->
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Terms to Division mapping -->
+<dx-popup [height]="600" [width]="1000" class="popup" title="Terms to Division Mapping" [dragEnabled]="true" [closeOnOutsideClick]="false"
+[(visible)]="TermsToDivisionPopupVisible">
+<div *dxTemplate="let data of 'content'">
+  <div class="row marginBottom10">
+    <div class="col-md-8">
+      <div class="form-group paddingBottom0 marginBottom0">
+        <label class="labelemail" for="exampleInputPassword1">Division</label>
+        <dx-tag-box *ngIf="DivisionMapList" class="Maxprdtheight" placeholder="Select Division(s)" [dataSource]="DivisionMapList" displayExpr="Name" [(ngModel)]='DivisionID' name="DivisionID"
+          valueExpr="DivisionID" [searchEnabled]="true" (onValueChanged)="GetTermDivisionBycommaList($event)"[value]="required">
+        </dx-tag-box>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <dx-button style="margin-top: 25px;" class="pull-right margin-left-5 Add" text="Add Division" (onClick)="CreateDivTermMapping()"></dx-button>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <dx-data-grid id="gridTermDivContainer" [dataSource]="TermsAndConditionDivisionList" [allowColumnReordering]="true"
+      [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" (onRowRemoved)="DeleteTermtoDivMap($event)"
+      [showBorders]="true">
+      <dxo-editing mode="row" [allowDeleting]="true">
+      </dxo-editing>
+      <dxo-paging [pageSize]="5"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-search-panel [visible]="true" [width]="300" placeholder="Search..."></dxo-search-panel>
+      <dxi-column dataField="DivisionName" [width]="300" caption="Division Name"></dxi-column>
+      <dxi-column dataField="Description"></dxi-column>
+      <dxi-column dataField="ExternalReferenceNo" [width]="100" caption="Ext Ref No."></dxi-column>
+    </dx-data-grid>
+  </div>
+  <dx-button id="CustPrdMapCancelBtn" text="Close" (onClick)="CloseTermsToDivPopup()" class="pull-right Close">
+  </dx-button>
+</div>
+</dx-popup>

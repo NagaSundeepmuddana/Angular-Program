@@ -1,0 +1,280 @@
+.fa-th, .fa-info-circle{
+    color:rgba(128, 128, 128, 0.48)
+  }
+
+  .margin-left-5{
+    margin-left: 5px !important;
+}
+.margin-bottom20{
+    margin-bottom: 20px;
+}
+
+  #customerListGrid, #itemListGrid, #emailListGrid, #QuoteCustomerListGrid, #AwardQuoteGrid{
+    max-height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 20px !important;
+}
+#customerListGrid{
+    width: 100% !important;
+}
+#gridEmailContainer, #gridUnlockedQuoteContainer{
+    max-height: 320px;
+    overflow-y: scroll;
+    margin-bottom: 10px !important;
+}
+.custclr{
+    color: #252525;
+  }
+#emailContactsListGrid{
+    max-height: 180px;
+    margin-bottom: 20px !important;
+}
+.CRMNoteTextArea{
+    max-height: 38px;
+}
+
+.sendmail{
+    border-color: #00A5A8 !important;
+    background-color: #00B5B8 !important;
+    color: #FFFFFF;
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+}
+
+.AwardBtn{
+    border-color: #00A5A8 !important;
+    background-color: #00B5B8 !important;
+    color: #FFFFFF;
+}
+
+
+#QuoteTable thead{
+    background: #252525;
+    color: white;
+}
+#QuoteTable thead tr th{
+    font-weight: 100;
+    padding-left: 7px;
+}
+#QuoteTable tbody td{
+    padding-left: 7px;
+}
+
+.btn.disabled{
+    background: #ff7588 !important;
+    border-color: #ff7588 !important;
+}
+.colorPink{
+    color: #ff7588;
+}
+.colorGreen{
+    color: #179f83;
+}
+
+.sendMailField{
+    width: 100%;
+    top: 5px;
+    position: absolute;
+    z-index: 1111;
+}
+.sendMailBtn{
+    top: 5px;
+    position: absolute;
+    z-index: 1111;
+}
+.emailCount{
+    right: -2px;
+    top: -11px;
+    font-size: 11px;
+}
+.openEmalBtn{
+    max-width: 30px;
+    max-height: 25px;
+}
+.DeleteQuoteBtn{
+    cursor: pointer;
+}
+.deleteConfirmBtn{
+    width: 100px;
+    height: 34px;
+}
+.deleteConfirmMsg{
+    margin-bottom: 25px;
+}
+.margin-right7{
+    margin-right: 7px;
+}
+.mailSent{
+    padding: 2px;
+    background: #16D39A;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 4px;
+    color: white;
+}
+.mailNotSent{
+    padding: 2px;
+    background: #FF7588;
+    padding-left: 15px;
+    padding-right: 14px;
+    border-radius: 4px;
+    color: white;
+}
+
+/* #EmailTabPanel{
+    margin-bottom: 20px;
+} */
+.EmailTemplate .form-group{
+    padding: 10px;
+}
+.EmailTemplate{
+    padding-bottom: 5px;
+}
+.paddingBottom0{
+    padding-bottom: 0px !important;
+}
+.marginBottom0{
+    margin-bottom: 0px !important;
+}
+.MasterQt{
+    background: #FF7588;
+    padding: 1px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    font-family: cursive;
+}
+
+.EmailMsg{
+    background: #179f83;
+    padding: 1px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    font-family: cursive;
+    font-size: 14px;
+    margin: 10px;
+}
+.HeightSubject{
+    height:27px!important;
+    width: 950px !important;
+    padding-bottom: 13px!important;
+    padding-right:2px !important;
+    margin-left: -10px !important;
+}
+.HeightTo{
+    height:37px!important;
+    width: 1013px !important;
+}
+.HeightEmail{
+    height:27px!important;
+    width: 1008px !important;
+}
+.HeightBody{
+    /* height:27px!important; */
+    width: 950px !important;
+    padding-bottom: 12px!important;
+    margin-left: -10px !important;
+}
+.labelemail{
+    padding-left: 10px !important;
+    padding-right: 2px!important;
+
+}
+.NoPrimary{
+    padding: 2px;
+    background: #FF7588;
+    padding-left: 15px;
+    padding-right: 14px;
+    border-radius: 4px;
+    color: white;
+}
+.version{
+    background: #d3d3d36b;
+    padding: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+#MasterQuoteGrid{
+    margin-bottom: 30px;
+}
+.padding20{
+    padding: 20px;
+}
+.quotePanel{
+    border-radius: 4px;
+    border: 1px solid #13977bc7;
+    background: #47ae98;
+}
+.quotePanel .panel-heading{
+    background: #13977bc7;
+    padding: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: white;
+}
+.quotePanel .panel-body{
+    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+.colorRed{
+    color: red;
+}
+.colorGreen{
+    color: green;
+}
+.quotePanel h2{
+    font-weight: 500;
+}
+.quotePanel .panel-body .col-md-4{
+    padding-top: 17px;
+}
+.quotePanel .panel-body i{
+    font-size: 40px;
+    color: white;
+}
+.quotePanel .panel-body .col-md-8{
+    padding-top: 10px;
+}
+.quotePanel .panel-body .col-md-8 h2{
+    color: white;
+    font-weight: bold;
+}
+.quotePanel .panel-body .col-md-8 p{
+    color: white;
+}
+#notes{
+    font-style: italic;
+    background-color:#fcff3380;
+       
+}
+#AwardListCancelBtn1{
+    border-color: #00a5a8 !important;
+    background-color: #00a5a8 !important;
+    color: #FFF !important;
+}
+#dx-button-content{
+    border-color: #00a5a8 !important;
+    background-color: #00a5a8 !important;
+    color: #FFF !important;
+}
+::ng-deep #fileuploader-container{
+    border: 1px solid #d3d3d3;
+    margin: 20px 20px 0 20px;
+}
+#TripSaveBtnpdf{
+    border-color: #00a5a8 !important;
+    background-color: #00a5a8 !important;
+    color: white !important;
+}
+#TripSaveBtnemail{
+    border-color: #00a5a8 !important;
+    background-color: #00a5a8 !important;
+    color: white !important;
+}

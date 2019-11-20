@@ -1,0 +1,241 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Trip Report Details </h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+              <a routerLink="/main/cust">CUSTOMERS</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a routerLink="/main/trep">Trip Report</a>
+              </li>
+          <li class="breadcrumb-item active">Trip Report Details
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="content-header-right col-md-6 col-xs-12">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <a class="btn btn-info pull-right margin-left-5 pull-right marginRight20 backBtn" [routerLink]="['/main/trep',custid]">Back to Trip Report</a>
+          <a class="btn btn-info pull-right margin-left-5 pull-right marginRight20 backBtn" [routerLink]="['/main/cust']">Back to Customer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+ <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Trip Details            
+            <a class="btn btn-outline-success btn-min-width btn- pull-right btnalignment" (click)='PDFGridData()'>Gen Trip Report
+            </a>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <fieldset class="form-group-xs">
+                          <label>Date Travelled </label>
+                          <dx-date-box style="width:100% !important" value={{EditAwardDate}} type="date" class="form-control" id="ToDate" name="ToDate">
+                          </dx-date-box>
+                        </fieldset>
+
+                      </div>
+                      <div class="col-md-4">
+                        <fieldset class="form-group-xs">
+                          <label>People Tavelled</label>
+                          <dx-text-area [(value)]="valueForEditableTextArea11" id="PeopleTavelled">
+                          </dx-text-area>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-6">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Itinerary</label>
+                          <dx-text-area [(value)]="valueForEditableTextArea12" id="Itinerary">
+                          </dx-text-area>
+                        </fieldset>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Address</label>
+                          <input type="text" class="form-control input-sm"  id="Address">
+                        </fieldset>
+                      </div>
+                      <div class="col-md-2">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">County</label>
+                          <input type="text" class="form-control input-sm"   id="County">
+                        </fieldset>
+                      </div>
+                      <div class="col-md-2">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">State</label>
+                          <input type="text" class="form-control input-sm"  id="State">
+                        </fieldset>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="row" style="padding-top: 20px;">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <fieldset class="form-group-xs">
+                          <label> Customer Information</label>
+                          <dx-text-area [height]="80" [(value)]="valueForEditableTextArea" id="CustomerInformation">
+                          </dx-text-area>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row" style="padding-top: 20px;">
+                  <div class="col-md-12">
+                    <div class="row">
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <!-- <div class="col-md-2">
+                        <fieldset class="form-group-xs">
+                          <label> Summary Of Meeting</label>
+                        </fieldset>
+                      </div> -->
+                      <div class="col-md-12">
+                        <fieldset class="form-group-xs">
+                          <label> Summary Of Meeting</label>
+                          <dx-text-area [height]="140" [(value)]="valueForEditableTextArea1" id="SummaryOfMeeting">
+                          </dx-text-area>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row" style="padding-top: 20px;">
+                  <div class="col-md-12">
+                    <div class="row">
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+
+                      <div class="col-md-12">
+                        <fieldset class="form-group-xs">
+                          <label> Action Items</label>
+                          <dx-text-area [height]="60" [(value)]="valueForEditableTextArea2" id="ActionItems">
+                          </dx-text-area>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row" style="padding-top: 20px;">
+                  <div class="col-md-12">
+                    <div class="row">
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <fieldset class="form-group-xs">
+                          <label> Additional Follow up Info </label>
+                          <dx-text-area [height]="70" [(value)]="valueForEditableTextArea3" id="AdditionalFollowup">
+                          </dx-text-area>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="row" style="padding-top: 20px;">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div id="fileuploader-container">
+                        <dx-file-uploader selectButtonText="Browse Photo" labelText="" accept="image/*" uploadMode="useForm">
+                        </dx-file-uploader>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row" style="padding-top: 20px;">
+                  <div class="col-md-10">
+                    <div class="row">
+                      <dx-button id="tripCancelBtn1" text="Back to Customers" [routerLink]="['/main/cust']" class="pull-right margin-left-5">
+                      </dx-button>
+                      <dx-button id="tripCancelBtn1" text="Back To Trip Report" [routerLink]="['/main/trep']" class="pull-right margin-left-5">
+                        </dx-button>
+                      <dx-button id="TripSaveBtn" text="Save" (onClick)="update_trip()" class="pull-right margin-left-5">
+                      </dx-button>
+                      <dx-button id="TripSaveBtnpdf" text="Generate PDF" (onClick)="Gen_trip()" class="pull-right margin-left-5">
+                        </dx-button>
+                        <dx-button id="TripSaveBtnemail" text="Email Report" (onClick)="Email_trip()" class="pull-right">
+                          </dx-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

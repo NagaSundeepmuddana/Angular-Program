@@ -1,0 +1,152 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Trip Reports</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/trip">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/main/cust">CUSTOMERS</a>
+          </li>
+          <li class="breadcrumb-item active">Trip Reports
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="content-header-right col-md-6 col-xs-12">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <a class="btn btn-info pull-right margin-left-5 pull-right marginRight20 backBtn" [routerLink]="['/main/cust']">Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Search
+            <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">People Travelled</label>
+                      <input type="hidden" id="BusinessManager">
+                      <dx-select-box id="BusinessManager" placeholder="People Travelled" [searchEnabled]="true" [searchEnabled]="true" [dataSource]="PITUserList"
+                        valueExpr="UserID" displayExpr="Name" (onValueChanged)="BusinessManagerChangeEvent($event)" [(ngModel)]='BusinessManager'>
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Itinerary</label>
+                      <input type="text" class="form-control input-sm Prjheight" [(ngModel)]='SearchByProjName' name="SearchByProjName" id="SearchByProjName">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Project Name</label>
+                      <input type="text" class="form-control input-sm Prjheight" [(ngModel)]='SearchByProjName' name="SearchByProjName" id="SearchByProjName">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Travell Begin Date </label>
+                      <input type="hidden" id="hidawdStartDate">
+                      <dx-date-box [value]="AwardedFrom" [(ngModel)]='AwardedFrom' name="TravellFrom" class="form-control input-sm LettingWidth dateField"
+                        type="date" (onValueChanged)="aqrQuotesFromChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Travell End Date</label>
+                      <input type="hidden" id="hidawdEndDate">
+                      <dx-date-box [value]="AwardedTo" [(ngModel)]='AwardedTo' type="date" name="TravellTo" class="form-control input-sm LettingWidth dateField"
+                        (onValueChanged)="aqrQuotesToChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 24px;">
+
+                  </div>
+                </div>
+                <div class="row">
+                  <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ClearFilters()'>Clear
+                    <i class="fa fa-times"></i>
+                  </a>
+                  <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='SearchAwardedQuoteReport()'>Search
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Trip Reports
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <a class="btn btn-info pull-right backBtn" [routerLink]="['/main/trip',custid]">Add Trip Details </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid id="gridContainer" [dataSource]="dataSource" (onRowExpanding)="onRowExpanding($event)" [allowColumnReordering]="true"
+                  (onEditingStart)="logEvent($event)" (onToolbarPreparing)="onToolbarPreparing($event)" [showColumnLines]="true"
+                  [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true" [selectedRowKeys]="[]" (onToolbarPreparing)="onToolbarPreparing($event)">
+                  <dxo-remote-operations [sorting]="true" [paging]="true" [grouping]="true">
+                  </dxo-remote-operations>
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true">
+                  </dxo-pager>
+                   <dxo-export [enabled]="true" fileName="Trip Report" [allowExportSelectedData]="false"></dxo-export>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser> 
+                  <dxi-column dataField="CustomerName" catption="Customer Name"></dxi-column>                 
+                  <dxi-column dataField="TravelledDate" catption="Date Travelled" dataType="date"></dxi-column>
+                  <dxi-column dataField="PeopleTavelled" catption="People Tavelled"></dxi-column>
+                  <dxi-column dataField="Itinerary" catption="Itineraryd"></dxi-column>
+                 <!--  <dxi-column dataField="County" catption="County"></dxi-column>
+                  <dxi-column dataField="State" catption="State"></dxi-column> -->
+                  <dxi-column dataField="CustomerInformation" catption="Customer Information"></dxi-column>
+                  <dxi-column dataField="SummaryOfMeeting" catption="Summary Of Meeting"></dxi-column>
+                  <dxi-column dataField="ActionItems" catption="Action Items"></dxi-column>
+                  <dxi-column dataField="AdditionalFollowup" catption="Additional Follow up Info" [width]="250"></dxi-column>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

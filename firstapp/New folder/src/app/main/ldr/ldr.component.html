@@ -1,0 +1,79 @@
+<div class="row">
+	<div class="col-md-12">
+		<form #ldrf='ngForm' (ngSubmit)="GenerateReport(ldrf.value)">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Letting Date Report</h4>
+					<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+				</div>
+				<div class="card-body collapse in">
+					<div class="card-block">
+						<div class="row">
+							<div class="col-md-2">
+								<fieldset class="form-group" [class.has-danger]="!ldrf.valid" [class.has-success]="ldrf.valid">
+									<label for="basicInput">From</label><small class="required">*</small>
+									<input type="date" class="form-control square" id="FromDate" [(ngModel)]='FromDate' name='FromDate' required >
+								</fieldset>
+							</div>
+							<div class="col-md-2">
+								<fieldset class="form-group" [class.has-danger]="!ldrf.valid" [class.has-success]="ldrf.valid">
+									<label for="basicInput">To</label><small class="required">*</small>
+									<input type="date" class="form-control square" id="ToDate" [(ngModel)]='ToDate' name="ToDate" required>
+								</fieldset>
+							</div>
+							<div class="col-md-2">
+								<fieldset class="form-group">
+									<label for="basicSelect">Customer</label>
+									<dx-autocomplete #cityd placeholder="Type Customer Name.." [minSearchLength]="2" [searchTimeout]="500" [dataSource]="CustomersList"
+									 (onSelectionChanged)="SetSelectedCustomer($event)" displayExpr="FirstName" valueExpr="CustomerID" name='Customer' [(ngModel)]='Customer'>
+									</dx-autocomplete>
+								</fieldset>
+							</div>
+							<div class="col-md-2">
+								<fieldset class="form-group" [class.has-danger]="!ldrf.valid" [class.has-success]="ldrf.valid">
+									<label for="basicSelect">TCDOT Indicator</label><small class="required">*</small>
+									<select class="form-control square" id="basicSelect" [(ngModel)]='DOTIndicator' name="DOTIndicator" required>
+												<option selected value="true">Yes</option>
+												<option value="false">No</option>
+											</select>
+								</fieldset>
+							</div>
+							<div class="col-md-4">
+								<fieldset class="form-group" [class.has-danger]="!ldrf.valid" [class.has-success]="ldrf.valid">
+									<label for="basicSelect">Divisions</label><small class="required">*</small>
+									<!-- <dx-autocomplete #cityd placeholder="Type Division Name.." [minSearchLength]="2" [searchTimeout]="500" [dataSource]="DivisionsList"
+											 (onSelectionChanged)="SetSelectedDivision($event)" displayExpr="DVSN_NAME" valueExpr="DVSN_NAME">
+												
+											</dx-autocomplete> -->
+									<dx-tag-box [items]="DivisionsList" [showSelectionControls]="true" applyValueMode="useButtons" displayExpr="Name" valueExpr="Name"
+									 (valueChanged)='SetSelectedDivision($event)' [(ngModel)]='selDivisionList' name='selDivisionList' required>
+									</dx-tag-box>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer text-muted">
+					<button class="btn btn-danger btn-min-width pull-right" [disabled]='!ldrf.valid'>Generate</button>
+					<a class="btn btn-outline-secondary btn-min-width btn- pull-right mr-1" (click)='ClearParameters()'>Clear</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="card" *ngIf='ldrReportData' id="pitLDRReportContainer">
+			<div class="card-body report-body" *ngIf='ldrReportData'>
+				<dx-pivot-grid id="sales" [allowSortingBySummary]="true" [allowSorting]="true" [allowFiltering]="true" [allowExpandAll]="true"
+				 [height]="auto" [showBorders]="true" [dataSource]="ldrReportData">
+					<dxo-export [enabled]="true" fileName="LDR_Report"></dxo-export>
+					<dxo-field-chooser [enabled]="true"></dxo-field-chooser>
+				</dx-pivot-grid>
+			</div>
+		</div>
+	</div>
+</div>
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: 'body' }" [(visible)]="ldrReportLoading" [showIndicator]="true"
+ [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>

@@ -1,0 +1,86 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Product Lines</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Product Lines
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <!-- Product Lines Grid-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Product Lines list
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid id="gridContainer" [dataSource]="ProductLinesList" [allowColumnReordering]="true" (onEditingStart)="logEvent('EditingStart')"
+                  (onRowInserted)="AddNewProductLine($event)" (onRowUpdated)="EditProductLines($event)" (onRowRemoving)="DeleteProductLines($event)"
+                  (onRowRemoved)="AfterProductLinesDelete()" (onToolbarPreparing)="onToolbarPreparing($event)" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+                  [showBorders]="true">
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000017" [allowDeleting]="UserPermissionsList.PL000018" [allowAdding]="UserPermissionsList.PL000016">
+                    <dxo-popup title="Add/Edit Product Lines" [showTitle]="true" [height]="450" [width]="900">
+                    </dxo-popup>
+                    <dxo-form>
+                      <dxi-item dataField="DivisionID" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please Select Division."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="Name" [editorOptions]="{ maxLength: 50, min:0 }"editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter Name."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="AltName" [editorOptions]="{ maxLength: 50, min:0 }" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter Alternate name."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="ExternalSystemRefNo"[editorOptions]="{ maxLength: 128, min:0 }"></dxi-item>
+                    </dxo-form>
+                  </dxo-editing>
+                  <dxo-export [enabled]="true" fileName="ProductLinesList"  [allowExportSelectedData]="true"></dxo-export>
+                  <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxi-column dataField="DivisionID" caption="Division"  [width]="178">
+                    <dxo-lookup [dataSource]="GetDivisionList" valueExpr="DivisionID" displayExpr="Name">
+                    </dxo-lookup>
+                  </dxi-column>
+                  <dxi-column dataField="Name" caption="Product Line" cellTemplate="cellTemplateprdtName" [width]="120"></dxi-column>
+                  <dxi-column dataField="AltName" caption="Description"></dxi-column>
+                  <dxi-column dataField="ExternalSystemRefNo" caption="Syspro ID" [visible]="false" [width]="100"></dxi-column>
+                  <dxi-column dataField="CreatedBy" caption="Created By" [editorOptions]="{ maxLength: 128, min:0 }"></dxi-column>
+                  <dxi-column dataField="CreatedDate" caption="Created Dt" [width]="110" dataType="date"></dxi-column>
+                  <dxi-column dataField="LastModifiedBy" caption="Revised By"[editorOptions]="{ maxLength: 128, min:0 }"></dxi-column>
+                  <dxi-column dataField="LastModifiedDate" caption="Revised Dt" [width]="110" dataType="date"></dxi-column>
+                  <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+                  <div *dxTemplate="let data of 'cellTemplateDivName'">
+                    <a class="productlineclr" title="{{data.value}}">{{data.value | ellipsis: 20}}</a>
+                  </div>
+                  <div *dxTemplate="let data of 'cellTemplateprdtName'">
+                    <a class="productlineclr" title="{{data.value}}">{{data.value | ellipsis: 10}}</a>
+                  </div>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

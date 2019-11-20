@@ -1,0 +1,82 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Freight</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="http://localhost:4200/main">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Freight
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Freight list
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row" *ngIf="isDataFetched">
+              <div class="col-md-12">
+                <dx-data-grid id="gridContainer" [dataSource]="FreightList" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+                  (onRowInserted)="AddNewFreight($event)" (onRowUpdated)="EditFreight($event)" (onRowRemoving)="DeleteFreight($event)"
+                  (onRowRemoved)="AfterFreightDelete()" (onToolbarPreparing)="onToolbarPreparing($event)" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+                  [showBorders]="true">
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000078" [allowDeleting]="UserPermissionsList.PL000079" [allowAdding]="UserPermissionsList.PL000077">
+                    <dxo-popup title="Add/Edit Freight" [showTitle]="true" [height]="400" [width]="750">
+                    </dxo-popup>
+                    <dxo-form [colCount]="2" [formData]="options" class="col-md-11 col-sm-11 row">
+                      <dxi-item dataField="StateID" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please select State."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="CountyID" caption="County" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please select County."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="FreightRate" caption="Rate($)" dataType="number" format="{type : 'fixedPoint', precision : 2}" [editorOptions]="{ format: '####0.00' }">
+                        <dxi-validation-rule type="required" message="Please enter Rate."></dxi-validation-rule>
+                      </dxi-item>
+                    </dxo-form>
+                  </dxo-editing>
+                  <dxo-export [enabled]="true" fileName="FreightList"></dxo-export>
+                  <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxi-column dataField="StateID" caption="State" [setCellValue]="setStateValue" [width]="70">
+                    <dxo-lookup [dataSource]="FreightState" valueExpr="StateID" displayExpr="Name">
+                    </dxo-lookup>
+                  </dxi-column>
+                  <dxi-column dataField="CountyID" caption="County" [width]="250">
+                    <dxo-lookup [dataSource]="getFilteredCunties" valueExpr="CountyID" displayExpr="Name">
+                    </dxo-lookup>
+                  </dxi-column>
+                  <dxi-column dataField="FreightRate" [customizeText]="CurrencyFormatter" caption="Rate($)">
+                  </dxi-column>
+                  <dxi-column dataField="CreatedBy" caption="Created By"></dxi-column>
+                  <dxi-column dataField="CreatedDate" caption="Created Dt" [width]="110" dataType="date"></dxi-column>
+                  <dxi-column dataField="LastModifiedBy" caption="Revised By"></dxi-column>
+                  <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date"></dxi-column>
+                  <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false" ></dxi-column>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

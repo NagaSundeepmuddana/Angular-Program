@@ -1,0 +1,267 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Message Channel</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/trip">Home</a>
+          </li>
+
+          <li class="breadcrumb-item active">Message Channel
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="content-header-right col-md-6 col-xs-12">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <a class="btn btn-info pull-right margin-left-5 pull-right marginRight20 backBtn" [routerLink]="['/main']">Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" value="{{TodaysDate | date: 'MM/dd/yyyy hh:mm:ss'}}" id="today" />
+<div class="content-body">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i class="fa fa-comments" style="color:rgba(128, 128, 128, 0.48)"></i>
+            Create Message
+
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <dx-tab-panel #tabPanel [dataSource]="quoteTabsDataSource" [selectedIndex]="TabSelectedIndex" (onSelectionChanged)="TabSelectionChanged2($event)">
+
+          <div *dxTemplate="let company of 'title'">
+            <span>{{company.text}}</span>
+          </div>
+
+          <div *dxTemplate="let company of 'item'">
+            <div class="tabpanel-item" *ngIf="IsProjectTab">
+              <div class="row">
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Project Name </label>
+                      <input type="text" class="form-control height32" placeholder="Search Project Name" id="ProjectNameP" name="SugGlobalMarkup"
+                      />
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Priority</label>
+                      <dx-select-box id="UpdatedByUser" placeholder="Select Priority" [dataSource]="PriorityStatus" valueExpr="UserID" displayExpr="Name"
+                        (onValueChanged)="SelectUpdatedBy($event)" [value]="Priority">
+                      </dx-select-box>
+                      <!-- <input type="text" class="form-control height32" id="PriorityP" name="SugGlobalMarkup" /> -->
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-8">
+                    <fieldset class="form-group-xs">
+                      <label>Message </label>
+                      <dx-text-area [height]="90" [(value)]="valueForEditableTextArea2" id="MessageP">
+                      </dx-text-area>
+                    </fieldset>
+                  </div>
+
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <fieldset class="form-group-xs marginTop25">
+                    <button class="btn btn-default pull-right margin-left-5 pull-right canclebtn" (click)="CancleProject()">Cancle</button>
+                    <button class="btn btn-default pull-right margin-right-10 updateBtn" (click)="Submitproject()">Save</button>
+                  </fieldset>
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="tabpanel-item" *ngIf="IsQuoteTab">
+              <div class="row">
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Customer Name </label>
+                      <input type="text" class="form-control height32" placeholder="Search Customer Name" id="CustomerNameQ" name="SugGlobalMarkup"
+                      />
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Quote Number </label>
+                      <input type="text" class="form-control height32" placeholder="Search Quote Number" id="QuoteNumberQ" name="SugGlobalMarkup"
+                      />
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Priority</label>
+                      <dx-select-box id="UpdatedByUser" placeholder="Select Priority" [dataSource]="PriorityStatus" valueExpr="UserID" displayExpr="Name"
+                        (onValueChanged)="SelectUpdatedBy($event)" [value]="Priority">
+                      </dx-select-box>
+                      <!-- <input type="text" class="form-control height32" id="PriorityQ" name="SugGlobalMarkup" /> -->
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-8">
+                    <fieldset class="form-group-xs">
+                      <label>Message </label>
+                      <dx-text-area [height]="90" [(value)]="valueForEditableTextArea2" id="MessageQ">
+                      </dx-text-area>
+                    </fieldset>
+                  </div>
+
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <fieldset class="form-group-xs marginTop25">
+                    <button class="btn btn-default pull-right margin-left-5 pull-right canclebtn" (click)="CancleQuote()">Cancle</button>
+                    <button class="btn btn-default pull-right margin-left-5 updateBtn" (click)="SubmitQuote()">Save</button>
+                  </fieldset>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="tabpanel-item" *ngIf="IsCustomerTab">
+              <div class="row">
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Customer Name </label>
+                      <input type="text" class="form-control height32" placeholder="Search Customer Name" id="CustomerNameC" name="SugGlobalMarkup"
+                      />
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Priority</label>
+                      <dx-select-box id="UpdatedByUser" placeholder="Select Priority" [dataSource]="PriorityStatus" valueExpr="UserID" displayExpr="Name"
+                        (onValueChanged)="SelectUpdatedBy($event)" [value]="Priority">
+                      </dx-select-box>
+                      <!-- <input type="text" class="form-control height32" id="PriorityC" name="SugGlobalMarkup" /> -->
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-8">
+                    <fieldset class="form-group-xs">
+                      <label>Message </label>
+                      <dx-text-area [height]="90" [(value)]="valueForEditableTextArea2" id="MessageC">
+                      </dx-text-area>
+                    </fieldset>
+                  </div>
+
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <fieldset class="form-group-xs marginTop25">
+                    <button class="btn btn-default pull-right margin-left-5 pull-right canclebtn" (click)="Canclecust()">Cancle</button>
+                    <button class="btn btn-default pull-right margin-left-5 updateBtn" (click)="Submitcust()">Save</button>
+                  </fieldset>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="tabpanel-item" *ngIf="IsGeneralTab">
+              <div class="row">
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label> Purpose </label>
+                      <input type="text" class="form-control height32" placeholder="Enter Meeasge Purpose" id="GeneralG" name="SugGlobalMarkup"
+                      />
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label>Priority</label>
+                      <dx-select-box id="UpdatedByUser" placeholder="Select Priority" [dataSource]="PriorityStatus" valueExpr="UserID" displayExpr="Name"
+                        (onValueChanged)="SelectUpdatedBy($event)" [value]="Priority">
+                      </dx-select-box>
+                      <!--  <input type="text" class="form-control height32" id="PriorityG" name="SugGlobalMarkup" /> -->
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <div class="col-md-8">
+                    <fieldset class="form-group-xs">
+                      <label>Message </label>
+                      <dx-text-area [height]="90" [(value)]="valueForEditableTextArea2" id="MessageG">
+                      </dx-text-area>
+                    </fieldset>
+                  </div>
+
+                </div>
+                <div class="col-md-12 marginBottom10">
+                  <fieldset class="form-group-xs marginTop25">
+                    <button class="btn btn-default pull-right margin-left-5 pull-right canclebtn" (click)="CancleGeneral()">Cancle</button>
+                    <button class="btn btn-default pull-right margin-left-5 updateBtn" (click)="SubmitGeneral()">Save</button>
+                  </fieldset>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </dx-tab-panel>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Message Channel
+          <i class="fa fa-th"></i>
+        </h4>
+        <a class="heading-elements-toggle">
+          <i class="fa fa-ellipsis-v font-medium-3"></i>
+        </a>
+      </div>
+      <div class="card-body collapse in">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-12">             
+              <dx-data-grid id="gridContainer" [dataSource]="dataSource" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true">
+                <dxo-export [enabled]="true" fileName="Message Channel" [allowExportSelectedData]="false"></dxo-export>
+                <dxi-column dataField="MessageChannel" caption="Msg Channel " [width]="100"></dxi-column>
+                <dxi-column dataField="ChannelName" caption="Channel Name" [width]="350"></dxi-column>
+                <dxi-column dataField="Message" caption="Message" [width]="700"></dxi-column>
+                <dxi-column dataField="Priority" caption="Priority" [width]="70"></dxi-column>
+                <dxi-column dataField="CreatedBy" caption="Create By" [width]="140"></dxi-column>
+                <dxi-column dataField="CreatedDate" caption="Create Date" dataType="date" [width]="110"></dxi-column>
+                <dxi-column dataField="LastmodifiedBy" caption="Lastmodified By" [visible]="false" ></dxi-column>
+                <dxi-column dataField="LastmodifiedDate" caption="Lastmodified Date" [visible]="false" ></dxi-column>
+                <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true">
+                </dxo-editing>
+
+                <dxo-remote-operations [sorting]="true" [paging]="true">
+                </dxo-remote-operations>
+                <dxo-paging [pageSize]="20"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20,50,100]" [showInfo]="true"></dxo-pager>
+                <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

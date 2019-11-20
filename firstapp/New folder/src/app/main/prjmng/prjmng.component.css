@@ -1,0 +1,266 @@
+.fa-th, .fa-info-circle, .fa-university{
+    color:rgba(128, 128, 128, 0.48)
+  }
+
+  .nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+}
+.nav>li {
+    position: relative;
+    display: block;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border-radius: 4px 4px 0 0;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+#itemListGrid, #assemblyListGrid, #TabGrids{
+    max-height: 340px;
+    margin-bottom: 20px !important;
+}
+
+._paddingMargin{
+    margin-top: 10px;
+    padding-bottom: 1px;
+}
+
+#emailListGrid{
+    max-height: 340px;
+    margin-bottom: 20px !important;
+}
+
+.sendmail{
+    border-color: #00A5A8 !important;
+    background-color: #00B5B8 !important;
+    color: #FFFFFF;
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+}
+.Close{
+border-color: #FF6275 !important;
+background-color: #FF586B !important;
+color: #FFF !important;
+margin-left: 10px !important;
+margin-top: 10px !important;
+}
+
+.dx-state-disabled input{
+    border: 1px solid gray !important;
+    background: #e4e4e4 !important;
+}
+
+.btn.disabled{
+    background: #ff7588 !important;
+    border-color: #ff7588 !important;
+    color: white;
+}
+
+.toolTip{
+    font-size:15px;margin-left:10px;color:#ff7588
+}
+
+#selectItemsBy{
+    width: 200px;
+    top: 70px;
+    position: absolute;
+    z-index: 1111;
+}
+
+.margin-left-5{
+    margin-left: 5px !important;
+}
+#phaseDropdown{
+    background-color: white !important;
+}
+.marginTop25{
+    margin-top: 25px;
+}
+.marginTop12{
+    margin-top: 12px;
+}
+.options {
+    padding: 20px;
+    bottom: 0;
+    right: 0;
+    width: 260px;
+    top: 0;
+    background-color: rgba(191, 191, 191, 0.15);
+}
+.caption {
+    font-size: 18px;
+    font-weight: 500;
+}
+.option {
+    margin-top: 10px;
+}
+
+.mailSent{
+    padding: 2px;
+    background: #16D39A;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 4px;
+    color: white;
+}
+.mailNotSent{
+    padding: 2px;
+    background: #FF7588;
+    padding-left: 15px;
+    padding-right: 14px;
+    border-radius: 4px;
+    color: white;
+}
+.emailAddress,{
+    background: #d3d3d36b;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    float: left;
+}
+.version{
+    background: white !important;
+    padding: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+
+#productLine{
+    width: 200px !important;
+    top: 70px;
+    position: absolute;
+    z-index: 10000;
+}
+.marginRight10{
+    margin-right: 10px;
+}
+
+.marginBottom40{
+    margin-bottom: 40px;
+}
+#btnGroupDrop1{
+    padding: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.marginRight20{
+    margin-right: 20px;
+}
+
+.height32{
+    height: 32px;
+}
+.selectItemsBy{
+    width: 200px;
+    /* top: 70px;
+    position: absolute;
+    z-index: 1111; */
+}
+.ItemSearchResult ul{
+    max-height: 400px;
+    overflow-x: hidden;
+    padding-left: 0px;
+    position: absolute;
+    width: 96%;
+    z-index: 1000;
+    margin-top: 2px;
+    border-radius: 4px;
+  }
+.ItemSearchResult li{
+    background: #968f8f;
+    padding: 3px;
+    padding-left: 10px;
+    border-bottom: 1px solid white;
+}
+.AddPItems{
+    float: right;
+    background: white;
+    padding: 5px;
+    cursor: pointer;
+    padding-top: 4px;
+    padding-bottom: 3px;
+}
+.paddingRightLeft0{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.paddingRight5{
+    padding-right: 5px;
+}
+.ItemSearchResult a{
+  color: white;
+}
+.colorRed{
+    color: red;
+}
+.paddingLeft10{
+    padding-left: 10px;
+}
+.cursorPointer{
+    cursor: pointer;
+}
+.backgroundWhite{
+    background: white;
+}
+#TermsListGrid, #NotesListGrid, #emailListGrid, #itemsOrderGrid{
+    max-height: 340px;
+    overflow-y: scroll;
+    margin-bottom: 20px !important;
+}
+#QuoteCustomerListGrid{
+    max-height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 20px !important;
+}
+.marginBottom10{
+    margin-bottom: 10px;
+}
+.dropdown-PDF .dropdown-item{
+    cursor: pointer;
+    padding: 5px 20px !important;
+}
+.dropdown-PDF .disabled{
+    cursor: not-allowed !important;
+}
+.dropdown-PDF .dropdown-item .fa{
+    color: #ff7588;
+}
+#EmailTabPanel{
+    margin-bottom: 20px;
+}
+.EmailTemplate .form-group{
+    padding: 10px;
+}
+.paddingBottom0{
+    padding-bottom: 0px !important;
+}
+.marginBottom0{
+    margin-bottom: 0px !important;
+}
+.marginleft5{
+    margin-left: 5px;
+}
+#notes{
+    font-style: italic;
+    background-color:#fcff3380;
+       
+}

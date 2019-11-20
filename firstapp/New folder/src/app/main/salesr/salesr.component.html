@@ -1,0 +1,122 @@
+<div class="content-header row">
+        <div class="content-header-left col-md-6 col-xs-12 mb-2">
+            <h3 class="content-header-title mb-0">sales Representative</h3>
+            <div class="row breadcrumbs-top">
+              <div class="breadcrumb-wrapper col-xs-12">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="http://localhost:4200/main">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active">sales Representative
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+      </div>
+<div class="content-body">
+        <div class="row">
+           <div class="col-md-12">
+              <div class="card">
+                 <div class="card-header">
+                    <h4 class="card-title">Sales Representative list <i class="fa fa-th"></i></h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                 </div>
+                 <div class="card-body collapse in">
+                    <div class="card-block">
+                       <div class="row">
+                          <div class="col-md-12">
+                             <dx-data-grid 
+                             id="gridContainer"
+                             [dataSource]="salesRepresentativeList"
+                             [allowColumnReordering]="true"
+                             (onRowInserting)="AddNewSalesRepresentative($event)"
+                             (onRowInserted)="AddNewSalesRepresentativeDone($event)"
+                             (onRowUpdated)="EditSalesRepresentative($event)"
+                             (onRowRemoving)="DeleteSalesRepresentative($event)"
+                             (onRowRemoved)="AfterSalesRepresentativeDelete()"
+                             [showColumnLines]="true"
+                             [showRowLines]="true"
+                             [wordWrapEnabled]="true"
+                             [showBorders]="true">
+                             <dxo-paging [pageSize]="10"></dxo-paging>
+                             <dxo-pager 
+                             [showPageSizeSelector]="true"
+                             [allowedPageSizes]="[5, 10, 20,50]"
+                             [showInfo]="true">
+                             </dxo-pager>
+                             <dxo-editing 
+                             mode="popup"
+                             [allowUpdating]="true"
+                             [allowDeleting]="true"
+                             [allowAdding]="true">
+                             <dxo-popup
+                             title="Add/Edit Sales Representative"
+                             [showTitle]="true"
+                             [height]="500"
+                             [width]="900">
+                             </dxo-popup>
+                             <dxo-form [colCount]="2" [formData]="options" class="col-md-11 col-sm-11 row">
+                             <dxi-item dataField="FirstName" editorType="dxTextBox">
+                                <dxi-validation-rule type="required" message="Please enter FirstName."></dxi-validation-rule>
+                             </dxi-item>
+                             <dxi-item dataField="LastName" editorType="dxTextBox">
+                                <dxi-validation-rule type="required" message="Please enter LastName."></dxi-validation-rule>
+                             </dxi-item>
+                             <dxi-item dataField="Address" editorType="dxTextBox">
+                                <dxi-validation-rule type="required" message="Please enter Address."></dxi-validation-rule>
+                             </dxi-item>
+                             <dxi-item dataField="Address1" editorType="dxTextBox">
+                                <dxi-validation-rule type="required" message="Please enter Address1."></dxi-validation-rule>
+                             </dxi-item>
+                             <dxi-item dataField="City" editorType="dxTextBox">
+                                <dxi-validation-rule type="required" message="Please enter City."></dxi-validation-rule>
+                             </dxi-item>
+                             <dxi-item dataField="StateID" editorType="dxTextBox">
+                                <dxi-validation-rule type="required" message="Please select State."></dxi-validation-rule>
+                             </dxi-item>
+                             <dxi-item dataField="CountyID" editorType="dxTextBox">
+                                <dxi-validation-rule type="required" message="Please select Country."></dxi-validation-rule>
+                             </dxi-item>
+                             <dxi-item dataField="PrimaryPhone" caption="Primary Phone #"></dxi-item>
+                             <dxi-validation-rule type="required" message="Please enter Primary Phone"></dxi-validation-rule>
+                             <dxi-item dataField="OfficePhone"></dxi-item>
+                             <dxi-item dataField="OtherPhone"></dxi-item>
+                             <dxi-item dataField="Fax"></dxi-item>
+                             <dxi-item dataField="ZIPCode"></dxi-item>
+                             <dxi-item dataField="CommPct" caption="CommPct"></dxi-item>
+                             </dxo-form>
+                             </dxo-editing>
+                             <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                             <dxi-column dataField="FirstName"></dxi-column>
+                             <dxi-column dataField="LastName"></dxi-column>
+                             <dxi-column dataField="Address" [visible]="false"></dxi-column>
+                             <dxi-column dataField="Address1" [visible]="false"></dxi-column>
+                             <dxi-column dataField="City" [visible]="false"></dxi-column>
+                             <dxi-column dataField="PrimaryPhone" caption="Primary Phone #" [visible]="false"></dxi-column>
+                             <dxi-column dataField="ZIPCode" caption="ZIP Code" [visible]="false"></dxi-column>
+                             <dxi-column dataField="OfficePhone" caption="Office Phone" [visible]="false"></dxi-column>
+                             <dxi-column dataField="OtherPhone" caption="Other Phone" [visible]="false"></dxi-column>
+                             <dxi-column dataField="Fax" caption="Fax" [visible]="false"></dxi-column>
+                             <dxi-column dataField="StateID" caption="State" [setCellValue]="setStateValue"[width]="70">  
+                             <dxo-lookup [dataSource]="SalesState" valueExpr="StateID" displayExpr="Name">
+                             </dxo-lookup>
+                             </dxi-column>
+                             <dxi-column dataField="CountyID" caption="County">
+                                <dxo-lookup [dataSource]="getFilteredCunties" valueExpr="CountyID" displayExpr="Name">
+                                </dxo-lookup>
+                             </dxi-column>
+                             <dxi-column dataField="CommPct" caption="Commit Price" ></dxi-column>
+                             <dxi-column dataField="CreatedBy" caption="Created By" ></dxi-column>
+                             <dxi-column dataField="CreatedDate" caption="Created Date"[width]="110"  dataType="date"></dxi-column>
+                             <dxi-column dataField="LastModifiedBy" caption="Updated By" ></dxi-column>
+                             <dxi-column dataField="LastModifiedDate" caption="Updated Date" dataType="date" ></dxi-column>
+                             <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+                             </dx-data-grid>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>

@@ -1,0 +1,25 @@
+#chart{
+    height: 250px;
+}
+#stateChart{
+    width: 100% !important;
+    overflow-x: hidden !important;
+    height: 250px;
+}
+.dx-field-value{
+    width: 100% !important;
+}
+.paddingTop10{
+    padding-top: 10px;
+}
+.marginBottom5{
+    margin-bottom: 5px;
+}
+#stateChart1{
+    /* overflow-x: hidden !important; */
+    height: 250px;
+    width: auto ;
+    
+}
+
+

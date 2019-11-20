@@ -1,0 +1,146 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Specified Entities Report</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="http://localhost:4200/main">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Specified Entities Report
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Search
+            <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Division</label>
+                      <input type="hidden" id="hidDivisionID">
+                      <dx-select-box id="searchDivision" [searchEnabled]="true" [dataSource]="GetDivisionList" valueExpr="DivisionID" [(ngModel)]='DivisionID'
+                        name="DivisionID" displayExpr="Name" (onValueChanged)="DivisionChangeEvent($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Product Line</label>
+                      <input type="hidden" id="hidProductlineID">
+                      <dx-select-box id="searchPrdLine" [searchEnabled]="true" [dataSource]="GetProdLinesByDiv" valueExpr="ProductLineID" [(ngModel)]='searchPrdLine'
+                        (onValueChanged)="ProductLineChangeEvent($event)" name="searchPrdLine" displayExpr="Name">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">State</label>
+                      <input type="hidden" id="hidStateID">
+                      <dx-select-box id="SearchState" [searchEnabled]="true" placeholder="Select By State" [dataSource]="CustomerState" valueExpr="StateID"
+                        [(ngModel)]='SearchState' name="SearchState" displayExpr="Name" (onValueChanged)="Stateselectedvalue($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">County</label>
+                      <input type="hidden" id="hidCountyID">
+                      <dx-select-box id="SearchCountyID" [searchEnabled]="true" placeholder="Select By County" [dataSource]="CountyByStateDataSource"
+                        valueExpr="CountyID" [(ngModel)]='SearchCountyID' name="SearchCountyID" displayExpr="Name" (onValueChanged)="Countyselectedvalue($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                </div>
+                <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ClearFilters()'>Clear
+                  <i class="fa fa-times"></i>
+                </a>
+                <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='SearchSpecifiedEntitiesReport()'>Search
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Specified Entities
+              <a class="btn btn-outline-success btn-min-width btn- pull-right" (click)='ExportGridData()'>Export
+              </a>
+              <a class="btn btn-outline-success btn-min-width btn- pull-right btnalignment" (click)='PDFGridData()'>Gen PDF
+              </a>
+            </h4>
+            <a class="heading-elements-toggle">
+              <i class="fa fa-ellipsis-v font-medium-3"></i>
+            </a>
+          </div>
+          <div class="card-body collapse in">
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-12">
+                  <dx-data-grid id="gridContainer" [dataSource]="SpecifiedEntitiesdataSource" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                    [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true">
+                    <dxi-column dataField="DivisionName" caption="Division"></dxi-column>
+                    <dxi-column dataField="ProductLine"></dxi-column>
+                    <dxi-column dataField="ContactType" [visible]="false"></dxi-column>
+                    <dxi-column dataField="Company" caption="Company Name"></dxi-column>
+                    <dxi-column dataField="FullName" caption="Staff Full Name"></dxi-column>
+                    <!-- <dxi-column dataField="Relationship"></dxi-column> -->
+                    <dxi-column dataField="Address" caption="Address1"></dxi-column>
+                    <dxi-column dataField="Address1" caption="Address2" [visible]="false"></dxi-column>
+                    <dxi-column dataField="City" [visible]="false"></dxi-column>
+                    <dxi-column dataField="StateID" [width]="50" caption="State"></dxi-column>
+                    <dxi-column dataField="ZIPCode" caption="Zip" [visible]="false"></dxi-column>
+                    <dxi-column dataField="County"></dxi-column>
+                    <dxi-column dataField="BusinessPhone"  caption="Business Phone"></dxi-column>
+                    <dxi-column dataField="Extension" caption="Exension"></dxi-column>
+                    <dxi-column dataField="BusinessFax" [visible]="false" caption="Business Fax"></dxi-column>
+                    <dxi-column dataField="MobilePhone"  [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }"
+                      caption="Mobile Phone" [visible]="false"></dxi-column>
+                    <dxi-column dataField="EmailAddress" caption="Email"></dxi-column>
+                    <dxo-remote-operations [sorting]="true" [paging]="true">
+                    </dxo-remote-operations>
+                    <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true"></dxo-pager>
+                   <!--  <div *dxTemplate="let data of 'cellTemplateBusinessPhone'">
+                      <span>({{data.value | slice:0:3}}) {{data.value | slice:3:6}}-{{data.value | slice:6:10}}</span>
+                    </div>
+                    <div *dxTemplate="let data of 'cellTemplateBusinessFax'">
+                      <span>({{data.value | slice:0:3}}) {{data.value | slice:3:6}}-{{data.value | slice:6:10}}</span>
+                    </div>
+                    <div *dxTemplate="let data of 'cellTemplateMobilePhone'">
+                      <span>({{data.value | slice:0:3}}) {{data.value | slice:3:6}}-{{data.value | slice:6:10}}</span>
+                    </div> -->
+                  </dx-data-grid>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

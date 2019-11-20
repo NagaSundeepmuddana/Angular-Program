@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-md-12">
+    <form #pcrf='ngForm' (ngSubmit)='GenerateReport(pcrf.value)'>
+        <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Project Costing Report</h4>
+              <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+            </div>
+            <div class="card-body collapse in">
+              <div class="card-block">
+                <div class="row">
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">From</label><small class="required">*</small>
+                      <input type="date" class="form-control" id="FromDate" [(ngModel)]='FromDate' required name='FromDate'>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">To</label><small class="required">*</small>
+                      <input type="date" class="form-control" id="ToDate" [(ngModel)]='ToDate' required name="ToDate">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicSelect">Project</label>
+                      <dx-autocomplete #cityd placeholder="Type Project Name.." [minSearchLength]="2" [searchTimeout]="500" [dataSource]="ProjectsList"
+                        (onSelectionChanged)="SetSelectedProject($event)" displayExpr="PROJ_NAME" valueExpr="PROJ_NAME" [(ngModel)]='Project' name='Project'>
+                      </dx-autocomplete>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                    <fieldset class="form-group">
+                      <label for="basicSelect">Divisions</label><small class="required">*</small>
+                      <!-- <dx-autocomplete #cityd placeholder="Type Division Name.." [minSearchLength]="2" [searchTimeout]="500" [dataSource]="DivisionsList"
+                       (onSelectionChanged)="SetSelectedDivision($event)" displayExpr="DVSN_NAME" valueExpr="DVSN_NAME">
+                        
+                      </dx-autocomplete> -->
+                      <dx-tag-box [items]="DivisionsList" [showSelectionControls]="true" applyValueMode="useButtons" displayExpr="Name" valueExpr="Name"
+                        (valueChanged)='SetSelectedDivision($event)' [(ngModel)]='selDivisionList' required name='selDivisionList'> 
+                      </dx-tag-box>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              <button class="btn btn-danger btn-min-width pull-right" [disabled]='!pcrf.valid'>Generate</button>
+              <a class="btn btn-outline-secondary btn-min-width btn- pull-right mr-1" (click)='ClearParameters()'>Clear</a>
+            </div>
+          </div>
+    </form>
+    
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card" *ngIf='pcrReportData'>
+      <div class="card-body report-body" *ngIf='pcrReportData'>
+        <dx-data-grid id="gridContainer" [dataSource]="pcrReportData" (onToolbarPreparing)="onToolbarPreparing($event)" [masterDetail]="{ enabled: true, template: 'detail' }">
+          <dxo-export [enabled]="true" fileName="PCRReportData" [allowExportSelectedData]="true"></dxo-export>
+          <dxi-column dataField="PROJECTNAME" caption="Title"></dxi-column>
+          <dxi-column dataField="PROJECTNUMBER"></dxi-column>
+          <dxi-column dataField="CONTROLNUMBER"></dxi-column>
+          <dxi-column dataField="COUNTYNAME"></dxi-column>
+          <dxi-column dataField="STARTDATE" datatype='date'></dxi-column>
+          <div *dxTemplate="let item of 'detail'">
+            <div class="internal-grid-container">
+              <div>{{item.data.PROJECTNAME + " (" + item.data.CONTROLNUMBER + ")"}}</div>
+              <dx-data-grid class="internal-grid" [dataSource]="item.data.RPT_PCR_DATA_ITEM" [showBorders]="true" [columnAutoWidth]="true">
+                <dxo-export [enabled]="true" fileName="Employees" [allowExportSelectedData]="true"></dxo-export>
+                <dxi-column dataField="ITEMNUMBER">Item</dxi-column>
+                <dxi-column dataField="QUANTITY">QTY</dxi-column>
+                <dxi-column dataField="UNIT">UOM</dxi-column>
+                <dxi-column dataField="UNITCOST">Unit Cost</dxi-column>
+                <dxi-column dataField="UNITPRICE">Unit Price</dxi-column>
+                <dxi-column dataField="TOTALCOST">Total Cost</dxi-column>
+                <dxi-column dataField="TOTALPRICE">Total Price</dxi-column>
+                <dxi-column dataField="MARKUPPERCENT">Markup(%)</dxi-column>
+                <dxi-column dataField="MARGINPERCENT">Margin(%)</dxi-column>
+                <dxo-summary>
+                  <dxi-total-item
+                      column="TOTALCOST"
+                      summaryType="sum"
+                      valueFormat="currency">
+                  </dxi-total-item>
+                  <dxi-total-item
+                      column="TOTALPRICE"
+                      summaryType="sum"
+                      valueFormat="currency">
+                  </dxi-total-item>
+                  <dxi-total-item
+                      column="MARKUPPERCENT"
+                      summaryType="avg"
+                      valueFormat="number">
+                  </dxi-total-item>
+              </dxo-summary>
+              </dx-data-grid>
+            </div>
+          </div>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: 'body' }" [(visible)]="pcrReportLoading" [showIndicator]="true"
+[showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>

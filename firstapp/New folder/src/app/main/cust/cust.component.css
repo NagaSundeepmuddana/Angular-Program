@@ -1,0 +1,256 @@
+#custClear{
+    margin-right:-860px;
+    margin-left:15px;
+}
+#Name{
+    height: 30px;
+    margin-top:-4px !important;
+}
+#State{
+    height: 30px;
+}
+.btn-danger{
+    min-width: 6.0rem !important;
+    background: rgba(235, 109, 74, 0.85) !important;
+    border-color: rgba(235, 109, 74, 0.98) !important;
+}
+.btn-outline-secondary{
+    min-width: 6.0rem !important;
+  }
+.fa-th{
+  color:rgba(128, 128, 128, 0.48)
+}
+.fa-search{
+  color:white;
+}
+.fa-times{
+  color:gray;
+}
+.btn-icon{
+    margin-left: 27px;
+}
+.margin-left-5{
+    margin-left: 5px !important;
+}
+
+#CustDivisionListGrid,#CustOfficeListGrid,#gridcustOfficeContactsContainer,#gridcustOfficePrdLineContainer{
+    max-height: 340px;
+    margin-bottom: 20px !important;
+}
+.custHeight{
+    height: 35px !important;
+}
+.EmailTemplate .form-group{
+    padding: 10px;
+}
+.sendmail{
+    border-color: #00A5A8 !important;
+    background-color: #00B5B8 !important;
+    color: #FFFFFF;
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+}
+
+.emailAddress{
+    background: #d3d3d36b;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    float: left;
+}
+.colorWhite{
+    color: white;
+}
+.CCEmailMsg{
+    background: #179f83;
+    padding: 1px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+.Close{
+border-color: #FF6275 !important;
+background-color: #FF586B !important;
+color: #FFF !important;
+margin-left: 10px !important;
+margin-top: 10px !important;
+}
+.Add{
+    border-color: #23b5b9 !important;
+    background-color: #23b5b9 !important;
+    color: #FFF !important;
+    margin-left: 10px !important;
+    margin-top: 25px !important;
+    }
+#gridEmailContainer{
+    max-height: 300px;
+    overflow-y: scroll;
+}
+#gridUnlockedQuoteContainer{
+    max-height: 320px;
+    overflow-y: scroll;
+}
+
+#EmailTagBox{
+    min-height: 30px;
+    max-height: 35px;
+    overflow-y: scroll;
+}
+#gridEmailContainers{
+    max-height: 410px;
+    overflow-y: scroll;
+    margin-bottom: 20px !important;  
+}
+#gridCustDivContainer{
+    max-height: 340px;
+    margin-bottom: 20px !important;  
+}
+.Maxprdtheight{
+    max-height: 62px !important;
+    margin-bottom: 20px !important;
+    overflow-y: scroll;
+}
+.HeightEmail{
+    height:27px!important;
+}
+.HeightSubject{
+    height:27px!important;
+    
+    padding-bottom: 13px!important;
+    padding-right:2px !important;
+    
+}
+.marginTop10{
+    margin-top: 10px;
+}
+.HeightBody{
+    /* height:27px!important; */
+    width: 994px !important;
+    padding-bottom: 12px!important;
+}
+.HeightTo{
+    height:37px!important;
+    width: 1013px !important;
+}
+.labelemail{
+    padding-left: 10px !important;
+    padding-right: 2px!important;
+
+}
+.marginLeft10{
+    margin-left: 18px!important;
+}
+
+.custclr{
+    color: #252525;
+  }
+  .sub{
+      margin-bottom: 20px !important;
+      margin-left: 15px !important;
+  }
+  .subj{
+    margin-left: 15px !important;
+  }
+  .paddingBottom0{
+    padding-bottom: 0px !important;
+}
+.marginBottom0{
+    margin-bottom: 0px !important;
+}
+.marginTop40{
+    margin-top: 40px;
+}
+.marginBottom40{
+    margin-bottom: 40px;
+}
+.addoffice{
+    color:#23b5b9;
+}
+.NoPrimary{
+    padding: 2px;
+    background: #FF7588;
+    padding-left: 15px;
+    padding-right: 14px;
+    border-radius: 4px;
+    color: white;
+}
+.padding20{
+    padding: 20px;
+}
+.quotePanel{
+    border-radius: 4px;
+    border: 1px solid #13977bc7;
+    background: #47ae98;
+}
+.quotePanel .panel-heading{
+    background: #13977bc7;
+    padding: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: white;
+}
+.quotePanel .panel-body{
+    padding: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: center;
+}
+.colorRed{
+    color: red;
+}
+.colorGreen{
+    color: green;
+}
+.quotePanel h2{
+    font-weight: 500;
+}
+.quotePanel .panel-body .col-md-4{
+    padding-top: 17px;
+}
+.quotePanel .panel-body i{
+    font-size: 40px;
+    color: white;
+}
+.quotePanel .panel-body .col-md-8{
+    padding-top: 10px;
+}
+.quotePanel .panel-body .col-md-8 h2{
+    color: white;
+    font-weight: bold;
+}
+.quotePanel .panel-body .col-md-8 p{
+    color: white;
+}
+.paddingLeftRight20{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#CustContactEmailIds, #CustomerLevEmailCC, #CustContactEmailSubject, #CustContactEmailBody{
+    width: 100% !important;
+}
+.marginBottom5{
+    margin-bottom: 5px;
+}
+ /* #selectprimarycontactBy{
+    width: 200px;
+    top: 70px;
+    position: absolute;
+    z-index: 1111;
+}
+#selectDivision{
+    width: 500;
+    top: 70px;
+    position: absolute;
+    z-index: 222;
+}
+#selectProductLine{
+    width: 200px;
+    top: 70px;
+    position: absolute;
+    z-index: 1111;
+} */
+
+

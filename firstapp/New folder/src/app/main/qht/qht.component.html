@@ -1,0 +1,201 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Quote History By Item</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Quote History By Item
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Search
+            <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label>Item </label>
+                    <div class="form-group serachItems">
+                      <input type="text" id="addItemsInputField1" class="form-control height32 serachItems" ng-model="name" [ngModel]="search"
+                        (ngModelChange)="GetAllCustomers1($event)" (document:click)="CloseMatAjax1($event)" placeholder="Search Items"/>
+                      <div class="ItemSearchResult serachItems" *ngIf="flag">
+                        <div class="serachItems">
+                          <ul *ngIf="IsItems" class="serachItems">
+                            <li *ngFor="let item of FilteredCustomerList1" class="searchLI serachItems">
+                              <div class="row serachItems">
+                                <div class="col-md-10 serachItems" (click)="SelectCust(item)">
+                                  <a class="serachItems">
+                                    {{item.ItemCode}} | {{item.Name}}</a>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Contract Type</label>
+                      <input type="hidden" id="hidContractTypeID">
+                      <dx-select-box id="ContractTypeID" [searchEnabled]="true" [dataSource]="ContractType" (onValueChanged)="ContractTypeChangeEvent($event)"
+                        valueExpr="ContractTypeID" [(ngModel)]='ContractTypeID' name="ContractTypeID" displayExpr="Name">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">State</label>
+                      <input type="hidden" id="hidStateID">
+                      <dx-select-box id="SearchState" [searchEnabled]="true" placeholder="Select By State" [dataSource]="CustomerState" valueExpr="StateID"
+                        [(ngModel)]='SearchState' name="SearchState" displayExpr="Name" (onValueChanged)="Stateselectedvalue($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <!-- <label for="basicInput">County</label>
+                      <input type="hidden" id="hidCountyID">
+                      <dx-select-box id="SearchCounty" [searchEnabled]="true" placeholder="Select By County" [dataSource]="CustomerCounty"
+                        valueExpr="CountyID" [(ngModel)]='SearchCounty' name="SearchCounty" displayExpr="Name">
+                      </dx-select-box> -->
+                      <label for="basicInput">County</label>
+                      <input type="hidden" id="hidCountyID">
+                      <dx-select-box id="SearchCounty" [searchEnabled]="true" placeholder="Select By County" [dataSource]="CountyByStateDataSource"
+                        valueExpr="CountyID" [(ngModel)]='SearchCounty' name="SearchCounty" displayExpr="Name" (onValueChanged)="Countyselectedvalue($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Project Name</label>
+                      <input type="text" class="form-control input-sm Prjheight" [(ngModel)]='SearchByProjName' name="SearchByProjName" id="SearchByProjName">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Control #</label>
+                      <input type="text" class="form-control input-sm Prjheight" [(ngModel)]='SearchByContNumber' name="SearchByContNumber" id="SearchByContNumber">
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Letting Begin Date</label>
+                      <input type="hidden" id="hidStartDate">
+                      <dx-date-box [value]="QuoteFrom" [(ngModel)]='QuoteFrom' type="date" name="LettingFrom" class="form-control input-sm dateField"
+                        (onValueChanged)="QuotesFromChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Letting End Date</label>
+                      <input type="hidden" id="hidEndDate">
+                      <dx-date-box [value]="QuoteTo" [(ngModel)]='QuoteTo' type="date" name="LettingTo" class="form-control input-sm dateField"
+                        (onValueChanged)="QuotesToChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                  </div>
+                  <div class="col-md-4">
+
+                  </div>
+                </div>
+                <div class="row">
+                  <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ClearFilters()'>Clear
+                    <i class="fa fa-times"></i>
+                  </a>
+                  <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='SearchQuoteReport()'>Search
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Quote History By Item
+            <!--  <a class="btn btn-outline-success btn-min-width btn- pull-right" (click)='ExportGridData()'>Export
+            </a> -->
+             <a class="btn btn-outline-success btn-min-width btn- pull-right btnalignment" (click)='PDFGridData()'>Gen PDF
+            </a>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid id="gridContainer" [dataSource]="dataSource" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                  [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true">
+                  <dxo-export [enabled]="true" fileName="Quote History By Item" [allowExportSelectedData]="false"></dxo-export>
+                  <dxi-column dataField="ControlNumber" caption="Control # " [width]="95"></dxi-column>
+                  <dxi-column dataField="ProjectName" caption="Project Name" [width]="340"></dxi-column>
+                  <dxi-column dataField="LettingDate" caption="Letting Date" [width]="100"></dxi-column>
+                  <dxi-column dataField="ContractType" caption="C Type" [width]="70"></dxi-column>
+                  <dxi-column dataField="ItemDescription" [width]="300"></dxi-column>
+                  <dxi-column dataField="QTY" caption="QTY" [width]="90" [customizeText]="CurrencyFormatter1"></dxi-column>
+                  <dxi-column dataField="UnitPrice" caption="Unit Price" [width]="130" [customizeText]="CurrencyFormatter"></dxi-column>
+                  <dxi-column dataField="UnitCost" caption="Total Cost" [width]="130" [customizeText]="CurrencyFormatter"></dxi-column>
+                  <dxi-column dataField="TotalPrice" caption="Total Price" [width]="130" [customizeText]="CurrencyFormatter"></dxi-column>
+                  <dxi-column dataField="GlobalMargin" caption="Markup %" [width]="30" [customizeText]="DecimalFormatter"></dxi-column>
+                  <dxi-column dataField="State" [width]="50" [groupIndex]="1"></dxi-column>
+                  <dxi-column dataField="ItemCode" [width]="340" [groupIndex]="0"></dxi-column>
+                  <dxi-column dataField="County" [width]="50" [groupIndex]="2"></dxi-column>
+                  <dxo-remote-operations [sorting]="true" [paging]="true">
+                  </dxo-remote-operations>
+                  <dxo-paging [pageSize]="20"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20,50,100]" [showInfo]="true"></dxo-pager>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxo-summary>
+                      <dxi-group-item column="ItemDescription"  displayFormat="TOTAL:" [showInGroupFooter]="true">
+                        </dxi-group-item>
+                    <dxi-group-item column="TotalPrice" summaryType="sum" valueFormat="currency" displayFormat=" {0}" [showInGroupFooter]="true">
+                    </dxi-group-item>
+                    <dxi-group-item column="QTY" summaryType="sum" type="fixedPoint" [precision]="2" displayFormat=" {0}" [showInGroupFooter]="true">
+                    </dxi-group-item>
+                   
+                  </dxo-summary>
+
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

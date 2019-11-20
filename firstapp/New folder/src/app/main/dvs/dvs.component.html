@@ -1,0 +1,106 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Division</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Division
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Divisions list
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid class="pitTable" id="gridContainer" [dataSource]="DivisionList" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                  [hoverStateEnabled]="true" (onRowInserted)="AddNewDivision($event)" (onRowUpdated)="EditDivision($event)"
+                  (onRowRemoving)="DeleteDivision($event)" (onRowRemoved)="AfterDivisionDelete()" (onToolbarPreparing)="onToolbarPreparing($event)" [showColumnLines]="true"
+                  [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true">
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000022" [allowDeleting]="UserPermissionsList.PL000023" [allowAdding]="UserPermissionsList.PL000021">
+                    <dxo-popup  [disabled]="IsPopupDisabled" title="Add/Edit Division" [showTitle]="true" [height]="400" [(visible)]="DivisionPopupVisible"
+                      [width]="900">
+                    </dxo-popup>
+                    <dxo-form>
+                      <dxi-item dataField="Name" editorType="dxTextBox" [editorOptions]="{ maxLength: 80, min:0 }">
+                        <dxi-validation-rule type="required" message="Please enter division Name."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="Description" [editorOptions]="{ maxLength: 180, min:0 }" [colCount]="4" [colSpan]="2" editorType="dxTextBox"></dxi-item>
+                      <dxi-item dataField="SubAccount"[editorOptions]="{ maxLength: 128, min:0 }" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter Sub-Account."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="ExternalReferenceNo" [editorOptions]="{ maxLength: 128, min:0 }" editorType="dxTextBox"></dxi-item>
+                    </dxo-form>
+                  </dxo-editing>
+                  <dxo-export [enabled]="true" fileName="DivisionList"></dxo-export>
+                  <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxi-column dataField="Name" caption="Division Name"></dxi-column>
+                  <dxi-column dataField="Description" ></dxi-column>
+                  <dxi-column dataField="SubAccount" caption="Sub-Account"  [width]="110"></dxi-column>
+                  <dxi-column dataField="ExternalReferenceNo" [visible]="false" [width]="100" caption="Syspro ID"></dxi-column>
+                  <dxi-column dataField="CreatedBy" caption="Created By"[editorOptions]="{ maxLength: 128, min:0 }"></dxi-column>
+                  <dxi-column dataField="CreatedDate" caption="Created Dt" [width]="110" dataType="date"></dxi-column>
+                  <dxi-column dataField="LastModifiedBy" caption="Revised By"[editorOptions]="{ maxLength: 128, min:0 }"></dxi-column>
+                  <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date" [width]="110"></dxi-column>
+                  <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+                  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplateDiv"
+                    caption="View PLs" [width]="100">
+                  </dxi-column>
+                  <div *dxTemplate="let data of 'cellTemplateDiv'">
+                    <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openDivisionMappingModal(data)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                  </div>
+                  <!-- <div *dxTemplate="let data of 'cellTemplateDivDec'">
+                    <a class="Divisionclr" title="{{data.value}}">{{data.value | ellipsis: 20}}</a>
+                  </div>
+                  <div *dxTemplate="let data of 'cellTemplateDivName'">
+                    <a class="Divisionclr" title="{{data.value}}">{{data.value | ellipsis: 20}}</a>
+                  </div> -->
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Mapped Product Lines Popup-->
+<dx-popup [height]="500" [width]="900" class="popup" title="Associated Product Lines" [dragEnabled]="true" [closeOnOutsideClick]="false"
+  [(visible)]="ProductLinesPopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <dx-data-grid id="gridProductLineContainer" [dataSource]="ProductLinesList" [showColumnLines]="true" [showRowLines]="true"
+      [wordWrapEnabled]="true" [showBorders]="true">
+      <dxo-paging [pageSize]="5"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxi-column dataField="Name"></dxi-column>
+      <dxi-column dataField="AltName"></dxi-column>
+      <dxi-column dataField="ExternalSystemRefNo" caption='Ext. Ref.'></dxi-column>
+    </dx-data-grid>
+    <dx-button id="ProductLinesListCancelBtn" text="Close" (onClick)="CloseProductLinesPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>

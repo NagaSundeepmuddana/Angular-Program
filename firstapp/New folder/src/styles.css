@@ -1,0 +1,511 @@
+*{
+  font-family: 'Work Sans', sans-serif;
+}
+#pitAuthWaterMark {
+    width: 15%;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+  }
+  .btn-margin-middle{
+    margin-top: 8px;
+  }
+  .dx-texteditor-input{
+    min-height: 30px !important;
+    height: 30px !important;
+  }
+  .report-body{
+    min-height: 550px;
+  }
+  .dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-state-focused {
+    background-color: #ff6275 !important;
+    color: #fff;
+  }
+  .pitChart{
+    width: 89% !important;
+  }
+  #pcatListTable .dx-link-delete,.dx-link-cancel{
+    padding: 0.25rem 0.5rem  !important;
+    font-size: 0.875rem !important;
+    border-radius: 0.21rem !important;
+    border-color: #FF6275 !important;
+    background-color: #FF7588 !important;
+    color: #FFFFFF !important;
+  }
+  #pcatListTable .dx-link-add,.dx-link-save{
+    padding: 0.25rem 0.5rem  !important;
+    font-size: 0.875rem !important;
+    border-radius: 0.21rem !important;
+    border-color: #10C888 !important;
+    background-color: #16D39A !important;
+    color: #FFFFFF;
+  }
+  #pcatListTable .dx-link-edit{
+    padding: 0.25rem 0.5rem  !important;
+    font-size: 0.875rem !important;
+    border-radius: 0.21rem !important;
+    border-color: #FF976A !important;
+    background-color: #FFA87D !important;
+    color: #FFFFFF;
+  } 
+
+  .card-block {
+    padding: 1.5rem;
+}
+.dx-toolbar .dx-toolbar-items-container {
+  height: 41px;
+  overflow: visible;
+}
+/* .card-header {
+  padding: 1.5rem 1.5rem !important;
+} */
+.form-control:disabled, .form-control[readonly] {
+	background-color: #e4e4e4 !important;
+}
+.card-header:first-child {
+	border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.card-header {
+	padding: .75rem 1.25rem;
+	margin-bottom: 0;
+	background-color: #f7f7f9;
+	border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.card {
+	border: 1px solid rgba(0,0,0,.125);
+}
+.breadcrumb-item.active {
+	color: #263238;
+	font-weight: 900;
+}
+.dx-datagrid-headers tr{
+  background-color: rgba(33, 33, 33, 0.98) !important;
+	color: white;
+	border-color: rgba(33, 33, 33, 0.98) !important;
+}
+.height-30 {
+	height: 30px !important;
+}
+.dx-button[aria-label="Save"] { 
+  border-color: #00A5A8 !important;
+	background-color: #00B5B8 !important;
+	color: #FFFFFF;
+}
+
+.dx-button[aria-label="Cancel"] { 
+  border-color: #FF6275 !important;
+	background-color: #FF586B !important;
+	color: #FFF !important;
+}
+.dx-texteditor-input[readonly]{
+  /* background-color: #dedede !important; */
+	opacity: 1 !important;
+}
+*{
+  outline: none !important;
+}
+.maxHeight100{
+  max-height: 100px !important;
+}
+.marginLeft10{
+  margin-left: 10px;
+}
+.marginTop20{
+  margin-top: 20px;
+}
+.emailAddress{
+  background: #d3d3d36b;
+  padding: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  float: left;
+}
+.list-group{
+  height: 200px !important;
+}
+.CommentHistoryUserImg{
+  border-radius: 50px;
+  height: 30px;
+  margin-top: 10px;
+}
+.CommentUserImg{
+  border-radius: 50px;
+  height: 40px;
+  margin-top: 10px;
+}
+.maxHeight60{
+  max-height: 60px;
+}
+.commentTime{
+  font-size: 11px;
+  color: lightgray;
+}
+.maxHeight350{
+  max-height: 350px;
+  overflow-y: scroll;
+}
+.fontSize11{
+  font-size: 11px;
+}
+#Comment{
+  border-radius: 10px;
+  max-height: 60px;
+}
+.commentsHistory{
+  min-height: 50px;
+  background: #d3d3d330;
+  border: none;
+  margin-top: 10px;
+  color: gray;
+  border-radius: 10px;
+}
+.paddingLeft0{
+  padding-left: 0px;
+}
+.paddingRight0{
+  padding-right: 0px;
+}
+.commentSendBtn{
+  margin-top: 35px;
+}
+.NoComments{
+  background: #80808038;
+  padding: 6px;
+  border-radius: 8px;
+}
+.Close{
+  border-color: #FF6275 !important;
+  background-color: #FF586B !important;
+  color: #FFF !important;
+  margin-left: 10px !important;
+  margin-top: 10px !important;
+  }
+  .Save{
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+    }
+    #signatureDiv{
+      height: 400px;
+      max-height: 500px !important;
+      /* overflow-y: scroll; */
+    }
+  .textBold{
+    font-weight: bold;
+  }
+  .NoEmails{
+    margin: 20px;
+    padding: 10px;
+  }
+
+  .noRecordsAlert{
+    margin: 15px !important;
+  }
+  .noRecordsAlert p{
+      margin: 0;
+  }
+  .marginBottom10{
+    margin-bottom: 10px;
+  }
+  .backBtn{
+    height: 25px;
+    line-height: 0.3;
+    background-color:  #00B5B8 !important;
+    border-color: #00A5A8 !important;
+  }
+  .updateBtn, .backButton{
+    height: 34px;
+    line-height: .7;
+    background-color:  #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+}
+
+.backButton :hover{
+  color: white !important;
+}
+
+.AwardBtn{
+  height: 32px;
+  line-height: .7;
+  background-color:  #00B5B8 !important;
+  border-color: #00A5A8 !important;
+  color: white;
+}
+  .reOrderBtn, .YesBtn, .UpDownBtn, .resetPW{
+    background-color:  #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+    margin-top: 10px;
+  }
+  .reOrderBtn2, .addNotesBtn, .associateNotesBtn, .addTermsBtn, .addItemsBtn, .approveProjectBtn{
+    background-color:  #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+    margin-top: 2px;
+  }
+  .addItemsBtn{
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+  .approveProjectBtn{
+  text-transform: initial !important; 
+  }
+  #customerListSaveBtn{
+    background-color:  #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+  }
+  .addTermsBtn, .reOrderBtn2{
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+  .addNotesBtn :hover, .addTermsBtn :hover, .associateNotesBtn :hover, 
+  .reOrderBtn2 :hover, .reOrderBtn :hover, .YesBtn :hover, .UpDownBtn :hover,
+  .updateBtn :hover, .backBtn :hover, .addItemsBtn :hover, .approveProjectBtn :hover,
+  .batchLockBtn, .awardBtn, .replicateBtn :hover{
+    background-color:  rgb(14, 161, 161) !important;
+    border-color: #00A5A8 !important;
+    color: white;
+  }
+  .dx-switch{
+    width: 55px !important;
+  }
+  .lockedLable{
+    padding-right: 90px;
+  }
+  .marginRight5{
+    margin-right: 5px;
+  }
+  .dx-datagrid-addrow-button {
+    background-color: #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+    margin-top: 2px;
+  }
+  .circleI{
+    padding: 3px;
+    font-style: initial;
+    border-radius: 5px;
+    background: #ff586b;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .circleA{
+    padding: 3px;
+    font-style: initial;
+    border-radius: 5px;
+    background: #ff586b;
+  }
+  .batchLockBtn, .awardBtn, .replicateBtn{
+    height: 26px;
+    line-height: 0.5 !important;
+    background-color:  #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+  }
+  .dx-button[aria-label="Yes"]
+  {
+    border-color: #00A5A8 !important;
+    background-color: #00B5B8 !important;
+    color: #FFFFFF;
+  }
+  .dx-button[aria-label="No"]
+  {
+    border-color: #FF6275 !important;
+    background-color: #FF586B !important;
+    color: #FFF !important;
+  }
+  .dx-texteditor-input{
+    height: 100% !important;
+  }
+  #primeContractorEditBtn{
+    margin-top: -23px;
+    position: absolute;
+    right: 24px;
+    font-size: 16px !important;
+    color:#fff;
+    cursor: pointer;
+  }
+  #SavingSubContractor{
+    margin-top: -23px;
+    position: absolute;
+    right: 24px;
+    color: #fff;
+    font-size: 16px !important;
+  }
+  /* #primeContractDiv, #PrimeContractorField{
+    background-color: rgba(255, 228, 196, 0.63);
+  } */
+  #PrimeContractorField{
+    /* background: #f3f30c7a; */
+    width: 76% !important;
+    border: none !important;
+  }
+  #primeContractorSaveBtn{
+    margin-top: -25px;
+    position: absolute;
+    right: 33px;
+    font-size: 16px !important;
+    color:#fff;
+    cursor: pointer;
+  }
+  #primeContractorCancelBtn{
+    margin-top: -25px;
+    position: absolute;
+    right: 17px;
+    font-size: 16px !important;
+    color:#ff7588;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  #primeContractDiv{
+    background: #16d39a;
+    border-radius: 5px !important;
+    border: 1px solid #BABFC7;
+    /* max-width: 145px;
+    border: 1px solid #80808052;
+    border-radius: 5px; */
+  }
+  .CCEmailMsg{
+    background: #179f83;
+    padding: 1px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+.colorWhite{
+  color: white !important;
+}
+.height20{
+  height: 20px;
+}
+.CRQt{
+  background: #179f83;
+  padding: 1px;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  font-family: cursive;
+  font-size: 13px;
+}
+.CRQtCancel{
+  background: #ffa500c2;
+  padding: 1px;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  font-family: cursive;
+  font-size: 13px;
+}
+.CRQtLost{
+  background: #ff7588;
+  padding: 1px;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  font-family: cursive;
+  font-size: 13px;
+}
+.EmailSignatureBtn{
+  border-color: #f0c40f !important;
+  background-color: #f0c40f !important;
+  color: white;
+}
+.paddingTop10{
+  padding-top: 10px;
+}
+.marginButtom20{
+  margin-bottom: 20px;
+}
+.marginTop30{
+  margin-top: 30px;
+}
+.EmailImage{
+  margin-top: 10px;
+  padding: 0px;
+}
+.EmailImage img{
+  height: 80px;
+}
+.PreviewLabel{
+  margin-top: 50px;
+  padding: 0px;
+  padding-left: 15px;
+}
+.previewInfo{
+  padding: 0px;
+}
+#PhoneNo[type=number]::-webkit-inner-spin-button, 
+#PhoneNo[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+.UserRolesRadio{
+  height: 20px;
+  width: 20px;
+}
+.dx-checkbox-icon:before{
+  background-color: #fff !important;
+}
+.not-active {
+  pointer-events: none;
+  cursor: default;
+}
+.width100{
+  width: 100% !important;
+}
+.width100Px{
+  width: 100px;
+}
+.dx-tabpanel .dx-tabs{
+  display: inherit !important;
+  position: inherit !important;
+}
+.PITLogoIndexPage{
+  height: 250px;
+}
+.NotesFormat{
+  font-weight: normal;
+  font-size: 14px;
+  font-family: 'Work Sans', sans-serif;
+  color: #333;
+  margin-bottom: 0px;
+  white-space: pre-wrap !important;
+}
+
+.EditBtn{
+  border-color: #10C888 !important;
+  background-color: #16D39A !important;
+  color: #FFFFFF !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 0.21rem !important;
+}
+._colorRed{
+  color: red;
+}
+.mailSent{
+  padding: 2px;
+  background: #16D39A;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 4px;
+  color: white;
+}
+.mailNotSent{
+  padding: 2px;
+  background: #FF7588;
+  padding-left: 15px;
+  padding-right: 14px;
+  border-radius: 4px;
+  color: white;
+}
+

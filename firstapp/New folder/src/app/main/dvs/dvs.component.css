@@ -1,0 +1,38 @@
+ #dvsClear{
+    margin-right:-860px;
+    margin-left:15px;
+  }
+  .btn-danger{
+    background: rgba(235, 109, 74, 0.85) !important;
+    border-color: rgba(235, 109, 74, 0.98) !important;
+}
+
+.fa-th{
+  color:rgba(128, 128, 128, 0.48)
+}
+.fa-search{
+  color:white;
+}
+.fa-times{
+  color:gray;
+}
+.Close{
+  border-color: #FF6275 !important;
+  background-color: #FF586B !important;
+  color: #FFF !important;
+  margin-left: 10px !important;
+  margin-top: 10px !important;
+  }
+.btn-icon{
+  margin-left: 27px;
+}
+.Divisionclr{
+  color: #252525;
+}
+.dx-button{
+  background-color: #FF586B !important;
+}
+#gridProductLineContainer{
+  max-height: 340px;
+  margin-bottom: 20px !important;  
+}

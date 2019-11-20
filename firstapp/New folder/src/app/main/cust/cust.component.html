@@ -1,0 +1,836 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Customers</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Customers
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <form #cust='ngForm' (ngSubmit)="GetFilterCustomers(cust.value)">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Search Database
+              <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+            </h4>
+            <a class="heading-elements-toggle">
+              <i class="fa fa-ellipsis-v font-medium-3"></i>
+            </a>
+          </div>
+          <div class="card-body collapse in">
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">Customer Name</label>
+                        <input type="text" class="form-control input-sm custHeight" id="CustName" [(ngModel)]='CustName' name="CustName">
+                      </fieldset>
+                    </div>
+                    <div class="col-md-3">
+                      <fieldset class="form-group">
+                        <label for="basicInput">Customer Type</label>
+                        <input type="hidden" id="hidCustomerType">
+                        <dx-select-box id="SearchCustomerType" [searchEnabled]="true" placeholder="Select By Customer Type" [dataSource]="CustomerTypeList"
+                          valueExpr="CustomerTypeID" [(ngModel)]='SearchCustomerType' name="SearchCustomerType" displayExpr="Name"
+                          (onValueChanged)="CustomerTypeselectedvalue($event)">
+                        </dx-select-box>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-3">
+                      <fieldset class="form-group">
+                        <label for="basicInput">State</label>
+                        <input type="hidden" id="hidStateID">
+                        <dx-select-box id="SearchState" [searchEnabled]="true" placeholder="Select By State" [dataSource]="CustomerState" valueExpr="StateID"
+                          [(ngModel)]='SearchState' name="SearchState" displayExpr="Name" (onValueChanged)="Stateselectedvalue($event)">
+                        </dx-select-box>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-3">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">County</label>
+                        <input type="hidden" id="hidCountyID">
+                        <dx-select-box id="SearchCounty" [searchEnabled]="true" placeholder="Select By County" [dataSource]="CountyByStateDataSource"
+                          valueExpr="CountyID" [(ngModel)]='SearchCounty' name="SearchCounty" displayExpr="Name" (onValueChanged)="Countyselectedvalue($event)">
+                        </dx-select-box>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='custClearParameters()'>Clear
+                    <i class="fa fa-times"></i>
+                  </a>
+                  <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='GetFilterCustomers()'>Search
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Customers Grid-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Customer list
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid id="gridContainer" [masterDetail]="{ enabled: true, template: 'CustomerOfficesList', autoCollapseAll: true }"
+                  [dataSource]="CustomerdataSource" (onRowExpanding)="onRowExpanding($event)" [allowColumnReordering]="true"
+                  (onEditingStart)="logEvent($event)" (onToolbarPreparing)="onToolbarPreparing($event)" [showColumnLines]="true"
+                  [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true" [selectedRowKeys]="[]">
+                  <dxo-remote-operations [sorting]="true" [paging]="true" [grouping]="true">
+                  </dxo-remote-operations>
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000045" [allowDeleting]="UserPermissionsList.PL000046" [allowAdding]="UserPermissionsList.PL000044">
+                    <dxo-popup title="Add/Edit Customer" [showTitle]="true" [height]="400" [width]="800">
+                    </dxo-popup>
+                    <dxo-form>
+                      <dxi-item dataField="Name" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter Customer Name."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="CustomerTypeID" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please select Customer Type."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="ShortName" editorType="dxTextBox"></dxi-item>
+                      <dxi-item dataField="ExternalReferenceNo" editorType="dxTextBox"></dxi-item>
+                    </dxo-form>
+                  </dxo-editing>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxi-column dataField="Name" caption="Customer Name" cellTemplate="cellTemplatecustName"></dxi-column>
+                  <dxi-column dataField="ShortName" [width]="220"></dxi-column>
+                  <dxi-column dataField="CustomerTypeID" caption="Customer Type" [width]="120" [setCellValue]="setStateValue">
+                    <dxo-lookup [dataSource]="CustomerTypeList" valueExpr="CustomerTypeID" displayExpr="Name">
+                    </dxo-lookup>
+                  </dxi-column>
+                  
+                  <dxi-column dataField="ExternalReferenceNo" caption="Syspro ID" [width]="90"></dxi-column>
+                 <!--  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplatetrip" caption="Trip"  [width]="70">
+                  </dxi-column> -->
+                  <dxi-column dataField="DivisionName" caption="Mapped Divisions" [visible]="false"[width]="180"></dxi-column>
+                  <dxi-column dataField="CreatedBy" caption="Created By" [visible]="false" [width]="120"></dxi-column>
+                  <dxi-column dataField="CreatedDate" caption="Created Dt" [visible]="false" dataType="date" [width]="110"></dxi-column>
+                  <dxi-column dataField="LastModifiedBy" caption="Revised By" [visible]="false" [width]="120"></dxi-column>
+                  <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date" [visible]="false" [width]="110"></dxi-column>
+                  <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false" [width]="90"></dxi-column>
+                  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplatediv"
+                    caption="Division" [width]="100">
+                  </dxi-column>
+                  <div *dxTemplate="let data of 'cellTemplatediv'">
+                    <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openDivisionCustomerModal(data)">
+                      <i class="fa fa-plus-square-o"></i>
+                    </button>
+                  </div>
+                  <div *dxTemplate="let data of 'cellTemplatetrip'">
+                    <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" [routerLink]="['/main/trep',data.row.data.CustomerID]"
+                    >
+                      <i class="fa fa-taxi"></i>
+                    </button>
+                  </div>
+                  <div *dxTemplate="let data of 'cellTemplatecustName'">
+                    <a class="custclr" title="{{data.value}}">{{data.value | ellipsis: 40}}</a>
+                  </div>
+                  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplate" caption="Staff"
+                    [width]="100">
+                  </dxi-column>
+                  <div *dxTemplate="let data of 'cellTemplate'">
+                    <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openCustomerContactModal(data)">
+                      <i class="fa fa-users"></i>
+                    </button>
+                  </div>
+                  <div *dxTemplate="let Customer of 'CustomerOfficesList'">
+                    <dx-data-grid id="gridcustOfficeContainer" [dataSource]="Customer.data.CustomerOffice" [allowColumnReordering]="true" (onInitNewRow)="addnewCustomerOfc(Customer)"
+                      (onRowInserted)="AddNewCustomerOffice($event)" (onToolbarPreparing)="onToolbarPreparingOffice($event)"
+                      (onRowUpdated)="EditCustomerOffice($event)" (onRowRemoving)="DeleteCustomerOffice($event)" [showColumnLines]="true"
+                      (onInitNewRow)="InitNewCustomerOffice($event)" (onInitNewRow)="initNewRow($event)" [showRowLines]="true"
+                      (onEditorPreparing)="OnCustomerOfficeEditStart($event)" [wordWrapEnabled]="true" [selectedRowKeys]="[]"
+                      [showBorders]="true" >
+                      <dxo-paging [pageSize]="5"></dxo-paging>
+                      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                      </dxo-pager>
+                      <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+                        <dxo-popup [(visible)]="CustomerOfficePopupVisible" title="Add/Edit Customer Office" [showTitle]="true" [height]="470" [width]="900">
+                        </dxo-popup>
+                        <dxo-form>
+                          <dxi-item dataField="Address" editorType="dxTextBox">
+                            <dxi-validation-rule type="required" message="Please enter Address."></dxi-validation-rule>
+                          </dxi-item>
+                          <dxi-item dataField="Address1" editorType="dxTextBox">
+                          </dxi-item>
+                          <dxi-item dataField="City" editorType="dxTextBox">
+                            <dxi-validation-rule type="required" message="Please enter City."></dxi-validation-rule>
+                          </dxi-item>
+                          <dxi-item dataField="CorporateOffice">
+                          </dxi-item>
+                          <dxi-item dataField="CountryID" editorType="dxTextBox">
+                            <dxi-validation-rule type="required" message="Please select Country."></dxi-validation-rule>
+                          </dxi-item>
+                          <dxi-item dataField="StateID" editorType="dxTextBox">
+                            <dxi-validation-rule type="required" message="Please select State."></dxi-validation-rule>
+                          </dxi-item>
+                          <dxi-item dataField="CountyID" editorType="dxTextBox">
+                            <!-- <dxi-validation-rule type="required" message="Please select County."></dxi-validation-rule> -->
+                          </dxi-item>
+                          <dxi-item dataField="OfficePhone" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }">
+                          </dxi-item>
+                          <dxi-item dataField="Cell" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }">
+                          </dxi-item>
+                          <dxi-item dataField="Fax" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }">
+                          </dxi-item>
+                          <dxi-item dataField="ZIPCode"></dxi-item>
+                          <dxi-item dataField="OfficeExternalReferenceNo"></dxi-item>
+                        </dxo-form>
+                      </dxo-editing>
+                      <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                      <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                      <dxi-column dataField="CustomerID" [visible]="false"></dxi-column>
+                      <dxi-column dataField="Address" ></dxi-column>
+                      <dxi-column dataField="Address1" [visible]="false"></dxi-column>
+                      <dxi-column dataField="City" [width]="100"></dxi-column>
+                      <dxi-column dataField="CountryID" caption="Country" [width]="70">
+                        <dxo-lookup [dataSource]="CustomerCountryCountList" valueExpr="CountryID" displayExpr="CountryID">
+                        </dxo-lookup>
+                      </dxi-column>
+                      <dxi-column dataField="StateID" caption="State" [setCellValue]="setStateValue" [width]="60">
+                        <dxo-lookup [dataSource]="CustomerState" valueExpr="StateID" displayExpr="Name">
+                        </dxo-lookup>
+                      </dxi-column>
+                      <dxi-column dataField="CountyID" caption="County" [width]="120">
+                        <dxo-lookup [dataSource]="getFilteredCunties" valueExpr="CountyID" displayExpr="Name">
+                        </dxo-lookup>
+                      </dxi-column>
+                      <dxi-column dataField="ZIPCode" caption="ZIP Code" [visible]="false"></dxi-column>
+                      <dxi-column dataField="Fax" [visible]="false"></dxi-column>
+                      <dxi-column dataField="Primarycontact" [visible]="false"></dxi-column>
+                      <dxi-column dataField="OfficePhone" [visible]="false"></dxi-column>
+                      <dxi-column dataField="Cell" caption="Cell Phone" [visible]="false"></dxi-column>
+                      <dxi-column dataField="OfficeExternalReferenceNo" caption="Syspro ID" [visible]="false"></dxi-column>
+                      <dxi-column dataField="CorporateOffice" caption="Corp-Office" dataType="boolean" [width]="110"></dxi-column>
+                      <dxi-column dataField="CreatedBy" caption="Created By" [visible]="false"></dxi-column>
+                      <dxi-column dataField="CreatedDate" caption="Created Dt" [width]="100" dataType="date" [visible]="false"></dxi-column>
+                      <dxi-column dataField="LastModifiedBy" caption="Revised By" [visible]="false"></dxi-column>
+                      <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date" [visible]="false"></dxi-column>
+                      <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"[width]="70"></dxi-column>
+
+                      <div *dxTemplate="let data of 'cellTemplateCustOfficeEmail'">
+                        <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openCustomerOfficeEmail(data.key.CustomerOfficeID)">
+                          <i class="fa fa-envelope-o"></i>
+                        </button>
+                      </div>
+                      <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplateCustOfficeEmail"
+                      caption="Email" [width]="80">
+                    </dxi-column>
+                      <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplateCustOfficePrdLineMapping"
+                        caption="Prd Lines" [width]="80">
+                      </dxi-column>
+                      <div *dxTemplate="let data of 'cellTemplateCustOfficePrdLineMapping'">
+                        <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openCustomerOfficePrdLineMappingModal(data)">
+                          <i class="fa fa-arrows-h"></i>
+                        </button>
+                      </div>
+
+                      <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplateCustOfficeMapping"
+                        caption="Office Staff" [width]="110">
+                      </dxi-column>
+                      <div *dxTemplate="let data of 'cellTemplateCustOfficeMapping'">
+                        <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openCustomerOfficecontactMappingModal(data)">
+                          <i class="fa fa-briefcase"></i>
+                        </button>
+                      </div>
+                     
+                      
+
+                    </dx-data-grid>
+                  </div>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Customer to Division mapping -->
+<dx-popup [height]="660" [width]="1000" class="popup" title="Customer - Divisions Mapping" [dragEnabled]="true" [closeOnOutsideClick]="false"
+  [(visible)]="CustomerToDivisionPopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="row marginBottom10">
+      <div class="col-md-8">
+        <div class="form-group paddingBottom0 marginBottom0">
+          <label class="labelemail" for="exampleInputPassword1">Division</label>
+          <dx-tag-box id="DivisionID" *ngIf="DivisionMapList" class="Maxprdtheight" placeholder="Select Division(s)" [dataSource]="DivisionMapList"
+            displayExpr="Name" [(ngModel)]='DivisionID' name="DivisionID" valueExpr="DivisionID" [searchEnabled]="true" (onValueChanged)="GetCustDivisionBycommaList($event)">
+          </dx-tag-box>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          <dx-button style="margin-top: 25px;" class="pull-right margin-left-5 Add" text="Add Division" (onClick)="CreateDivCustMapping()"></dx-button>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row">
+      <dx-data-grid id="gridCustDivContainer" [dataSource]="CustomerDivisionMappingList" [allowColumnReordering]="true" [showColumnLines]="true"
+        [showRowLines]="true" [wordWrapEnabled]="true" (onRowRemoved)="DeleteCusttoDivMap($event)" [showBorders]="true">
+        <dxo-editing mode="row" [allowDeleting]="true">
+        </dxo-editing>
+        <dxo-paging [pageSize]="5"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+        </dxo-pager>
+        <dxo-search-panel [visible]="true" [width]="300" placeholder="Search..."></dxo-search-panel>
+        <dxi-column dataField="DivisionName" [width]="300" caption="Division"></dxi-column>
+        <dxi-column dataField="Description"></dxi-column>
+        <dxi-column dataField="ExternalReferenceNo" [width]="100" caption="Ext Ref No."></dxi-column>
+      </dx-data-grid>
+    </div>
+    <dx-button id="CustPrdMapCancelBtn" text="Close" (onClick)="CloseCustToDivPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>
+<!-- Customer Contact Popup-->
+<dx-popup [height]="660" [width]="1000" class="popup" title="Staff Information" [dragEnabled]="true" [closeOnOutsideClick]="false"
+  [(visible)]="CustomerContactPopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <dx-data-grid id="gridcustcontContainer" [dataSource]="customercontactList" [allowColumnReordering]="true" (onEditingStart)="logEvent('EditingStart')"
+      (onRowInserted)="AddNewCustomerContact($event)" (onRowUpdated)="EditCustomercontact($event)" (onToolbarPreparing)="onToolbarPreparingContact($event)"
+      (onRowRemoving)="DeleteCustomerContacts($event)" (onRowRemoved)="AfterCustomerContactDelete()" [showColumnLines]="true"
+      [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true">
+      <dxo-paging [pageSize]="5"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+        <dxo-popup title="Add/Edit Staff" [showTitle]="true" [height]="470" [width]="750">
+        </dxo-popup>
+        <dxo-form>
+          <dxi-item dataField="FirstName" editorType="dxTextBox">
+            <dxi-validation-rule type="required" message="Please enter First Name."></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="LastName" editorType="dxTextBox">
+          </dxi-item>
+          <dxi-item dataField="Email" editorType="dxTextBox">
+            <dxi-validation-rule type="required" message="Please enter Email Address."></dxi-validation-rule>
+            <dxi-validation-rule type="email" message="Please enter valid Email Address."></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="ContactType" editorType="dxTextBox">
+            <dxi-validation-rule type="required" message="Please select Staff Type."></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="Position" editorType="dxTextBox"></dxi-item>
+          <dxi-item dataField="Cell" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }"></dxi-item>
+          <dxi-item dataField="OfficePhone" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }" editorType="dxTextBox">
+          </dxi-item>
+          <dxi-item dataField="OtherPhone" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }"></dxi-item>
+          <dxi-item dataField="Fax" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }">
+          </dxi-item>
+        </dxo-form>
+      </dxo-editing>
+      <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+      <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+      <dxi-column dataField="FirstName"></dxi-column>
+      <dxi-column dataField="LastName"></dxi-column>
+      <dxi-column dataField="Email"></dxi-column>
+      <dxi-column dataField="ContactType" caption="Staff Type" [setCellValue]="setStateValue">
+        <dxo-lookup [dataSource]="ContactTypeList" valueExpr="ContactType" displayExpr="Name">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="Position" caption="Position"></dxi-column>
+      <dxi-column dataField="Cell" caption="Cell Phone" cellTemplate="cellTemplateCell"></dxi-column>
+      <dxi-column dataField="OfficePhone" [visible]="false" cellTemplate="cellTemplateOfficePhone"></dxi-column>
+      <dxi-column dataField="OtherPhone" [visible]="false" cellTemplate="cellTemplateOtherPhone"></dxi-column>
+      <dxi-column dataField="Fax" [visible]="false" cellTemplate="cellTemplateFax"></dxi-column>
+      <dxi-column dataField="CreatedBy" caption="Created By" [visible]="false"></dxi-column>
+      <dxi-column dataField="CreatedDate" caption="Created Dt" [width]="100" dataType="date" [visible]="false"></dxi-column>
+      <dxi-column dataField="LastModifiedBy" caption="Revised By" [visible]="false"></dxi-column>
+      <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date" [visible]="false"></dxi-column>
+      <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+      <div *dxTemplate="let data of 'cellTemplateCell'">
+        <div *ngIf="data.value">
+          <span>({{data.value | slice:0:3}}) {{data.value | slice:3:6}}-{{data.value | slice:6:10}}</span>
+        </div>
+        <div *ngIf="!data.value">
+          <span></span>
+        </div>
+      </div>
+      <div *dxTemplate="let data of 'cellTemplateOfficePhone'">
+        <div *ngIf="data.value">
+          <span>({{data.value | slice:0:3}}) {{data.value | slice:3:6}}-{{data.value | slice:6:10}}</span>
+        </div>
+        <div *ngIf="!data.value">
+          <span></span>
+        </div>
+      </div>
+      <div *dxTemplate="let data of 'cellTemplateOtherPhone'">
+        <div *ngIf="data.value">
+          <span>({{data.value | slice:0:3}}) {{data.value | slice:3:6}}-{{data.value | slice:6:10}}</span>
+        </div>
+        <div *ngIf="!data.value">
+          <span></span>
+        </div>
+      </div>
+      <div *dxTemplate="let data of 'cellTemplateFax'">
+        <div *ngIf="data.value">
+          <span>({{data.value | slice:0:3}}) {{data.value | slice:3:6}}-{{data.value | slice:6:10}}</span>
+        </div>
+        <div *ngIf="!data.value">
+          <span></span>
+        </div>
+      </div>
+    </dx-data-grid>
+    <dx-button id="CustContactsListCancelBtn" text="Close" (onClick)="CloseCustcontactPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>
+<!-- Customer Office Staff Popup-->
+<dx-popup [height]="700" [width]="1000" class="popup" title="Office Staff Information" [dragEnabled]="true" [closeOnOutsideClick]="false"
+  [(visible)]="CustomerOfficeContactsPopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="row marginBottom10">
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <label for="basicInput">Office Staff</label>
+          <input type="hidden" id="hidCustomerOfficeID">
+          <dx-select-box id="searchStaff" [searchEnabled]="true" placeholder="Select Staff" [dataSource]="OfficeStaffs" valueExpr="ContactID"
+            [(ngModel)]='ContactID' name="ContactID" displayExpr="Name" (onValueChanged)="GetCustProductLineByNotExistingContact($event)">
+          </dx-select-box>
+        </fieldset>
+      </div>
+      <div class="col-md-8">
+        <fieldset class="form-group">
+          <label for="basicInput">Product Line</label>
+          <!-- <dx-tag-box id="ProductLineID" class="Maxprdtheight" [dataSource]="UnMappedPrdLineByDivisionForContact" placeholder="Select Product Line(s)"
+            valueExpr="ProductLineID" grouped="true" displayExpr="ProductLineName" searchEnabled="true" groupTemplate="group"
+            [(ngModel)]='ProductLineID' name="ProductLineID" (onValueChanged)="GetCustProductLineBycommaListForContact($event)">
+            <div *dxTemplate="let data of 'group'">
+              <div class='custom-icon'>
+                <span class='dx-icon-box icon'></span>
+                {{data.key}}
+              </div>
+            </div>
+          </dx-tag-box> -->
+          <dx-select-box id="ProductLineID" [searchEnabled]="true" [dataSource]="UnMappedPrdLineForContact" placeholder="Select Product Line(s)"
+            valueExpr="ProductLineID" displayExpr="ProductLineName" [(ngModel)]='ProductLineID' name="ProductLineID" groupTemplate="group"
+            grouped="true">
+            <div *dxTemplate="let data of 'group'">
+              <div class='custom-icon'>
+                <span class='dx-icon-box icon'></span>
+                {{data.key}}
+              </div>
+            </div>
+          </dx-select-box>
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <div class="option" style="margin-top: 30px;">
+            <dx-check-box text="Primary Contact" [(value)]="IsPrimaryContact"></dx-check-box>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          <div class="option" style="margin-top: 30px;">
+            <dx-check-box text="Specifier" [(value)]="IsSpecifier"></dx-check-box>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          <dx-button style="margin-top: 25px;" class="pull-right margin-left-5 Add" text="Add Staff" (onClick)="CreateCustomerOfficeContact()"></dx-button>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row">
+      <dx-data-grid id="gridcustOfficeContactsContainer" [dataSource]="CustomerOfficeContactsList" [allowColumnReordering]="true"
+        (onEditingStart)="logEvent('EditingStart')" (onInitNewRow)="NewRowAddStart($event)" (onRowInserted)="AddNewCustomerOfficeContact($event)"
+        (onRowUpdated)="EditCustomerOfficecontact($event)" (onRowRemoved)="CustomerOfficeContactDelete($event)" [showColumnLines]="true"
+        [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true">
+        <dxo-paging [pageSize]="5"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+        </dxo-pager>
+        <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true">
+        </dxo-editing>
+        <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+        <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+        <dxi-column dataField="ContactName" caption="Staff Name" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="ProductLineName" caption="Product Line" [width]="110" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="DivisionName" caption="Division" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="OfficePhone" caption="Office Phone" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="OtherPhone" caption="Other Phone" [allowEditing]="false" [visible]="false"></dxi-column>
+        <dxi-column dataField="Email" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="PrimaryContact" caption="Primary" dataType="boolean" [width]="80"></dxi-column>
+        <dxi-column dataField="Specifier" dataType="boolean" [width]="80"></dxi-column>
+        <dxi-column dataField="CreatedBy" caption="Created By" [visible]="false"></dxi-column>
+        <dxi-column dataField="CreatedDate" caption="Created Dt" [width]="100" dataType="date" [visible]="false"></dxi-column>
+        <dxi-column dataField="LastModifiedBy" caption="Revised By" [visible]="false"></dxi-column>
+        <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date" [visible]="false"></dxi-column>
+        <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+      </dx-data-grid>
+    </div>
+    <dx-button id="CustContactsOfficeListCancelBtn" text="Close" (onClick)="CloseCustOfficePopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>
+<!-- Email Popup-->
+<dx-popup [height]="650" [width]="1100" class="popup" title="Email Proposal" [dragEnabled]="true" [closeOnOutsideClick]="false"
+  [(visible)]="EmailPopupVisible">
+  <div *dxTemplate="let data of 'content'" id="emailSaveCancelDiv">
+    <dx-tab-panel #tabPanel [dataSource]="EmailTabsDataSource" (onInitNewRow)="GetMappedEmails(Office)" [selectedIndex]="EmailTabSelectedIndex"
+      (onSelectionChanged)="TabSelectionChanged2($event)">
+      <div *dxTemplate="let company of 'title'">
+        <span>{{company.text}}</span>
+      </div>
+      <div *dxTemplate="let company of 'item'">
+          <div class="tabpanel-item" *ngIf="IsUnlockedQuoteTab">
+              <div class="row">
+                  <!-- <div class="col-md-4">
+                      <div class="panel-group padding20">
+                          <div class="panel panel-default quotePanel">
+                            <div class="panel-body">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <i class="fa fa-maxcdn"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2>{{MasterQuoteCount}}</h2>
+                                    <p>Master</p>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div> -->
+                  <!-- <div class="col-md-4">
+                      <div class="panel-group padding20">
+                          <div class="panel panel-default quotePanel">
+                            <div class="panel-body">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <i class="fa fa-file"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2>{{CustomerQuoteCount}}</h2>
+                                    <p>Customer</p>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div> -->
+                  <div class="col-md-6">
+                      <div class="panel-group padding20">
+                          <div class="panel panel-default quotePanel">
+                            <div class="panel-body">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <i class="fa fa-lock"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2 class="colorRed" *ngIf="LockedQuoteCount == 0">{{LockedQuoteCount}}</h2>
+                                    <h2 class="colorGreen" *ngIf="LockedQuoteCount > 0">{{LockedQuoteCount}}</h2>
+                                    <p>Locked Quotes</p>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="panel-group padding20">
+                          <div class="panel panel-default quotePanel">
+                            <div class="panel-body">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <i class="fa fa-unlock"></i>
+                                </div>
+                                <div class="col-md-8">
+                                    <h2 class="colorRed" *ngIf="UnlockedQuoteCount > 0">{{UnlockedQuoteCount}}</h2>
+                                    <h2 class="colorGreen" *ngIf="UnlockedQuoteCount == 0">{{UnlockedQuoteCount}}</h2>
+                                    <p>Un-locked Quotes</p>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <dx-data-grid #UnlockedQuoteGrid id="gridUnlockedQuoteContainer" [dataSource]="UnlockedQuotesList" [allowColumnReordering]="true"
+              [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+              [showBorders]="true" (onCellPrepared)="onCellPreparedforPrimary($event)"
+              (onSelectionChanged)="UnlockedQuotesSelectionChangedHandler(UnlockedQuoteGrid.selectedRowKeys)">
+              <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+              <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+              </dxo-pager>
+              <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+              <dxo-selection [showCheckBoxesMode]="checkBoxesMode" mode="multiple" [allowSelectAll]="true"></dxo-selection>
+              <dxi-column caption="Project Name" dataField="ProjectName" [width]="300"></dxi-column>
+              <dxi-column caption="Letting Date" dataField="LettingDate" dataType="date" [width]="100"></dxi-column>
+              <dxi-column caption="Division" dataField="Division" [width]="80"></dxi-column>
+              <dxi-column caption="PL" dataField="ProductLine" [width]="100" cellTemplate="cellTemplateProductline"></dxi-column>
+              <!-- <dxi-column caption="Customer Name" dataField="CustomerName" [width]="220"></dxi-column> -->
+              <dxi-column caption="Primary Contact(s)" dataField="CustomerContactName" cellTemplate="cellTemplatePrimary"></dxi-column>
+              <dxi-column caption="Quote #" dataField="QuoteNumber" [width]="100"></dxi-column>
+              <dxi-column caption="Ver" dataField="Version" [width]="70" alignment="center"></dxi-column>
+              <div *dxTemplate="let data of 'cellTemplatePrimary'">
+                <span *ngIf="data.row.data.CustomerContactName != null">{{data.text}}</span>
+                <span class="NoPrimary" *ngIf="data.row.data.CustomerContactName == ''">No Primary Contact</span>
+              </div>
+              <div *dxTemplate="let data of 'cellTemplateProductline'">
+                  <span *ngIf="data.row.data.ProductLine">{{data.row.data.ProductLine}}</span>
+                <!-- <span *ngIf="data.row.data.ProductLine">{{data.row.data.ProductLine +""+"("+data.row.data.Division +")"}}</span> -->
+              </div>
+              <div *dxTemplate="let data of 'cellTemplateIsEmailDate'">
+                <span class="mailSent" *ngIf="data.row.data.LastProcessedDate != null">{{data.row.data.LastProcessedDate}}</span>
+              </div>
+            </dx-data-grid>
+            </div>
+        <div class="tabpanel-item" *ngIf="IsEmailTab">
+          <div class="row EmailTemplate" *ngIf="ProjectEmailsExists">
+            <form class="form-inline paddingLeftRight20">
+                <div class="paddingBottom0 marginBottom5 marginTop10">
+                    <div class="row">
+                      <div class="col-md-1">
+                          <label class="labelemail" for="exampleInputPassword1">To :</label>
+                      </div>
+                      <div class="col-md-11">
+                          <dx-tag-box id="EmailTagBox" [dataSource]="QuoteEmailList" [value]="QuoteEmailList" (onValueChanged)="GetEmailList($event)">
+                          </dx-tag-box>
+                      </div>
+                    </div>
+                </div>
+                <div class="paddingBottom0 marginBottom5">
+                    <div class="row">
+                      <div class="col-md-1">
+                          <label *ngIf="EmailList" for="exampleInputPassword1" class="labelemail">CC :</label>
+                      </div>
+                      <div class="col-md-11">
+                          <input type="text" id="CustomerLevEmailCC" class="form-control HeightEmail" [(ngModel)]='CCIds' name="CCIds" 
+                          placeholder="Emails must be seperated by Semicolon(;) ex : example1@abc.com;example2@abc.com"
+                          title="Emails must be seperated by Semicolon(;) ex : example1@abc.com;example2@abc.com" />
+                      </div>
+                    </div>
+                </div>
+                <div class="paddingBottom0 marginBottom5">
+                    <div class="row">
+                      <div class="col-md-1">
+                          <label for="exampleInputPassword1" class="labelemail">Sub : </label>
+                      </div>
+                      <div class="col-md-11">
+                          <input type="text" id="CustContactEmailSubject" (focusout)="getEmailSubject($event)" class="form-control HeightSubject" value="{{EmailSubject}}"
+                          />
+                      </div>
+                    </div>
+                </div>
+                <div class="paddingBottom0 marginBottom5">
+                    <div class="row">
+                      <div class="col-md-1">
+                          <label for="exampleInputPassword1" class="labelemail">Body :</label>
+                      </div>
+                      <div class="col-md-11">
+                          <textarea rows="2" id="CustContactEmailBody" (focusout)="getEmailBody($event)" class="form-control HeightBody" value="{{EmailBody}}"></textarea>
+                      </div>
+                    </div>
+                </div>
+            
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group paddingBottom0 marginBottom0">
+                      <div class="row">
+                          <div class="col-md-1">
+                              <label *ngIf="EmailList" for="exampleInputPassword1" class="labelemail">CC :</label>
+                          </div>  
+                          <div class="col-md-11">
+                              
+                          </div>  
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group paddingBottom0 marginBottom0">
+                      <div class="row">
+                          <div class="col-md-1">
+                              <label for="exampleInputPassword1" class="labelemail">Sub : </label>
+                          </div>  
+                          <div class="col-md-11">
+                              <input type="text" id="CustContactEmailSubject" class="form-control HeightSubject" value="{{EmailList[0].EmailSubject}}"
+                              />
+                          </div>  
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group paddingBottom0">
+                      <div class="row">
+                          <div class="col-md-1">
+                              <label for="exampleInputPassword1" class="labelemail">Body :</label>
+                          </div>  
+                          <div class="col-md-11">
+                              <textarea rows="2" id="CustContactEmailBody" class="form-control HeightBody" value="{{EmailList[0].EmailBody}}"></textarea>
+                          </div>  
+                      </div>
+                  </div>
+                </div>
+              </div> -->
+            </form>
+          </div>
+          <dx-data-grid #TabNotesGrid id="gridEmailContainer" [dataSource]="EmailList" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+            (onRowRemoving)="DeleteProject($event)" (onRowInserted)="AddNewProject($event)" (onRowUpdated)="UpdateProject($event.key)"
+            [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true" [selectedRowKeys]="selectedQuoteRows"
+            (onCellPrepared)="onCellPrepared($event)" (onSelectionChanged)="GridSelectQuoteChangedHandler(TabNotesGrid.selectedRowKeys)">
+            <dxo-paging [pageSize]="5"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+            </dxo-pager>
+            <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+            <dxo-selection [showCheckBoxesMode]="checkBoxesMode" mode="multiple" [allowSelectAll]="true"></dxo-selection>
+            <dxi-column dataField="ProjectName" cellTemplate="cellTemplatePrjName" [width]="250"></dxi-column>
+            <dxi-column caption="Letting Date" dataField="LettingDate" dataType="date" [width]="100"></dxi-column>
+            <dxi-column dataField="ProductLine" caption="PL" cellTemplate="cellTemplateProductline" [width]="100"></dxi-column>
+            <dxi-column caption="Division" dataField="Division" [visible]="false"></dxi-column>
+            <dxi-column dataField="CustomerContactName" caption="Primary Contact(s)" cellTemplate="cellTemplatePrimary"[width]="180"></dxi-column>
+            <dxi-column dataField="QuoteNumber" caption="Quote #" [width]="120"></dxi-column>
+            <dxi-column dataField="Version" caption="Ver" alignment="center" [width]="70"></dxi-column>
+            <dxi-column dataField="ProcessedDate" caption="Emailed" alignment="center" cellTemplate="cellTemplateIsEmailDate" [width]="160"></dxi-column>
+            <div *dxTemplate="let data of 'cellTemplatePrjName'">
+              <a class="custclr" title="{{data.value}}">{{data.value | ellipsis: 25}}</a>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplatePrimary'">
+              <span *ngIf="data.row.data.CustomerContactName != null">{{data.text}}</span>
+              <span class="NoPrimary" *ngIf="data.row.data.CustomerContactName == null">No Primary Contact</span>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplateProductline'">
+              <span *ngIf="data.row.data.ProductLine">{{data.row.data.ProductLine +""+"("+data.row.data.Division +")"}}</span>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplateIsEmailDate'">
+              <!-- <span  *ngIf="data.row.data.LastProcessedDate == null"></span> -->
+              <span class="mailSent" *ngIf="data.row.data.LastProcessedDate != null">{{data.row.data.LastProcessedDate}}</span>
+            </div>
+          </dx-data-grid>
+        </div>
+        <div class="tabpanel-item" *ngIf="IsHistoryTab">
+          <div class="row">
+            <div class="col-md-12">
+              <dx-data-grid #TabGrid2 id="gridEmailContainers" [dataSource]="EmailHistoryList" [showColumnLines]="true" [showRowLines]="true"
+                [wordWrapEnabled]="true" [showBorders]="true">
+                <dxo-paging [pageSize]="5"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+                <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                <dxi-column dataField="QuoteNumber" caption="Quote #" [width]="90"></dxi-column>
+                <dxi-column dataField="Version" caption="Ver" alignment="center" [width]="60"></dxi-column>
+                <dxi-column dataField="ProjectName" caption="Project Name"  [width]="220"></dxi-column>
+                <dxi-column caption="Letting Date" dataField="LettingDate" [width]="100"></dxi-column>
+                <dxi-column dataField="ProductLine" caption="Product Line" [visible]="false"></dxi-column>
+                <dxi-column dataField="Division" caption="Division" [visible]="false"></dxi-column>
+                <dxi-column dataField="EmailTo" caption="Sent To"></dxi-column>
+                <dxi-column dataField="RequestedBy" caption="Sent By"></dxi-column>
+                <dxi-column dataField="RequestedDate" caption="Queued Dt" [width]="100"></dxi-column>
+                <dxi-column dataField="ProcessedDate" caption="Process Dt" [width]="110"></dxi-column>
+                <dxi-column dataField="ErrorMessage" caption="Remarks"></dxi-column>
+                <dxi-column dataField="Processed" caption="Sent" [allowFiltering]="false" [width]="100" [allowSorting]="false" cellTemplate="cellTemplateIsProcessed"
+                  caption="Processed">
+                </dxi-column>
+                <div *dxTemplate="let data of 'cellTemplateIsProcessed'">
+                  <span class="mailSent" *ngIf="data.row.data.Processed">Yes</span>
+                  <span class="mailNotSent" *ngIf="!data.row.data.Processed">No</span>
+                </div>
+                <!-- <div *dxTemplate="let data of 'cellTemplateDiv'">
+                  <span *ngIf="data.row.data.ProductLine">{{data.row.data.ProductLine +""+"("+data.row.data.Division +")"}}</span>
+                </div> -->
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dx-tab-panel>
+    <dx-button id="CustOfficeListCancelBtn" text="Close" (onClick)="CloseSendEmailPopup()" class="pull-right Close">
+    </dx-button>
+    <dx-button text="Lock Quotes" *ngIf="IsUnlockedQuoteTab" (onClick)="LockUnlockedBatchQuotes()"
+    [disabled]="IsLockAllDisabled" class="pull-right margin-left-5 margin-bottom20 sendmail">
+    </dx-button>
+    <!--<dx-button id="SaveEamilReqByCustomerBtn" text="Save" (onClick)="SaveEamilReqByCustomer()" class="pull-right"></dx-button>-->
+    <dx-button *ngIf=" IsEmailTab" [disabled]="IsDisabled" text="Send" icon="fa fa-envelope-o" id="SaveEamilReqByCustomerBtn"
+      (onClick)="SaveEamilReqByCustomer()" class="pull-right sendmail">
+    </dx-button>
+  </div>
+</dx-popup>
+<!-- Customer office product line mapping -->
+<dx-popup [height]="660" [width]="1000" class="popup" title="Office - Product Lines Mapping" [dragEnabled]="true" [closeOnOutsideClick]="false"
+  [(visible)]="CustomerOfficePrdLineMapPopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="row marginBottom10">
+      <!-- <div class="col-md-4">
+        <fieldset class="form-group">
+          <label for="basicInput">Division</label>
+          <dx-select-box id="searchDivision" [searchEnabled]="true" placeholder="Select Division" [dataSource]="GetDivisionList" valueExpr="DivisionID"
+            [(ngModel)]='DivisionID' name="DivisionID" displayExpr="DivisionName" (onValueChanged)="DivisionChangeEvent($event)">
+          </dx-select-box>
+        </fieldset>
+      </div> -->
+      <div class="col-md-8">
+        <fieldset class="form-group">
+          <label for="basicInput">Product Line</label>
+          <dx-tag-box id="ProductLineID" class="Maxprdtheight" [dataSource]="UnMappedPrdLineByDivision" placeholder="Select Product Line(s)"
+            valueExpr="ProductLineID" name="ProductLineID" grouped="true" displayExpr="Name" searchEnabled="true" groupTemplate="group"
+            [(ngModel)]='ProductLineID' name="ProductLineID" (onValueChanged)="GetCustProductLineBycommaList($event)">
+            <div *dxTemplate="let data of 'group'">
+              <div class='custom-icon'>
+                <span class='dx-icon-box icon'></span>
+                {{data.key}}
+              </div>
+            </div>
+          </dx-tag-box>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          <!--<button style="margin-top: 20px;" class="btn btn-success btn-min-width pull-right mr-1" (click)='CreateCustPrdLineMapping()'>Add</button>
+        -->
+          <dx-button style="margin-top: 25px;" class="pull-right margin-left-5 Add" text="Add PL" (onClick)="CreateCustPrdLineMapping()"></dx-button>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row">
+      <dx-data-grid id="gridcustOfficePrdLineContainer" [dataSource]="CustomerOfficeProductLineList" [allowColumnReordering]="true"
+        [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" (onRowRemoved)="DeleteCustPrdLineMap($event)"
+        [showBorders]="true">
+        <dxo-editing mode="row" [allowDeleting]="true">
+        </dxo-editing>
+        <dxo-paging [pageSize]="5"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+        </dxo-pager>
+        <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+        <dxi-column dataField="DivisionName" caption="Division"></dxi-column>
+        <dxi-column dataField="ProductLineName" caption="Product Line"></dxi-column>
+      </dx-data-grid>
+    </div>
+    <dx-button id="CustPrdMapCancelBtn" text="Close" (onClick)="CloseCustOfficePrdLinePopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>

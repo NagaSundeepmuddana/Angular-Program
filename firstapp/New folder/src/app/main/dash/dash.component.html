@@ -1,0 +1,946 @@
+<!-- <div class="row">
+  <div class="col-xs-12">
+    <h4 class="text-uppercase">Quick Statistics</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-4 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-left media-middle">
+              <i class="icon-pencil primary font-large-2 float-xs-left"></i>
+            </div>
+            <div class="media-body text-xs-right">
+              <h3>{{QuickStats.NewQuotes}}</h3>
+              <span>New Quotes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-left media-middle">
+              <i class="icon-speech warning font-large-2 float-xs-left"></i>
+            </div>
+            <div class="media-body text-xs-right">
+              <h3>{{QuickStats.NewComments}}</h3>
+              <span>New Comments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-left media-middle">
+              <i class="icon-graph success font-large-2 float-xs-left"></i>
+            </div>
+            <div class="media-body text-xs-right">
+              <h3>{{QuickStats.ApprovedBidPercentage}} %</h3>
+              <span>Approved Bids</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-left media-middle">
+              <i class="icon-pointer danger font-large-2 float-xs-left"></i>
+            </div>
+            <div class="media-body text-xs-right">
+              <h3>{{QuickStats.ActiveUsers}}</h3>
+              <span>Active Users</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+<!-- </div>  -->
+
+<!-- <div class="row">
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="danger">{{QuickStats.NewProjects}}</h3>
+              <span>New Projects</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-rocket danger font-large-2 float-xs-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="success">{{QuickStats.NewCustomers}}</h3>
+              <span>New Customers</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-user success font-large-2 float-xs-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="warning">{{QuickStats.AvgGlobalMarkup}} %</h3>
+              <span>Avg. Global Markup</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-pie-chart warning font-large-2 float-xs-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="primary">{{QuickStats.SupportTickets}}</h3>
+              <span>Support Tickets</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-support primary font-large-2 float-xs-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="primary">{{QuickStats.NewBids}}</h3>
+              <span>New Bids</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-book-open primary font-large-2 float-xs-right"></i>
+            </div>
+          </div>
+          <progress class="progress progress-sm progress-primary mt-1 mb-0" value="80" max="100"></progress>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="warning">{{QuickStats.ApprovedBids}}</h3>
+              <span>Approved Bids</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-bubbles warning font-large-2 float-xs-right"></i>
+            </div>
+            <progress class="progress progress-sm progress-warning mt-1 mb-0" value="35" max="100"></progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="success">{{QuickStats.RejectedBids}} %</h3>
+              <span>Rejected Bids</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-cup success font-large-2 float-xs-right"></i>
+            </div>
+            <progress class="progress progress-sm progress-success mt-1 mb-0" value="60" max="100"></progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="media">
+            <div class="media-body text-xs-left">
+              <h3 class="danger">{{QuickStats.TotalBids}}</h3>
+              <span>Total Bids</span>
+            </div>
+            <div class="media-right media-middle">
+              <i class="icon-direction danger font-large-2 float-xs-right"></i>
+            </div>
+            <progress class="progress progress-sm progress-danger mt-1 mb-0" value="40" max="100"></progress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Quotes By Period
+        </h4>
+    </div>
+    <div class="card-body collapse in">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-xs-4">
+                          <div class="row marginBottom5">
+                            <div class="col-md-4 paddingTop10">
+                                <h6 class="text-uppercase">Monthly</h6>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="dx-field-value">
+                                          <dx-select-box [dataSource]="simpleProducts" (onValueChanged)="QuoteByMonth1($event)" [(ngModel)]='QuoteByMonth'>
+                                              <div *dxTemplate="let data of 'dropDownButton'">
+                                              </div>
+                                          </dx-select-box>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="dx-field-value">
+                                        <dx-select-box [dataSource]="year" (onValueChanged)="QuoteByMonth2($event)" [(ngModel)]='QuoteByYear'>
+                                            <div *dxTemplate="let data of 'dropDownButton'">
+                                            </div>
+                                        </dx-select-box>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="row marginBottom5">
+                              <div class="col-md-4 paddingTop10">
+                                <h6 class="text-uppercase">Quarterly</h6>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="dx-field-value">
+                                            <dx-select-box [dataSource]="Quat" (onValueChanged)="QuoteByQuarter1($event)" [(ngModel)]='QuoteByQuarter'>
+                                                <div *dxTemplate="let data of 'dropDownButton'">
+                                                </div>
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="dx-field-value">
+                                          <dx-select-box [dataSource]="year" (onValueChanged)="QuoteByQuarter2($event)" [(ngModel)]='QuoteByYear2'>
+                                              <div *dxTemplate="let data of 'dropDownButton'">
+                                              </div>
+                                          </dx-select-box>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="row marginBottom5">
+                                <div class="col-md-6 paddingTop10">
+                                    <h6 class="text-uppercase">Yearly</h6>
+                                </div>
+                                <div class="col-md-6">
+                                          <div class="dx-field-value">
+                                              <dx-select-box [dataSource]="year" (onValueChanged)="QuoteByYear1($event)" [(ngModel)]='QuoteByYear3'>
+                                                  <div *dxTemplate="let data of 'dropDownButton'">
+                                                  </div>
+                                              </dx-select-box>
+                                          </div>
+                                </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="card">
+                            <div class="card-body">
+                              <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeQuotes">
+                                <dxo-legend [visible]="false"></dxo-legend>
+                                <dxi-series type="bar" color="#00B5B8" argumentField="DivisionName" valueField="BidValue"></dxi-series>
+                                <dxi-value-axis position="left">
+                                  <dxo-title text="Revenue ($)"></dxo-title>
+                                </dxi-value-axis>
+                                <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                                  <dxo-label [visible]="true" [format]="{
+                                        type: 'fixedPoint',
+                                        precision: '0'
+                                    }">
+                                  </dxo-label>
+                                </dxo-common-series-settings>
+                                <dxi-value-axis>
+                                  <dxo-label>
+                                    <dxo-format type="number"></dxo-format>
+                                  </dxo-label>
+                                </dxi-value-axis>
+                              </dx-chart>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="card">
+                            <div class="card-body">
+                              <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeQuotesByQuarter">
+                                <dxo-legend [visible]="false"></dxo-legend>
+                                <dxi-series type="bar" color="#FF7588" argumentField="DivisionName" valueField="BidValue"></dxi-series>
+                                <dxi-value-axis position="left">
+                                  <dxo-title text="Revenue ($)"></dxo-title>
+                                </dxi-value-axis>
+                                <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                                  <dxo-label [visible]="true" [format]="{
+                                        type: 'fixedPoint',
+                                        precision: '0'
+                                    }">
+                                  </dxo-label>
+                                </dxo-common-series-settings>
+                                <dxi-value-axis>
+                                  <dxo-label>
+                                    <dxo-format type="number"></dxo-format>
+                                  </dxo-label>
+                                </dxi-value-axis>
+                              </dx-chart>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="card">
+                            <div class="card-body">
+                              <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeQuotesByYear">
+                                <dxo-legend [visible]="false"></dxo-legend>
+                                <dxi-series type="bar" color="#16D39A" argumentField="DivisionName" valueField="BidValue"></dxi-series>
+                                <dxi-value-axis position="left">
+                                  <dxo-title text="Revenue ($)"></dxo-title>
+                                </dxi-value-axis>
+                                <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                                  <dxo-label [visible]="true" [format]="{
+                                        type: 'fixedPoint',
+                                        precision: '0'
+                                    }">
+                                  </dxo-label>
+                                </dxo-common-series-settings>
+                                <dxi-value-axis>
+                                  <dxo-label>
+                                    <dxo-format type="number"></dxo-format>
+                                  </dxo-label>
+                                </dxi-value-axis>
+                              </dx-chart>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Award By Period
+        </h4>
+        <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+        </a>
+
+        <input type="hidden" value="{{TodaysDate | date: 'MM/dd/yyyy hh:mm:ss'}}" id="today" />
+    </div>
+    <div class="card-body collapse in">
+        <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="row">
+                      <div class="col-xs-4">
+                        <div class="row marginBottom5">
+                          <div class="col-md-4 paddingTop10">
+                              <h6 class="text-uppercase">Monthly</h6>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="dx-field-value">
+                                        <dx-select-box [dataSource]="simpleProducts" (onValueChanged)="AwardByMonth1($event)" [(ngModel)]='AwardByMonth'>
+                                            <div *dxTemplate="let data of 'dropDownButton'">
+                                            </div>
+                                        </dx-select-box>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="dx-field-value">
+                                      <dx-select-box [dataSource]="year" (onValueChanged)="AwardByMonth2($event)" [(ngModel)]='AwardByYear'>
+                                          <div *dxTemplate="let data of 'dropDownButton'">
+                                          </div>
+                                      </dx-select-box>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-4">
+                          <div class="row marginBottom5">
+                            <div class="col-md-4 paddingTop10">
+                              <h6 class="text-uppercase">Quarterly</h6>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="dx-field-value">
+                                          <dx-select-box [dataSource]="Quat" (onValueChanged)="AwardByQuarter1($event)" [(ngModel)]='AwardByQuarter'>
+                                              <div *dxTemplate="let data of 'dropDownButton'">
+                                              </div>
+                                          </dx-select-box>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="dx-field-value">
+                                        <dx-select-box [dataSource]="year" (onValueChanged)="AwardByQuarter2($event)" [(ngModel)]='AwardByYear2'>
+                                            <div *dxTemplate="let data of 'dropDownButton'">
+                                            </div>
+                                        </dx-select-box>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      </div>
+                      <div class="col-xs-4">
+                          <div class="row marginBottom5">
+                              <div class="col-md-6 paddingTop10">
+                                  <h6 class="text-uppercase">Yearly</h6>
+                              </div>
+                              <div class="col-md-6">
+                                        <div class="dx-field-value">
+                                            <dx-select-box [dataSource]="year" (onValueChanged)="AwardByYear1($event)" [(ngModel)]='AwardByYear3'>
+                                                <div *dxTemplate="let data of 'dropDownButton'">
+                                                </div>
+                                            </dx-select-box>
+                                        </div>
+                              </div>
+                      </div>
+                      </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeAwardByMonth">
+                            <dxo-legend [visible]="false"></dxo-legend>
+                            <dxi-series type="bar" color="#139a7ec4" argumentField="DivisionName" valueField="BidValue"></dxi-series>
+                            <dxi-value-axis position="left">
+                              <dxo-title text="Revenue ($)"></dxo-title>
+                            </dxi-value-axis>
+                            <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                              <dxo-label [visible]="true" [format]="{
+                                    type: 'fixedPoint',
+                                    precision: '0'
+                                }">
+                              </dxo-label>
+                            </dxo-common-series-settings>
+                            <dxi-value-axis>
+                              <dxo-label>
+                                <dxo-format type="number"></dxo-format>
+                              </dxo-label>
+                            </dxi-value-axis>
+                          </dx-chart>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeAwardByQuarter">
+                            <dxo-legend [visible]="false"></dxo-legend>
+                            <dxi-series type="bar" color="#06449cc7" argumentField="DivisionName" valueField="BidValue"></dxi-series>
+                            <dxi-value-axis position="left">
+                              <dxo-title text="Revenue ($)"></dxo-title>
+                            </dxi-value-axis>
+                            <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                              <dxo-label [visible]="true" [format]="{
+                                    type: 'fixedPoint',
+                                    precision: '0'
+                                }">
+                              </dxo-label>
+                            </dxo-common-series-settings>
+                            <dxi-value-axis>
+                              <dxo-label>
+                                <dxo-format type="number"></dxo-format>
+                              </dxo-label>
+                            </dxi-value-axis>
+                          </dx-chart>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeAwardByYear">
+                            <dxo-legend [visible]="false"></dxo-legend>
+                            <dxi-series type="bar" color="#25cade" argumentField="DivisionName" valueField="BidValue"></dxi-series>
+                            <dxi-value-axis position="left">
+                              <dxo-title text="Revenue ($)"></dxo-title>
+                            </dxi-value-axis>
+                            <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                              <dxo-label [visible]="true" [format]="{
+                                    type: 'fixedPoint',
+                                    precision: '0'
+                                }">
+                              </dxo-label>
+                            </dxo-common-series-settings>
+                            <dxi-value-axis>
+                              <dxo-label>
+                                <dxo-format type="number"></dxo-format>
+                              </dxo-label>
+                            </dxi-value-axis>
+                          </dx-chart>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>  
+    </div>  
+</div>
+
+
+<!-- <div class="row">
+  <div class="col-xs-12">
+    <h4 class="text-uppercase">Quote By Contract</h4>
+  </div>
+</div> -->
+<!-- <div class="row">
+  <div class="col-xs-4">
+    <div class="row">
+          <div class="col-md-4">
+              <h4 class="text-uppercase">Quote By Month</h4>
+          </div>
+          <div class="col-md-6">
+              <div class="dx-field-value">
+                  <dx-select-box [dataSource]="simpleProducts">
+                      <div *dxTemplate="let data of 'dropDownButton'">
+                      </div>
+                  </dx-select-box>
+              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="dx-field-value">
+                <dx-select-box [dataSource]="year">
+                    <div *dxTemplate="let data of 'dropDownButton'">
+                    </div>
+                </dx-select-box>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="row">
+    <h4 class="text-uppercase">Quote By Quarter</h4>
+  </div>
+    <div class="col-md-6">
+        <div class="dx-field-value">
+            <dx-select-box [dataSource]="Quat">
+                <div *dxTemplate="let data of 'dropDownButton'">
+                </div>
+            </dx-select-box>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="dx-field-value">
+          <dx-select-box [dataSource]="year">
+              <div *dxTemplate="let data of 'dropDownButton'">
+              </div>
+          </dx-select-box>
+      </div>
+  </div>
+  </div>
+  
+  <div class="col-xs-4">
+    <div class="row">
+    <h4 class="text-uppercase">Quote By Year</h4>
+  </div>
+<div class="col-md-8">
+      <div class="dx-field-value">
+          <dx-select-box [dataSource]="year">
+              <div *dxTemplate="let data of 'dropDownButton'">
+              </div>
+          </dx-select-box>
+      </div>
+  </div>
+  </div>
+</div> -->
+
+
+<!-- <div class="row">
+    <div class="col-xs-4">
+      <div class="row"></div>
+      <h6 class="text-uppercase">Quotes/Month</h6>
+      <div class="col-md-6">
+          <div class="dx-field-value">
+              <dx-select-box [dataSource]="simpleProducts">
+                  <div *dxTemplate="let data of 'dropDownButton'">
+                  </div>
+              </dx-select-box>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <div class="dx-field-value">
+            <dx-select-box [dataSource]="year">
+                <div *dxTemplate="let data of 'dropDownButton'">
+                </div>
+            </dx-select-box>
+        </div>
+    </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="row">
+      <h6 class="text-uppercase">Quotes By Quarter</h6>
+    </div>
+      <div class="col-md-6">
+          <div class="dx-field-value">
+              <dx-select-box [dataSource]="Quat">
+                  <div *dxTemplate="let data of 'dropDownButton'">
+                  </div>
+              </dx-select-box>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <div class="dx-field-value">
+            <dx-select-box [dataSource]="year">
+                <div *dxTemplate="let data of 'dropDownButton'">
+                </div>
+            </dx-select-box>
+        </div>
+    </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="row">
+      <h6 class="text-uppercase">Quotes By Year</h6>
+    </div>
+      <div class="col-md-8">
+        <div class="dx-field-value">
+            <dx-select-box [dataSource]="year">
+                <div *dxTemplate="let data of 'dropDownButton'">
+                </div>
+            </dx-select-box>
+        </div>
+    </div>
+    </div>
+  </div> -->
+  <div class="card">
+      <div class="card-header">
+          <h4 class="card-title">Quote By Contract Type
+          </h4>
+      </div>
+      <div class="card-body collapse in">
+          <div class="card-block">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="row">
+                          <div class="col-xs-4">
+                            <div class="row marginBottom5">
+                              <div class="col-md-4 paddingTop10">
+                                  <h6 class="text-uppercase">Monthly</h6>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="dx-field-value">
+                                            <dx-select-box [dataSource]="simpleProducts" (onValueChanged)="QuoteByContract1($event)" [(ngModel)]='QuoteByContract'>
+                                                <div *dxTemplate="let data of 'dropDownButton'">
+                                                </div>
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="dx-field-value">
+                                          <dx-select-box [dataSource]="year" (onValueChanged)="QuoteByContract2($event)" [(ngModel)]='QuoteByContractPerYear'>
+                                              <div *dxTemplate="let data of 'dropDownButton'">
+                                              </div>
+                                          </dx-select-box>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-4">
+                              <div class="row marginBottom5">
+                                <div class="col-md-4 paddingTop10">
+                                  <h6 class="text-uppercase">Quaterly</h6>
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="dx-field-value">
+                                              <dx-select-box [dataSource]="Quat" (onValueChanged)="QuoteByContractPerQuater1($event)" [(ngModel)]='QuoteByContractPerQuater'>
+                                                  <div *dxTemplate="let data of 'dropDownButton'">
+                                                  </div>
+                                              </dx-select-box>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="dx-field-value">
+                                            <dx-select-box [dataSource]="year" (onValueChanged)="QuoteByContractPerQuater2($event)" [(ngModel)]='QuoteByContractPerYear2'>
+                                                <div *dxTemplate="let data of 'dropDownButton'">
+                                                </div>
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          </div>
+                          <div class="col-xs-4">
+                              <div class="row marginBottom5">
+                                  <div class="col-md-6 paddingTop10">
+                                      <h6 class="text-uppercase">Yearly</h6>
+                                  </div>
+                                  <div class="col-md-6">
+                                            <div class="dx-field-value">
+                                                <dx-select-box [dataSource]="year" (onValueChanged)="QuoteByContractPerYear1($event)" [(ngModel)]='QuoteByContractPerYear3'>
+                                                    <div *dxTemplate="let data of 'dropDownButton'">
+                                                    </div>
+                                                </dx-select-box>
+                                            </div>
+                                  </div>
+                          </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                              <div class="card">
+                                <div class="card-body">
+                                <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeQuotesByContract1">
+                                    <dxo-legend [visible]="false"></dxo-legend>
+                                    <dxi-series type="bar" color="#FF7588" argumentField="ContractTypeName" valueField="BidValue"></dxi-series>
+                                    <dxi-value-axis position="left">
+                                      <dxo-title text="Revenue ($)"></dxo-title>
+                                    </dxi-value-axis>
+                                    <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                                      <dxo-label [visible]="true" [format]="{
+                                            type: 'fixedPoint',
+                                            precision: '0'
+                                        }">
+                                      </dxo-label>
+                                    </dxo-common-series-settings>
+                                    <dxi-value-axis>
+                                      <dxo-label>
+                                        <dxo-format type="number"></dxo-format>
+                                      </dxo-label>
+                                    </dxi-value-axis>
+                                  </dx-chart>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="card">
+                                <div class="card-body">
+                                  <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeQuotesByContract2">
+                                    <dxo-legend [visible]="false"></dxo-legend>
+                                    <dxi-series type="bar" color="#16D39A" argumentField="ContractTypeName" valueField="BidValue"></dxi-series>
+                                    <dxi-value-axis position="left">
+                                      <dxo-title text="Revenue ($)"></dxo-title>
+                                    </dxi-value-axis>
+                                    <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                                      <dxo-label [visible]="true" [format]="{
+                                            type: 'fixedPoint',
+                                            precision: '0'
+                                        }">
+                                      </dxo-label>
+                                    </dxo-common-series-settings>
+                                    <dxi-value-axis>
+                                      <dxo-label>
+                                        <dxo-format type="number"></dxo-format>
+                                      </dxo-label>
+                                    </dxi-value-axis>
+                                  </dx-chart>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="card">
+                                <div class="card-body">
+                                  <dx-chart id="chart" class="pitChart" title=" " [dataSource]="activeQuotesByContract3">
+                                    <dxo-legend [visible]="false"></dxo-legend>
+                                    <dxi-series type="bar" color="#00B5B8" argumentField="ContractTypeName" valueField="BidValue"></dxi-series>
+                                    <dxi-value-axis position="left">
+                                      <dxo-title text="Revenue ($)"></dxo-title>
+                                    </dxi-value-axis>
+                                    <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                                      <dxo-label [visible]="true" [format]="{
+                                            type: 'fixedPoint',
+                                            precision: '0'
+                                        }">
+                                      </dxo-label>
+                                    </dxo-common-series-settings>
+                                    <dxi-value-axis>
+                                      <dxo-label>
+                                        <dxo-format type="number"></dxo-format>
+                                      </dxo-label>
+                                    </dxi-value-axis>
+                                  </dx-chart>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="card">
+      <div class="card-header">
+          <h4 class="card-title">QUOTE BY TOP 10 STATES
+          </h4>
+      </div>
+      <div class="card-body collapse in">
+          <div class="card-block">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="row">
+                          <div class="col-xs-10">
+                            <div class="row marginBottom5">
+                              <div class="col-md-4">
+                              </div>
+                                  <div class="col-md-2 paddingTop10">
+                                      <h6 class="text-uppercase">Letting Begin Date</h6>
+                                  </div>
+                                  <div class="col-md-2">
+                                            <div class="dx-field-value">
+                                              <dx-date-box style="width:100% !important" type="date" class="form-control"  id="DashFromDate" [(ngModel)]='DashFromDate'
+                                              (onValueChanged)="LettingFromDateChanged($event)" name='DashFromDate'>
+                                              </dx-date-box>
+                                            </div>
+                                  </div>
+                                  <div class="col-md-2 paddingTop10">
+                                      <h6 class="text-uppercase">Letting End Date</h6>
+                                  </div>
+                                  <div class="col-md-2">
+                                            <div class="dx-field-value">
+                                              <dx-date-box style="width:100% !important" type="date" class="form-control" id="DashToDate" [(ngModel)]='DashToDate'
+                                              (onValueChanged)="LettingToDateChanged($event)" name="DashToDate">
+                                              </dx-date-box>
+                                            </div>
+                                  </div>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                               <div class="card">
+                                <!--<div class="card-body"> -->
+                                  <dx-chart id="stateChart1" class="pitChart" title=" " [dataSource]="DivisionsByState">
+                                    <dxo-legend [visible]="false"></dxo-legend>
+                                    <dxi-series type="bar" color="#00B5B8" argumentField="StateID" valueField="BidCount"></dxi-series>
+                                    <dxi-value-axis position="left">
+                                      <dxo-title text="Revenue ($)"></dxo-title>
+                                    </dxi-value-axis>
+                                    <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                                      <dxo-label [visible]="true" [format]="{
+                                            type: 'fixedPoint',
+                                            precision: '0'
+                                        }">
+                                      </dxo-label>
+                                    </dxo-common-series-settings>
+                                    <dxi-value-axis>
+                                      <dxo-label>
+                                        <dxo-format type="number"></dxo-format>
+                                      </dxo-label>
+                                    </dxi-value-axis>
+                                  </dx-chart>
+                                 </div>
+                              <!--</div> -->
+                            </div>
+                          </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<!-- Quotes by state -->
+<!-- <div class="card">
+  <div class="card-header">
+      <h4 class="card-title">Quote By Top 10 States
+      </h4>
+  </div>
+  <div class="card-body collapse in">
+      <div class="card-block">
+          <div class="row">
+              <div class="col-md-12">
+                  <dx-chart id="chart" class="pitChart" title=" " [dataSource]="DivisionsByState">
+                      <dxo-legend [visible]="false"></dxo-legend>
+                      <dxi-series type="bar" color="#00B5B8" argumentField="StateID" valueField="BidCount"></dxi-series>
+                      <dxi-value-axis position="left">
+                        <dxo-title text="Revenue ($)"></dxo-title>
+                      </dxi-value-axis>
+                      <dxo-common-series-settings type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+                        <dxo-label [visible]="true" [format]="{
+                              type: 'fixedPoint',
+                              precision: '0'
+                          }">
+                        </dxo-label>
+                      </dxo-common-series-settings>
+                      <dxi-value-axis>
+                        <dxo-label>
+                          <dxo-format type="number"></dxo-format>
+                        </dxo-label>
+                      </dxi-value-axis>
+                    </dx-chart>
+                    </div> 
+          </div>
+      </div>
+  </div>
+</div> -->

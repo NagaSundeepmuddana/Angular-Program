@@ -1,0 +1,132 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Process Run Control</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Process Run Control
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Process Run Control list
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid class="pitTable" id="gridContainer" [dataSource]="ProcessRunControlList" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+                  [showColumnLines]="true"  [allowColumnResizing]= "true" [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true">
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxi-column dataField="ProcessID" [width]="150"></dxi-column>
+                  <dxi-column dataField="ProcessName"></dxi-column>
+                  <dxi-column dataField="BeginTime"></dxi-column>
+                  <dxi-column dataField="EndTime"></dxi-column>
+                  <dxi-column dataField="Status" [width]="150"></dxi-column>
+                  <dxi-column dataField="ErrorMessage" caption="Remarks"></dxi-column>
+                  <dxi-column dataField="DataColumn" [visible]="false"></dxi-column>
+                  <dxi-column dataField="DataColumn1" [visible]="false"></dxi-column>
+                  <dxi-column dataField="DataColumn2" [visible]="false"></dxi-column>
+                  <dxi-column dataField="DataColumn3" [visible]="false"></dxi-column>
+                  <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate" caption="Info"></dxi-column>
+                  <div *dxTemplate="let dt of 'cellTemplate'">
+                    <button type="button" (click)="OpenPrcsDataModal(dt)" class="btn btn-icon btn-success mr-1 btn-sm ItemCount">
+                      <i class="fa fa-tasks"></i>
+                    </button>
+                  </div>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<dx-popup id="itemPopup" class="popup" [width]="1200" [height]="480" [showTitle]="true" title="Proposal Email Process" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="emailPopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+    <dx-data-grid #itemsGrid id="itemListGrid" [dataSource]="PrcsDataByIDDataSource" [showBorders]="true" [hoverStateEnabled]="true">
+      <dxo-paging [enabled]="true" [pageSize]="20"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 40, 60]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-editing mode="row"></dxo-editing>
+      <dxi-column caption="Project Name" dataField="ProjectName" [width]="250"></dxi-column>
+      <dxi-column caption="Quote #" dataField="QuoteNumber" [width]="90"></dxi-column>
+      <dxi-column caption="Sent By" dataField="RequestedBy" [width]="120"></dxi-column>
+      <dxi-column caption="Sent To" dataField="sendto" [width]="120"></dxi-column> 
+      <dxi-column caption="Queued Dt" dataField="RequestedDate" [width]="100"></dxi-column>
+      <dxi-column caption="Process Dt" dataField="ProcessedDate" [width]="100"></dxi-column>
+      <dxi-column caption="Error" dataField="Error" [width]="50"></dxi-column>
+      <dxi-column caption="Remarks" dataField="ErrorMessage" [width]="350"></dxi-column>
+    </dx-data-grid>
+    <dx-button id="CustPrdMapCancelBtn" text="Close" (onClick)="CloseEmailInfoPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>
+<dx-popup id="txdotprj" class="popup" [width]="1100" [height]="550" [showTitle]="true" title="Imported Projects" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="tcdotPopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+    <dx-data-grid #itemsGrid id="itemListGrid" [dataSource]="PrcsDataByIDDataSource" [showBorders]="true" [hoverStateEnabled]="true">
+      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 15, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-editing mode="row"></dxo-editing>
+      <dxi-column caption="Project Number" dataField="ProjectNumber" [width]="200"></dxi-column>
+      <dxi-column caption="Control Number" dataField="ControlNumber" [width]="170"></dxi-column>
+      <dxi-column caption="Highway" dataField="Highway" [width]="150"></dxi-column>
+      <dxi-column caption="Length" dataField="Length" [width]="100"></dxi-column>
+      <dxi-column caption="Processed Date" dataField="ProcessedDate" [width]="100"></dxi-column>
+      <dxi-column caption="Error" dataField="Error" [width]="50"></dxi-column>
+      <dxi-column caption="Remarks" dataField="ErrorMessage" [width]="200"></dxi-column>
+      <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate" caption="Info"></dxi-column>
+      <div *dxTemplate="let dt of 'cellTemplate'">
+        <button type="button" (click)="OpenStagedItemsMdl(dt)" class="btn btn-icon btn-success mr-1 btn-sm ItemCount">
+          <i class="fa fa-tasks"></i>
+        </button>
+      </div>
+    </dx-data-grid>
+    <dx-button id="CustPrdMapCancelBtn" text="Close" (onClick)="CloseInfoPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>
+<dx-popup id="stageditemPopup" class="popup" [width]="1100" [height]="550" [showTitle]="true" title="Parts" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="prjitemPopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+    <dx-data-grid #itemsGrid id="itemListGrid" [dataSource]="ProjectStagingItemsListDataSource" [showBorders]="true" [hoverStateEnabled]="true">
+      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-editing mode="row"></dxo-editing>
+      <dxi-column caption="Item No" dataField="ItemNo" [width]="120"></dxi-column>
+      <dxi-column caption="Alt Code" dataField="AltCode" [width]="80"></dxi-column>
+
+      <dxi-column caption="Description" dataField="Description" [width]="450"></dxi-column>
+      <dxi-column caption="UOM" dataField="UOM" [width]="80"></dxi-column>
+      <dxi-column caption="Approx Qty" dataField="ApproxQuantity" [width]="100"></dxi-column>
+      <dxi-column caption="Bid Price" dataField="BidPrice" [width]="100"></dxi-column>
+      <dxi-column caption="Amount" dataField="Amount" [width]="100"></dxi-column>
+    </dx-data-grid>
+    <dx-button id="ProcessRunListCancelBtn" text="Close" (onClick)="CloseProcessRunItemsPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>

@@ -1,0 +1,52 @@
+#tacClear{
+ margin-right:-860px;
+ margin-left:15px;
+}
+.btn-danger{
+    min-width: 6.0rem !important;
+    background: rgba(235, 109, 74, 0.85) !important;
+    border-color: rgba(235, 109, 74, 0.98) !important;
+}
+
+.form-check-input-l{
+  margin-top:30px !important;
+}
+.fa-th{
+  color:rgba(128, 128, 128, 0.48)
+}
+.fa-search{
+  color:white;
+}
+.fa-times{
+  color:gray;
+}
+/* .btn-icon{
+  margin-left: 27px;
+} */
+.margin-left-5{
+  margin-left: 5px !important;
+}
+.Maxprdtheight{
+  max-height: 62px !important;
+  margin-bottom: 20px !important;
+  overflow-y: scroll;
+}
+#DivisionTacListGrid{
+  max-height: 340px;
+  overflow-y: scroll;
+  margin-bottom: 20px !important;
+}
+.Termclr{
+  color: #252525;
+}
+#gridTermDivContainer{
+  max-height: 340px;
+  margin-bottom: 20px !important;
+}
+.Add{
+  border-color: #23b5b9 !important;
+  background-color: #23b5b9 !important;
+  color: #FFF !important;
+  margin-left: 10px !important;
+  margin-top: 25px !important;
+  }

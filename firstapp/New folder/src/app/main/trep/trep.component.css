@@ -1,0 +1,18 @@
+.Itemclr{
+    color: #252525;
+  }
+  .Prjheight{
+    height: 35px !important;
+  }
+  .LettingWidth{
+    width: 366px  !important;
+  }
+  .btnalignment{
+    margin-right: 8px !important;
+  }
+  #gridContainer{
+    max-width: 100% !important;
+  }
+  .dateField{
+    width: 100% !important;
+  }

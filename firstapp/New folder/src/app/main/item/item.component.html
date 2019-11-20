@@ -1,0 +1,362 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Items</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Items
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Search Items
+            <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Product Line</label>
+                      <!-- <dx-select-box id="divisions" placeholder="Select By Division" [dataSource]="DivisionList" valueExpr="DivisionID" displayExpr="Name"
+                      (onValueChanged)="FilterWithDivisions($event)">
+                  </dx-select-box>-->
+                      <input type="hidden" id="hidProductlineID">
+                      <dx-select-box id="searchPrdLine" [searchEnabled]="true" placeholder="Select By Product Line" [dataSource]="GetProductLineName"
+                        valueExpr="ProductLineID" [(ngModel)]='searchPrdLine' name="searchPrdLine" displayExpr="Name" (onValueChanged)="SetSelectedProductline($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Item/Assembly Code</label>
+                      <input type="text" class="form-control input-sm itemheight" id="SearchItemCode" [(ngModel)]='ItemCode' name="ItemCode" placeholder="Search By Item Code">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-6">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Description</label>
+                      <input type="text" class="form-control input-sm itemheight" id="Description" [(ngModel)]='Description' name="Description" placeholder="Search By Item Description">
+                    </fieldset>
+                  </div>
+                </div>
+                <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ItemClearParameters()'>Clear
+                  <i class="fa fa-times"></i>
+                </a>
+                <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='GetFilterItems()'>Search
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Items Grid-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+              <div class="col-md-6">
+                  <h4 class="card-title">Items list
+                      <i class="fa fa-th"></i>
+                  </h4>
+              </div>
+              <div class="col-md-6">
+                  <!-- <a class="btn btn-outline-success btn-min-width btn- pull-right" style="margin-left:5px;margin-top:7px"width="150"
+                  height="50" (click)='ImportFileConfirmation()'>
+                    <span class="tag tag-pill tag-default tag-danger tag-default tag-up ItemTariffFile pull-right"style="margin-left:5px" *ngIf="ItemTariffFile.length > 0">1</span> Update Tariff
+                  </a> 
+                  <dx-file-uploader id="ItemFileUpload"
+                  class="pull-right"
+                  #fileUploader
+                  labelText=""
+                  selectButtonText="Import Tariff"
+                  [multiple]="false"
+                  [(value)]="ItemTariffFile"
+                  accept="*"
+                  uploadMode="instantly"
+                  uploadMethod="Post"
+                  uploadUrl="http://localhost:54057/api/ItemsImportFile/1"
+                  uploadedMessage=""
+                  allowCancelling="false"
+                  [showFileList]="false"
+                  width="150"
+                  height="50"></dx-file-uploader>          -->
+              </div>
+          </div>
+          
+          
+          
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+
+                <dx-data-grid id="gridContainer" [dataSource]="ItemsdataSource" [allowColumnReordering]="true" (onEditingStart)="logEvent('EditingStart')"
+                  [showColumnLines]="true" [showRowLines]="true" (onToolbarPreparing)="onToolbarPreparing($event)" [wordWrapEnabled]="true"
+                  (onEditorPreparing)="onItemEditorPreparing($event)" (onInitNewRow)="InitNewItem($event)" [showBorders]="true">
+
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-remote-operations [sorting]="true" [paging]="true">
+                  </dxo-remote-operations>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50,500]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000036" [allowDeleting]="UserPermissionsList.PL000037" [allowAdding]="UserPermissionsList.PL000035">
+                    <dxo-popup title="Add/Edit Item" [showTitle]="true" [height]="470" [width]="900">
+                    </dxo-popup>
+                    <dxo-form>
+                      <dxi-item dataField="Type" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please select Type."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="ProductLineID" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please select Product Line."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="ItemCode" [editorOptions]="{ maxLength: 20, min:0 }" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter Item Code."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="Description" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter Item Description."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="AltCode" [editorOptions]="{ maxLength: 20, min:0 }" editorType="dxTextBox">
+                      </dxi-item>
+                      <dxi-item dataField="UOMID" [editorOptions]="{ maxLength: 32, min:0 }">
+                        <dxi-validation-rule type="required" message="Please select UOM."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="Weight" [editorOptions]="{ format: '####0.00' }">
+                        <dxi-validation-rule type="required" message="Please enter Weight."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="UnitPrice" [editorOptions]="{ format: '####0.00' }">
+                        <dxi-validation-rule type="required" message="Please enter Unit Price."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="ListPrice" [editorOptions]="{ format: '####0.00' }"></dxi-item>
+                      <dxi-item dataField="Rounding" editorType="dxTextBox" [editorOptions]="{ maxLength: 1, min:0 }">
+                      </dxi-item>
+                        <dxi-item dataField="ExternalSystemRefNo" [editorOptions]="{ maxLength: 128, min:0 }"></dxi-item>
+                    </dxo-form>
+                  </dxo-editing>
+                  <dxo-export [enabled]="true" fileName="ItemsList"></dxo-export>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxo-remote-operations [sorting]="true" [paging]="true">
+                  </dxo-remote-operations>
+                  <!-- <dxi-column dataField="Type" caption="Type" editCellTemplate="editCellTemplate1"></dxi-column> -->
+                  <!-- <dxi-column dataField="ProductLineID" caption="Prd Line" editCellTemplate="editCellTemplate2"></dxi-column> -->
+
+                  <!-- <dxi-column dataField="Type" [visible]="false" caption="Item/Assembly Type" [setCellValue]="setStateValue" [width]="50">
+                    <dxo-lookup [dataSource]="ItemType" valueExpr="Type" displayExpr="Name">
+                    </dxo-lookup>
+                  </dxi-column> -->
+                  <dxi-column dataField="Type" caption="Type" [width]="50"></dxi-column>
+                  <dxi-column dataField="ProductLineID" [width]="110" caption="Product Line">
+                    <dxo-lookup [dataSource]="getFilteredProductLines" valueExpr="ProductLineID" displayExpr="Name">
+                    </dxo-lookup>
+                  </dxi-column>
+                  <dxi-column dataField="ItemCode" caption="Item/Assembly Code" [width]="170"></dxi-column>
+                  <dxi-column dataField="Description"></dxi-column>
+                  <dxi-column dataField="AltCode" [visible]="false" caption="Alt Description" [width]="120"></dxi-column>
+                  <dxi-column dataField="UOMID" [width]="70" caption="UOM">
+                    <dxo-lookup [dataSource]="UOMList" valueExpr="UOMID" displayExpr="UOM">
+                    </dxo-lookup>
+                  </dxi-column>
+                  <dxi-column dataField="Weight" [customizeText]="DecimalFormatter" [width]="80"></dxi-column>
+                  <dxi-column dataField="UnitPrice" caption="Unit Cost" [customizeText]="CurrencyFormatter" [width]="90"></dxi-column>
+                  <dxi-column dataField="ListPrice" [customizeText]="CurrencyFormatter" [width]="90"></dxi-column>
+                  <!-- <dxi-column dataField="ApproxQuantity" [customizeText]="DecimalFormatter" [visible]="false"></dxi-column> -->
+                  <dxi-column dataField="ExternalSystemRefNo" [visible]="false" caption="Syspro Stock Code" [width]="150"></dxi-column>
+                  <dxi-column dataField="CreatedBy" caption="Created By" [visible]="false" [editorOptions]="{ maxLength: 128, min:0 }"></dxi-column>
+                  <dxi-column dataField="CreatedDate" caption="Created Dt" [visible]="false" [width]="110" dataType="date"></dxi-column>
+                  <dxi-column dataField="LastModifiedBy" caption="Revised By" [width]="110" [editorOptions]="{ maxLength: 128, min:0 }" [visible]="false"></dxi-column>
+                  <dxi-column dataField="LastModifiedDate" caption="Revised Dt" [visible]="false" [width]="110" dataType="date"></dxi-column>
+                  <dxi-column dataField="Active" caption="Status" [visible]="false"></dxi-column>
+                  <dxi-column dataField="Rounding" [visible]="false" [width]="70" caption="Rounding">
+                    <dxo-lookup [dataSource]="RoundingType" valueExpr="Rounding" displayExpr="Name">
+                    </dxo-lookup>
+                  </dxi-column>
+                  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplateDiv"
+                    caption="Item" [width]="70">
+                  </dxi-column>
+                  <div *dxTemplate="let data of 'cellTemplateDiv'">
+                    <button type="button" *ngIf="data.row.data.Type == 'A'" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openItemModal(data)">
+                      <i class="fa fa-tasks"></i>
+                    </button>
+                  </div>
+                  <!-- <div *dxTemplate="let data of 'editCellTemplate1'">
+                    <dx-select-box [dataSource]="ItemType"
+                    displayExpr="Name"
+                    valueExpr="Type"
+                    [value]="defaultType"
+                    (onValueChanged)="onValueChanged($event, data.data.Type)"
+                ></dx-select-box> 
+                </div> -->
+                  <!-- <div *dxTemplate="let data of 'editCellTemplate2'">
+                    <dx-select-box [dataSource]="GetProductLineName"
+                    valueExpr="ProductLineID" displayExpr="Name"
+                    [disabled]="readOnlyOptions"
+                    [value]="SelectedProductLineID"
+                    (onValueChanged)="onPRDLValueChanged($event, data.data.ProductLineID)"
+                ></dx-select-box> 
+                </div> -->
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Items Popup-->
+
+<dx-popup id="itemPopup" class="popup" [width]="1200" [height]="600" [showTitle]="true" title="Add Assembly Items" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="ItemPopupVisible" (onHiding)="CloseAssemblyItemsPopup()">
+  <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            <dx-select-box id="productLine" placeholder="Select Product Line" [dataSource]="GetProductLineName" valueExpr="ProductLineID"
+              displayExpr="Name" [(ngModel)]='ProductLineID'>
+            </dx-select-box>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group serachItems">
+              <input id="serachItemsOrAssemblyBox" class="form-control height32 serachItems width100" ng-model="name" [ngModel]="search" (ngModelChange)="SearchItems($event)"
+                (document:click)="CloseMatAjax($event)" placeholder="Search and Add Items" />
+              <div class="ItemSearchResult serachItems" *ngIf="flag">
+                <div class="serachItems">
+                  <ul *ngIf="IsItems" class="serachItems">
+                    <li *ngFor="let item of AssemblyItemsSearch" class="searchLI serachItems">
+                      <div class="row serachItems">
+                        <div class="col-md-8 serachItems">
+                          <a class="serachItems">{{item.ItemCode}} | {{item.Description}}</a>
+                        </div>
+                        <div class="col-md-4 serachItems">
+                          <div class="row serachItems">
+                            <div class="col-md-8 paddingRight5 serachItems">
+                              <input type="number" min="1" max="99999999" class="form-control width52 serachItems" id="Quantity" placeholder="Qty" id="{{item.ItemID}}" />
+                            </div>
+                            <div class="col-md-4 serachItems">
+                              <span class="AddPItems serachItems" (click)="AddAssemblyItem(item)">
+                                <i class="fa fa-plus"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <ul *ngIf="IsNoRecord" id="NoItems">
+                  <li>
+                    <div class="row serachItems">
+                      <div class="col-md-8 serachItems">
+                        <a class="serachItems">No Item or Assembly found.</a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <dx-data-grid id="gridAsseblyItemsContainer" [dataSource]="AssemblyItems" [allowColumnReordering]="true" (onInitNewRow)="addnewItem(productline)"
+      (onRowRemoving)="DeleteAssembliesItems($event)" (onRowUpdated)="UpdateItemQty($event)" (onEditingStart)="logEvent('EditingStart')"
+      [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true">
+      <dxo-paging [pageSize]="5"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-search-panel [visible]="true" [width]="230" placeholder="Search Assembly Items"></dxo-search-panel>
+      <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+      <dxo-editing mode="row" [allowDeleting]="true" [allowUpdating]="true"></dxo-editing>
+      <dxi-column caption="Item Code" dataField="ItemCode" [allowEditing]="false"></dxi-column>
+      <dxi-column caption="Description" dataField="Description" cellTemplate="cellTemplateDesc" [allowEditing]="false"></dxi-column>
+      <!-- <dxi-column caption="Product Line" dataField="ProductLine" cellTemplate="cellTemplateProductLine" [allowEditing]="false"></dxi-column> -->
+      <dxi-column caption="UOM" dataField="UOM" [allowEditing]="false" [width]="70"></dxi-column>
+      <dxi-column caption="Qty" [customizeText]="DecimalFormatter" dataField="Quantity" [width]="90"></dxi-column>
+      <dxi-column caption="Unit Price" [customizeText]="CurrencyFormatter" dataField="UnitPrice" [width]="90" [allowEditing]="false"></dxi-column>
+      <dxi-column caption="Weight" [customizeText]="DecimalFormatter" dataField="Weight" [width]="80" [allowEditing]="false"></dxi-column>
+      <dxi-column caption="Total Price" [customizeText]="CurrencyFormatter" [customizeText]="DecimalFormatter" dataField="TotalUnitPrice"
+        [width]="100" [allowEditing]="false"></dxi-column>
+      <!-- <div *dxTemplate="let data of 'cellTemplateProductLine'">
+            <span *ngIf="data.row.data.ProductLine">{{data.row.data.ProductLine +""+"("+data.row.data.Division +")"}}</span>
+        </div> -->
+      <div *dxTemplate="let data of 'cellTemplateDesc'">
+        <a class="Descclr" title="{{data.value}}">{{data.value | ellipsis: 20}}</a>
+      </div>
+      <dxi-column caption="Total Weight" [customizeText]="DecimalFormatter" dataField="TotalWeight" [allowEditing]="false"></dxi-column>
+      <dxo-summary>
+        <dxi-total-item column="TotalUnitPrice" [customizeText]="CurrencyFormatter" displayFormat="Total: {0}" summaryType="sum">
+        </dxi-total-item>
+        <dxi-total-item column="TotalWeight" [customizeText]="DecimalFormatter" displayFormat="Total Wt: {0}" summaryType="sum">
+        </dxi-total-item>
+      </dxo-summary>
+    </dx-data-grid>
+
+    <dx-button id="AsemblyItemsistCancelBtn" text="Close" (onClick)="CloseItemPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>
+
+<dx-popup id="ImportFileConfirmationPopup" class="popup" [width]="500" [height]="200" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="true"
+title="Confirm" [(visible)]="IsImportFilePopupVisible">
+<div *dxTemplate="let data of 'content'">
+    <div class="row deleteConfirmMsg">
+        <div class="col-md-12 text-center">
+            <p>
+                This will update the price in existing items. Are you sure you want to continue?
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                   <dx-button text="Yes" (click)="YesImportItemsFile()" class="center-block deleteConfirmBtn margin-right7 YesBtn">
+                    </dx-button>
+                    <dx-button text="No" (click)="DontImportItemsFile()" class="deleteConfirmBtn Close">
+                    </dx-button>
+                  <!-- <div class="col-md-5">
+                      <dx-file-uploader id="ItemFileUpload"
+                      class="center-block"
+                      #fileUploader
+                      labelText=""
+                      selectButtonText="Yes! Import"
+                      [multiple]="false"
+                      accept="*"
+                      uploadMode="instantly"
+                      uploadMethod="Post"
+                      uploadUrl="http://localhost:54057/api/ItemsImportFile/1"
+                      uploadedMessage="Upload Successful"
+                      width:200
+                  ></dx-file-uploader>
+                  </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</dx-popup>

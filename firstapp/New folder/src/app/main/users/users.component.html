@@ -1,0 +1,269 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">User Management</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+          </li>
+          <!-- <li class="breadcrumb-item">
+            <a href="index.html">Security Management</a>
+          </li> -->
+          <li class="breadcrumb-item active">Users</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="content-header-right col-md-6 col-xs-12">
+
+  </div>
+</div>
+<div class="row">
+  <div col-md-12>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Users List</h4>
+        <input type="hidden" value="{{TodaysDate | date: 'MM/dd/yyyy hh:mm:ss'}}" id="today" />
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-12">
+              <dx-data-grid #UserGrid class="pitTable" id="usersgridContainer" [dataSource]="users" (onToolbarPreparing)="onToolbarPreparing($event)" (onInitNewRow)="initNewRow($event)"
+                [showColumnLines]="true" [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" (onRowInserted)="AddNewUser($event)"
+                (onRowUpdated)="UpdateUser($event)" (onEditorPreparing)="OnUserEditStart($event)">
+                <dxo-sorting mode="multiple"></dxo-sorting>
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+                <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true">
+                  <dxo-popup title="Add/Edit User" [showTitle]="true" [width]="700" [height]="370"></dxo-popup>
+                  <dxo-form>
+                    <dxi-item dataField="FirstName">
+                      <dxi-validation-rule type="required" message="Please enter First Name"></dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="LastName">
+                        <dxi-validation-rule type="required" message="Please enter Last Name"></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="Email">
+                          <dxi-validation-rule type="email" message="Please entr Email Address."></dxi-validation-rule>
+                          <dxi-validation-rule type="required" message="Please enter Email Address."></dxi-validation-rule>
+                        </dxi-item>
+                    <dxi-item dataField="password" [editorOptions]="{ mode: 'password' }">
+                        <dxi-validation-rule type="required" message="Please enter Password."></dxi-validation-rule>
+                    </dxi-item>
+                   
+                    <dxi-item dataField="Active"></dxi-item>
+                    
+                    
+                    <!-- <dxi-item dataField="passwordconfirm" [editorOptions]="{ mode: 'password' }">
+                        <dxi-validation-rule type="required"  message="Please select Contract"></dxi-validation-rule>
+                        <dxi-validation-rule type="compare" [comparisonTarget]="passwordComparison" message="Password and Confirm Password do not match"></dxi-validation-rule>
+                      </dxi-item> -->
+                  </dxo-form>
+                </dxo-editing>
+                <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                <dxi-column dataField="FirstName" caption="First Name"></dxi-column>
+                <dxi-column dataField="LastName" caption="Last Name"></dxi-column>
+                <dxi-column dataField="Email" caption="Email"></dxi-column>
+                <dxi-column dataField="Active" dataType="boolean" caption="Active" [width]="70"></dxi-column>
+                <dxi-column dataField="UserID" [allowEditing]="false" [visible]="false" caption="User ID"></dxi-column>
+                <dxi-column dataField="email_verified" [allowEditing]="false" [visible]="false" caption="Verified"></dxi-column>
+                <dxi-column dataField="CreatedDate" [width]="110" [allowEditing]="false" caption="Created Dt"></dxi-column>
+                <dxi-column dataField="LastUpdatedDate" [width]="100" [allowEditing]="false" caption="Revised Dt"></dxi-column>
+                <dxi-column dataField="password" [visible]="false" caption="" [editorOptions]="{ mode: 'password' }"></dxi-column>
+                <dxi-column dataField="" caption="Signature" [width]="70" alignment="center" cellTemplate="UserSignature"></dxi-column>
+                <dxi-column dataField="" caption="Roles" [width]="60" alignment="center" cellTemplate="UserRole"></dxi-column>
+                <dxi-column dataField="" caption="PW" [width]="60" alignment="center" cellTemplate="Password"></dxi-column>
+                <!-- <dxi-column dataField="given_name" caption="First Name"></dxi-column>
+                <dxi-column dataField="family_name" caption="Last Name"></dxi-column>
+                <dxi-column dataField="email" caption="Email"></dxi-column>
+                <dxi-column dataField="blocked" caption="Active" [visible]="false"></dxi-column>
+                <dxi-column dataField="picture" [width]="50" [allowFiltering]="false" [allowSorting]="false" [allowEditing]="false" cellTemplate="cellTemplate"
+                  caption="Pic" alignment="center"></dxi-column>
+                <dxi-column dataField="user_id" [allowEditing]="false" [visible]="false" caption="User ID"></dxi-column>
+                <dxi-column dataField="email_verified" [allowEditing]="false" [visible]="false" caption="Verified"></dxi-column>
+                <dxi-column dataField="created_at" [allowEditing]="false" caption="Created Dt"></dxi-column>
+                <dxi-column dataField="updated_at" [allowEditing]="false" caption="Revised Dt"></dxi-column>
+                <dxi-column dataField="last_login" [allowEditing]="false" caption="Last Login Dt"></dxi-column>
+                <dxi-column dataField="password" [visible]="false" caption=""></dxi-column>
+                <dxi-column dataField="last_ip" [allowEditing]="false" [visible]="false" caption="Login IP"></dxi-column>
+                <dxi-column dataField="" caption="Signature" [width]="70" alignment="center" cellTemplate="UserSignature"></dxi-column>
+                <dxi-column dataField="" caption="Roles" [width]="60" alignment="center" cellTemplate="UserRole"></dxi-column> -->
+                <!-- <dxi-column dataField="" caption="Active" [width]="60" alignment="center" cellTemplate="ActiveInactive"></dxi-column> -->
+                <div *dxTemplate="let data of 'cellTemplate'">
+                  <img class="rounded-circle  height-30" [src]="data.value" />
+                </div>
+                <div *dxTemplate="let dt of 'UserSignature'">
+                  <button type="button" class="btn btn-icon mr-1 btn-sm EmailSignatureBtn" (click)="OpenSignature(dt)">
+                    <i class="fa fa-pencil-square-o"></i>
+                  </button>
+                </div>
+                <div *dxTemplate="let dt of 'UserRole'">
+                  <button *ngIf="UserPermissionsList.PL000083" type="button" class="btn btn-icon mr-1 btn-sm UserRoleBtn" (click)="OpenUserRole(dt)">
+                    <i class="fa fa fa-lock"></i>
+                  </button>
+                  <button *ngIf="!UserPermissionsList.PL000083" type="button" class="btn btn-icon mr-1 btn-sm UserRoleBtn disabled">
+                      <i class="fa fa fa-lock"></i>
+                  </button>
+                </div>
+                <div *dxTemplate="let dt of 'Password'">
+                    <button type="button" class="btn btn-icon mr-1 btn-sm UserRoleBtn" (click)="OpenPassword(dt)">
+                      <i class="fa fa fa-key"></i>
+                    </button>
+                </div>
+                <!-- <div *dxTemplate="let dt of 'ActiveInactive'">
+                  <button type="button" class="btn btn-icon mr-1 btn-sm UserRoleBtn" (click)="ActiveInactive(dt)">
+                    <i class="fa fa fa-check-square"></i>
+                  </button>
+                </div> -->
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<dx-popup id="EmailSignatureBox" class="popup" [width]="800" [height]="400" [showTitle]="true" title="Email Signature" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="IsSignatureBoxOpen" [disabled]="IsSignatureBoxOpenDisabled">
+  <div *dxTemplate="let data of 'content'" id="ESBox">
+    <div class="row marginButtom20">
+      <div class="col-md-6 text-center">
+        <div class="col-md-3">
+          <label class="paddingTop10">Name:</label>
+        </div>
+        <div class="col-md-9">
+          <input class="form-control" type="text" value="{{currentUserName}}" disabled>
+        </div>
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="col-md-3">
+          <label class="paddingTop10">Email:</label>
+        </div>
+        <div class="col-md-9">
+          <input class="form-control" type="text" value="{{currentUserEmail}}" disabled>
+        </div>
+      </div>
+    </div>
+    <div class="row marginButtom20">
+        <div class="col-md-6 text-center">
+          <div class="col-md-3">
+              <label class="paddingTop10">Designation:</label>
+          </div>
+          <div class="col-md-9">
+              <input class="form-control"  id="Designation" #Designation (keyup)="0" value="{{pITUser.Designation}}" type="text" placeholder="Your Designation">
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="col-md-3">
+                <label class="paddingTop10">Phone#:</label>
+            </div>
+            <div class="col-md-9">
+                <!-- <dx-text-box id="PhoneNo" #PhoneNo (keyup)="0" value="{{pITUser.PhoneNumber}}"mask="(000) 000-0000"[maskRules]="phoneRules"maskInvalidMessage="Please enter Phone Number"[useMaskedValue]="true">
+                 </dx-text-box> -->
+              <dx-text-box id="PhoneNo" #PhoneNo (keyup)="0" value="{{pITUser.PhoneNumber}}" mask="(000) 000-0000" [maskRules]="phoneRules" maskInvalidMessage="Please enter Phone Number">
+              </dx-text-box>
+            </div>
+          </div>
+    </div>
+    <div class="row marginButtom20">
+      <div class="col-md-10 text-center">
+        <div class="col-md-2 PreviewLabel">Preview:</div>
+        <div class="col-md-2 EmailImage">
+          <img src="./assets/images/logo/LogoSSPI.png" alt="Logo" />
+        </div>
+        <div class="col-md-6 previewInfo">
+          <label class="paddingTop10" style="font-weight:bold">{{currentUserName}}</label>
+          <br>
+          <span class="paddingTop10">{{Designation.value}}</span>
+          <br>
+          <span class="paddingTop10">Structural and Steel Products, Inc.</span>
+          <br>
+          <!-- <span class="paddingTop10">Phone: {{PhoneNo.value}}</span> -->
+          <span class="paddingTop10">Phone: ({{PhoneNo.value | slice:0:3}}) {{PhoneNo.value | slice:3:6}}-{{PhoneNo.value | slice:6:10}}</span>
+          <br>
+        </div>
+      </div>
+    </div>
+    <dx-button text="Close" (onClick)="CloseCommentPopup()" class="pull-right margin-left-5 Close">
+    </dx-button>
+    <dx-button text="Save" (onClick)="AddUpdateEmailSignature()" class="pull-right margin-left-5 Save">
+    </dx-button>
+  </div>
+</dx-popup>
+<dx-load-panel #loadPanelForSignature shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#ESBox' }" [(visible)]="loadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+<dx-popup id="UserRoleBox" class="popup" [width]="900" [height]="600" [showTitle]="true" title="User-Role Mapping" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="IsUserRoleBoxOpen">
+  <div *dxTemplate="let data of 'content'" id="URBox">
+    <div class="row marginBottom10">
+      <div class="col-md-8">
+        <fieldset class="form-group">
+          <label for="basicInput">Role Name</label>
+          <dx-select-box id="RoleID" [searchEnabled]="true" placeholder="Select Role" [dataSource]="UserRolesData" valueExpr="RoleID"
+            [(ngModel)]='RoleID' name="RoleID" displayExpr="Name">
+          </dx-select-box>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          <dx-button style="margin-top: 25px;" class="pull-right margin-left-5 Add" text="Add Role" (onClick)="CreateRoleToUser()"></dx-button>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row">
+      <dx-data-grid #grid id="UserRoleGridContainer" [dataSource]="UserRoles" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
+        keyExpr="RoleToUserMappingID" (onRowRemoved)="DeleteRolesToUser($event)">
+        <dxo-paging [pageSize]="5"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true"></dxo-pager>
+        <dxo-editing mode="row" [allowDeleting]="true"></dxo-editing>
+        <dxi-column caption="Role Name" dataField="Name" [width]="200"></dxi-column>
+        <dxi-column caption="Description" dataField="Description"></dxi-column>
+      </dx-data-grid>
+    </div>
+    <dx-button id="RoleCancelBtn" text="Close" (onClick)="CloseRolesPopup()" class="pull-right Close">
+    </dx-button>
+  </div>
+</dx-popup>
+
+<dx-popup id="PasswordBox" class="popup" [width]="600" [height]="320" [showTitle]="true" title="Reset Password" [dragEnabled]="false"
+[closeOnOutsideClick]="false" [(visible)]="IsResetPassword" [disabled]="IsResetPasswordBoxOpenDisabled">
+<div *dxTemplate="let data of 'content'" id="RPWBox">
+  <div class="row marginButtom20">
+      <div class="col-md-12 text-center marginButtom20">
+        <div class="col-md-3">
+            <label class="paddingTop10">Password:</label>
+        </div>
+        <div class="col-md-9">
+            <input class="form-control" id="PasswordVal" [(ngModel)]="password" type="password" placeholder="Enter Password">
+        </div>
+      </div>
+      <div class="col-md-12 text-center marginButtom20">
+          <div class="col-md-3">
+              <label class="paddingTop10">Re-enter Password:</label>
+          </div>
+          <div class="col-md-9">
+              <input class="form-control" id="RePassword" [(ngModel)]="repeatPassword" type="password" placeholder="Re-enter Password">
+          </div>
+        </div>
+        <div class="col-md-12 text-center">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+                <label class="errorMsg" [hidden]="password == repeatPassword">Passwords and Re-enter password should match.</label>
+            </div>
+        </div>
+  </div>
+  <dx-button text="Close" (onClick)="CloseResetPWPopup()" class="pull-right margin-left-5 Close">
+  </dx-button>
+  <dx-button text="Reset" [disabled]="password != repeatPassword" (onClick)="ResetPassword()" class="pull-right margin-left-5 resetPW">
+  </dx-button>
+</div>
+</dx-popup>
+<dx-load-panel #loadPanelForResetPW shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#RPWBox' }" [(visible)]="PWloadingVisible"
+[showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>

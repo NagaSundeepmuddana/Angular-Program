@@ -1,0 +1,592 @@
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-xs-12 mb-2">
+        <h3 class="content-header-title mb-0">Project</h3>
+        <div class="row breadcrumbs-top">
+            <div class="breadcrumb-wrapper col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a routerLink="/main/">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Project
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="content-header-right col-md-6 col-xs-12">
+        <!-- <div role="group" aria-label="Button group with nested dropdown" class="btn-group float-md-right">
+        <div role="group" class="btn-group">
+          <button id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-outline-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings icon-left"></i></button>
+          <div aria-labelledby="btnGroupDrop1" class="dropdown-menu">
+            <a href="card-bootstrap.html" class="dropdown-item">Settings</a>
+            <a href="component-buttons-extended.html" class="dropdown-item">Settings EXT</a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form #prj='ngForm' (ngSubmit)="GetProject(prj.value)">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Search Projects
+                    </h4>
+                    <a class="heading-elements-toggle">
+                        <i class="fa fa-ellipsis-v font-medium-3"></i>
+                    </a>
+
+                    <input type="hidden" value="{{TodaysDate | date: 'MM/dd/yyyy hh:mm:ss'}}" id="today" />
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">Contract Type</label>
+                                            <dx-select-box [dataSource]="ContractType" valueExpr="ContractTypeID" displayExpr="Name" name="ContractTypeValue" 
+                                            [(ngModel)]='ContractTypeValue' [searchEnabled]="true">
+                                            </dx-select-box>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-2">
+                                            <fieldset class="form-group">
+                                                <label for="basicInput">State</label>
+                                                <dx-select-box [dataSource]="StateSearch" valueExpr="StateID" displayExpr="Name" name="StateValue" 
+                                                (onValueChanged)="FilterWithState($event)" [(ngModel)]='StateValue' [searchEnabled]="true">
+                                                </dx-select-box>
+                                            </fieldset>
+                                    </div>
+                                        <div class="col-md-2">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInput">County</label>
+                                                    <dx-select-box [dataSource]="CountySearch" valueExpr="CountyID" displayExpr="Name" name="CountyValue" 
+                                                    [(ngModel)]='CountyValue' [searchEnabled]="true">
+                                                    </dx-select-box>
+                                                </fieldset>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <fieldset class="form-group">
+                                            <label for="basicSelect">Project Name</label>
+                                            <dx-text-box [(ngModel)]='ProjectNameField' name='ProjectNameField'>
+                                            </dx-text-box>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <fieldset class="form-group">
+                                            <label for="basicSelect">Project Number</label>
+                                            <dx-text-box [(ngModel)]='Project' name='Project'>
+                                            </dx-text-box>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <fieldset class="form-group">
+                                            <label for="basicSelect">Control Number</label>
+                                            <dx-text-box [(ngModel)]='Control' name='Control'>
+                                            </dx-text-box>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-2">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInput">Letting Begin Date</label>
+                                                    <dx-date-box style="width:100% !important" type="date" class="form-control" [value]="now" id="FromDate" [(ngModel)]='FromDate'
+                                                        name='FromDate'>
+                                                    </dx-date-box>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInput">Letting End Date</label>
+                                                    <dx-date-box style="width:100% !important" type="date" class="form-control" [value]="now" id="ToDate" [(ngModel)]='ToDate'
+                                                        name="ToDate">
+                                                    </dx-date-box>
+                                                </fieldset>
+                                            </div>
+                                    <div class="col-md-2">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">Status</label>
+                                            <dx-select-box [items]="['Active', 'In-Active']" [(value)]="Status" name="Status" [(ngModel)]='Status'>
+                                            </dx-select-box>
+                                        </fieldset>
+                                </div>
+                                </div>
+                                <a class="btn btn-outline-secondary btn-min-width pull-right" (click)='ClearParameters()'>Clear
+                                    <i class="fa fa-times"></i>
+                                </a>
+                                <button class="btn btn-danger btn-min-width pull-right mr-1" [disabled]='!prj.valid'>Search
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Projects list
+                </h4>
+                <a class="heading-elements-toggle">
+                    <i class="fa fa-ellipsis-v font-medium-3"></i>
+                </a>
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block">
+                    <div class="row" *ngIf="isDataFetched">
+
+                        <dx-data-grid #grid id="projectGrid" [dataSource]="ProjectsList" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+                            (onEditorPreparing)="OnProjectEditStart($event)" (onRowRemoved)="DeleteProject($event)" (onInitNewRow)="initNewRow($event)"
+                            (onRowInserted)="AddNewProject($event)" (onRowUpdated)="UpdateProject($event.key)" (onToolbarPreparing)="onToolbarPreparing($event)"
+                            (onCellPrepared)="onCellPrepared($event)" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+                            [showBorders]="true" [rowAlternationEnabled]="true">
+                            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+                            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                            <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="true">
+                            </dxo-pager>
+                            <dxo-export [enabled]="true" fileName="Projects" title="Only the chosen columns in the grid will be exported."></dxo-export>
+                            <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000003" [allowDeleting]="UserPermissionsList.PL000004" [allowAdding]="UserPermissionsList.PL000002">
+                                <dxo-popup title="Add/Edit Project" [showTitle]="true" [height]="490" [width]="900">
+                                </dxo-popup>
+                                <dxo-form>
+                                    <dxi-item dataField="ContractTypeID" editorType="dxTextBox">
+                                        <dxi-validation-rule type="required" message="Please select Contract Type."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="StateID" editorType="dxTextBox">
+                                        <dxi-validation-rule type="required" message="Please select State."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="CountyID" editorType="dxTextBox">
+                                        <dxi-validation-rule type="required" message="Please select County."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="ProjectNumber" editorType="dxTextBox" [editorOptions]="{ maxLength: 40 }">
+                                        <dxi-validation-rule type="required" message="Please enter Project number."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="ControlNumber" editorType="dxTextBox" [editorOptions]="{ maxLength: 40 }">
+                                        <dxi-validation-rule type="required" message="Please enter Control number."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="LettingDate" editorType="dxTextBox">
+                                        <dxi-validation-rule type="required" message="Please select Letting date."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="Highway" editorType="dxTextBox" [editorOptions]="{ maxLength: 40 }">
+                                        <dxi-validation-rule type="required" message="Please enter Location."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="WorkingDays" editorType="dxTextBox" [editorOptions]="{ maxLength: 4, min:0 }">
+                                        <dxi-validation-rule type="required" message="Please enter Working days."></dxi-validation-rule>
+                                    </dxi-item>
+                                    <dxi-item dataField="Architect" editorType="dxTextBox" [editorOptions]="{ maxLength: 50 }">
+                                    </dxi-item>
+                                    <dxi-item dataField="PhoneNo" editorType="dxTextBox" [editorOptions]="{ mask: '(000) 000-0000', maskRules: rules }">
+                                    </dxi-item>
+                                    <dxi-item dataField="BusinessManager" editorType="dxTextBox">
+                                    </dxi-item>
+                                    <dxi-item dataField="PrimeContractor" editorType="dxTextBox" [editorOptions]="{ maxLength: 100 }">
+                                    </dxi-item>
+                                    <dxi-item dataField="ExternalSystemRefNo" editorType="dxTextBox" [editorOptions]="{ maxLength: 7 }">
+                                    </dxi-item>
+                                </dxo-form>
+                            </dxo-editing>
+                            <dxi-column [visible]="false" dataField="ContractTypeID" caption="Contract Type">
+                                <dxo-lookup [dataSource]="ContractType" valueExpr="ContractTypeID" displayExpr="Name">
+                                </dxo-lookup>
+                            </dxi-column>
+                            <dxi-column dataField="ProjectName" caption="Project Name" [width]="300" cellTemplate="ManageProject"></dxi-column>
+                            <dxi-column dataField="StateID" caption="State" [setCellValue]="setStateValue" [width]="60">
+                                <dxo-lookup [dataSource]="ProjectState" valueExpr="StateID" displayExpr="Name">
+                                </dxo-lookup>
+                            </dxi-column>
+                            <dxi-column dataField="CountyID" caption="County" [width]="120">
+                                <dxo-lookup [dataSource]="getFilteredCounties" valueExpr="CountyID" displayExpr="Name">
+                                </dxo-lookup>
+                            </dxi-column>
+                            <dxi-column dataField="ProjectNumber" caption="Project#" ></dxi-column>
+                            <dxi-column dataField="ControlNumber" caption="Control#" ></dxi-column>
+                            <dxi-column dataField="Highway" caption="Location"></dxi-column>
+                            <dxi-column dataField="LettingDate" dataType="date" caption="Letting Dt" [width]="90"></dxi-column>
+                            <dxi-column dataField="WorkingDays" caption="Working Days" [visible]="false"></dxi-column>
+                            <dxi-column dataField="Architect" caption="Engineer" [visible]="false"></dxi-column>
+                            <dxi-column dataField="PhoneNo" caption="Phone No" [visible]="false"></dxi-column>
+                            <dxi-column [visible]="false" dataField="BusinessManager" caption="Business Manager">
+                                <dxo-lookup [dataSource]="PITUserList" valueExpr="UserID" displayExpr="Name">
+                                </dxo-lookup>
+                            </dxi-column>
+                            <dxi-column dataField="ExternalSystemRefNo" caption="Syspro Project No" [visible]="false"></dxi-column>
+                            <dxi-column dataField="ProjVersion" caption="Version" [visible]="false"></dxi-column>
+                            <dxi-column dataField="Active" caption="Active" [visible]="false"></dxi-column>
+                            <!-- <dxi-column dataField="ProjEngineerName" caption="Engineer Name" [visible]="false"></dxi-column>
+                            <dxi-column dataField="ProjEngineerPhone" caption="Engineer Phone" [visible]="false"></dxi-column> -->
+                            <dxi-column dataField="Locked" caption="Lock" alignment="center" [width]="70" cellTemplate="ManageLock"></dxi-column>
+                            <dxi-column dataField="" caption="Comments" [width]="70" alignment="center" cellTemplate="ProjectComments"></dxi-column>
+                            <dxi-column dataField="PCreatedBy" caption="Created By" [visible]="false"></dxi-column>
+                            <dxi-column dataField="CreatedDate" dataType="date" [visible]="false" caption="Created Dt"></dxi-column>
+                            <dxi-column dataField="PrimeContractor" [visible]="false" caption="Prime Contractor"></dxi-column>
+
+                            <dxi-column dataField="" [allowFiltering]="false" alignment="center" [width]="70" [allowSorting]="false" cellTemplate="cellTemplate"
+                                caption="Items"></dxi-column>
+
+                            <div *dxTemplate="let data of 'ManageProject'">
+                                    <!-- <a style="color:#337ab7 !important" *ngIf="data.row.data.Locked" [routerLink]="['/main/prjdts', data.row.data.ProjectID]"
+                                    title="{{data.value}}">{{data.value}}</a>
+                                <a style="color:rgba(0, 0, 0, 0.808) !important" *ngIf="!data.row.data.Locked" class="noItems" title="{{data.value}}">{{data.value}}</a>
+                            -->
+                                <div *ngIf="UserPermissionsList.PL000008">
+                                        <a style="color:#337ab7 !important" *ngIf="data.row.data.Locked" [routerLink]="['/main/prjdts', data.row.data.ProjectID]"
+                                        title="{{data.value}}">{{data.value}}</a>
+                                    <a style="color:rgba(0, 0, 0, 0.808) !important" *ngIf="!data.row.data.Locked" class="noItems" title="{{data.value}}">{{data.value}}</a>
+                                </div>
+                                <div *ngIf="!UserPermissionsList.PL000008">
+                                    <a style="color:rgba(0, 0, 0, 0.808) !important" class="noItems" title="{{data.value}}">{{data.value}}</a>
+                                </div>      
+                            </div>
+                            <div *dxTemplate="let dt of 'cellTemplate'">
+                                <button *ngIf="dt.row.data.Locked" type="button" class="btn btn-icon btn-success mr-1 btn-sm ItemCount disabled">
+                                    <i class="fa fa-tasks"></i>
+                                </button>
+                                <button *ngIf="!dt.row.data.Locked" type="button" (click)="OpenItemsModal(dt)" title="Add Items" class="btn btn-icon btn-success mr-1 btn-sm ItemCount">
+                                    <i class="fa fa-tasks"></i>
+                                </button>
+                            </div>
+                            <div *dxTemplate="let dt of 'ManageLock'">
+                                    <div *ngIf="UserPermissionsList.PL000005">
+                                            <div class="dx-field-value" *ngIf="dt.row.data.PItemsCount > 0">
+                                                    <dx-switch class="marginTop0" *ngIf="!dt.row.data.Locked" (onValueChanged)="UpdateLockUnlock(dt)" [value]="false"></dx-switch>
+                                                    <dx-switch class="marginTop0" *ngIf="dt.row.data.Locked" (onValueChanged)="UnlockConfirmMsgPopup(dt)" [value]="true"></dx-switch>
+                                                </div>
+                                                <div class="dx-field-value" *ngIf="dt.row.data.PItemsCount == 0">
+                                                    <dx-switch class="marginTop0" *ngIf="!dt.row.data.Locked" [disabled]="true" (onValueChanged)="UpdateLockUnlock(dt)" [value]="false"></dx-switch>
+                                                    <dx-switch class="marginTop0" *ngIf="dt.row.data.Locked" (onValueChanged)="UpdateLockUnlock(dt)" [value]="true"></dx-switch>
+                                                </div>
+                                            </div>
+                                    <div *ngIf="!UserPermissionsList.PL000005">
+                                            <dx-switch class="marginTop0" [disabled]="true" [value]="false"></dx-switch>
+                                    </div>
+                                    </div>
+                            <div *dxTemplate="let dt of 'ProjectComments'">
+                                <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="OpenChatBox(dt)">
+                                    <i class="fa fa-comment-o"></i>
+                                </button>
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<dx-popup id="itemPopup" class="popup" [width]="1200" [height]="600" [showTitle]="true" title="Add Project Items" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="itemPopupVisible" [disabled]="IsPopupDisabled" (onHiding)="CloseItemsPopup()">
+    <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <dx-select-box id="divisions" placeholder="Select Division" [dataSource]="DivisionList" valueExpr="DivisionID" displayExpr="Name"
+                            (onValueChanged)="FilterWithDivisions($event)" [(ngModel)]='DivisionID'>
+                        </dx-select-box>
+                    </div>
+                    <div class="col-md-2">
+                        <dx-select-box id="productLine" placeholder="Select Product Line" [dataSource]="ProductLinesList" valueExpr="ProductLineID"
+                            displayExpr="Name" (onValueChanged)="FilterWithProductLine($event)" [(ngModel)]='ProductLineID'>
+                        </dx-select-box>
+                    </div>
+                    <!-- <div class="col-md-2">
+                            <dx-select-box class="selectItemsBy" [items]="ItemOrAssembly" [value]="ItemOrAssemblyValue" (onValueChanged)="FilterSelected($event)">
+                            </dx-select-box>
+                        </div> -->
+                    <div class="col-md-8">
+                        <div class="form-group serachItems">
+                            <input id="serachItemsOrAssemblyBox" class="form-control height32 serachItems" ng-model="name" [ngModel]="search" (ngModelChange)="SearchItems($event)"
+                                (document:click)="CloseMatAjax($event)" placeholder="Search and Add Items/Assemblies" />
+                            <div class="ItemSearchResult serachItems" *ngIf="flag">
+                                <div class="serachItems">
+                                    <ul *ngIf="IsItems" class="serachItems">
+                                        <li *ngFor="let item of ItemList" class="searchLI serachItems">
+                                            <div class="row serachItems">
+                                                <div class="col-md-10 serachItems">
+                                                    <a class="serachItems" *ngIf="item.Type == 'I' || item.Type == null">
+                                                        <i class="circleI">I</i> {{item.ItemCode}} | {{item.Name}}</a>
+                                                    <a class="serachItems" *ngIf="item.Type == 'A'">
+                                                        <i class="circleA">A</i> {{item.ItemCode}} | {{item.Name}}</a>
+                                                </div>
+                                                <div class="col-md-2 serachItems">
+                                                    <div class="row serachItems">
+                                                        <div class="col-md-8 paddingRight5 serachItems paddingLeft0">
+                                                            <input *ngIf="item.Type == 'A'" type="number" min="1" max="99999999" class="form-control height32 serachItems" placeholder="Qty" id="{{item.ItemID}}"
+                                                            />
+                                                            <input *ngIf="item.Type == 'I' || item.Type == null" type="number" min="1" max="99999999" class="form-control height32 serachItems" id="{{item.ItemID}}"
+                                                                placeholder="Qty" />
+                                                        </div>
+                                                        <div class="col-md-4 serachItems">
+                                                            <span class="AddPItems serachItems" (click)="AddProjectItems(item)">
+                                                                <i class="fa fa-plus"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <ul *ngIf="IsAssembies" class="serachItems">
+                                    <li *ngFor="let assembly of AssemblyList" class="searchLI serachItems">
+                                        <div class="row serachItems">
+                                            <div class="col-md-8 serachItems">
+                                                <a class="serachItems">{{assembly.Name}}</a>
+                                            </div>
+                                            <div class="col-md-4 serachItems">
+                                                <div class="row serachItems">
+                                                    <div class="col-md-8 paddingRight5 serachItems">
+
+                                                    </div>
+                                                    <div class="col-md-4 serachItems">
+                                                        <span class="AddPItems serachItems" (click)="AddProjectAssembly(assembly)">
+                                                            <i class="fa fa-plus"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul *ngIf="IsNoRecord" id="NoItems">
+                                    <li>
+                                        <div class="row serachItems">
+                                            <div class="col-md-8 serachItems">
+                                                <a class="serachItems">No Item or Assembly found.</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <dx-data-grid #itemsGrid id="itemListGrid" [dataSource]="ItemListDataSource" [(selectedRowKeys)]="selectedRows" (onRowRemoving)="DeleteProjectItem($event)"
+            (onRowUpdated)="UpdateProjectItem($event)" [showBorders]="true" [hoverStateEnabled]="true" (onRowPrepared)="onProjectItemRowPrepared($event)">
+            <!--[(visible)]="IsItems"-->
+            <dxo-paging [enabled]="true" [pageSize]="20"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 40, 60]" [showInfo]="true">
+            </dxo-pager>
+            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search Project Items"></dxo-search-panel>
+            <dxo-export [enabled]="true" fileName="ProjectItems" title="Only the chosen columns in the grid will be exported."></dxo-export>
+            <dxo-editing mode="row" [allowDeleting]="true" [allowUpdating]="true"></dxo-editing>
+            <dxi-column dataField="Type" caption="I/A" [width]="50" alignment="left" cellTemplate="ItemOrAssembly" [allowEditing]="false"></dxi-column>
+            <dxi-column caption="Order#" alignment="left" dataField="OrderNumber" [visible]="false" [allowEditing]="false" [width]="70"></dxi-column>
+            <dxi-column caption="Item Code" dataField="ItemCode" [allowEditing]="false" [width]="110"></dxi-column>
+            <dxi-column caption="Description" dataField="Description" [allowEditing]="false"></dxi-column>
+            <dxi-column caption="Product Line" dataField="ProductLine" [allowEditing]="false" [width]="120"></dxi-column>
+            <dxi-column caption="Unit" dataField="UOM" [allowEditing]="false" [width]="70"></dxi-column>
+            <dxi-column caption="Qty" [customizeText]="CurrencyFormatter" dataField="Quantity" [width]="70"></dxi-column>
+            <dxi-column caption="Unit Cost($)" [customizeText]="CurrencyFormatter" [allowEditing]="false" dataField="UnitPrice" [width]="90"></dxi-column>
+            <dxi-column caption="Weight" [customizeText]="CurrencyFormatter" [allowEditing]="false" dataField="Weight" [width]="70"></dxi-column>
+            <div *dxTemplate="let data of 'ItemOrAssembly'">
+                <span *ngIf="data.row.data.Type == 'I'">I</span>
+                <span *ngIf="data.row.data.Type == 'A'">A</span>
+            </div>
+        </dx-data-grid>
+        <dx-button id="itemListCancelBtn" text="Close" (onClick)="CloseItemsPopup()" class="pull-right margin-left-5 Close">
+        </dx-button>
+        <!-- <dx-button id="itemListReorderBtn" text="Re-Order Items" (onClick)="OpenItemsReOrderPopUp()" class="pull-right margin-left-5 margin-top-10 reOrderBtn">
+        </dx-button> -->
+    </div>
+</dx-popup>
+
+<dx-popup id="itemReOrderPopup" class="popup" [width]="1100" [height]="550" [showTitle]="true" title="Reorder Project Items"
+    [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="itemReOrderPopupVisible" [disabled]="IsPopupDisabled">
+    <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+        <div class="row">
+            <div class="col-md-12">
+                <dx-data-grid #itemsOrderGrid id="itemsOrderGrid" [dataSource]="ItemOrderList" [(selectedRowKeys)]="selectedOrderRows" [showBorders]="true"
+                    [hoverStateEnabled]="true" (onRowPrepared)="onProjectItemRowPrepared($event)" (onSelectionChanged)="SelectedOrderRow($event)">
+                    <dxo-selection mode="single"></dxo-selection>
+                    <dxo-paging [enabled]="true" [pageSize]="20"></dxo-paging>
+                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 40, 60]" [showInfo]="true">
+                    </dxo-pager>
+                    <dxo-editing mode="row" [allowDeleting]="false" [allowUpdating]="false"></dxo-editing>
+                    <dxi-column caption="Order#" dataField="OrderNumber" [width]="70"></dxi-column>
+                    <dxi-column caption="Item Code" dataField="ItemCode" [width]="100" [allowEditing]="false" [width]="120"></dxi-column>
+                    <dxi-column caption="Description" dataField="Description" [allowEditing]="false"></dxi-column>
+                    <dxi-column caption="Unit Cost($)" [customizeText]="CurrencyFormatter" dataField="UnitPrice" [width]="110" [allowEditing]="false"></dxi-column>
+                </dx-data-grid>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <dx-button id="itemListReorderCancelBtn" text="Close" (onClick)="CloseItemsReorderPopup()" class="pull-right margin-left-5 Close">
+                </dx-button>
+                <dx-button id="itemDragBottom" text="Down" (onClick)="DragToBottom($event)" class="pull-right margin-left-5 UpDownBtn">
+                </dx-button>
+                <dx-button id="itemDragTop" text="Up" (onClick)="DragToTop($event)" class="pull-right margin-left-5 fa UpDownBtn">
+                </dx-button>
+            </div>
+        </div>
+    </div>
+</dx-popup>
+
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: 'body' }" [(visible)]="projectLoading" [showIndicator]="true"
+    [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<dx-load-panel #loadPanelForItems shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#itemsSaveCancelDiv' }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+<dx-popup id="deleteProjectPopup" class="popup" [width]="355" [height]="135" [showTitle]="false" [dragEnabled]="false" [closeOnOutsideClick]="false"
+    [(visible)]="IsDeleteProjectPopupVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="row deleteConfirmMsg">
+            <div class="col-md-12 text-center">
+                <p>
+                    Are you sure you want to delete this record?
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center">
+                        <dx-button text="Yes" (click)="YesDeleteProject()" class="center-block deleteConfirmBtn margin-right7">
+                        </dx-button>
+                        <dx-button text="No" (click)="NoDeleteProject()" class="center-block deleteConfirmBtn">
+                        </dx-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dx-popup>
+
+<dx-popup id="deleteProjectPopup" class="popup" [width]="500" [height]="210" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="true"
+    title="Confirm" [(visible)]="IsUnlockProjectPopupVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="row deleteConfirmMsg">
+            <div class="col-md-12 text-center">
+                <p>
+                    You have selected to edit a project. Any changes made will be made to all appropriate master quotes and replicated customer quotes. Are you sure you want to continue?
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center">
+                        <dx-button text="Yes" (click)="YesUnlockProject()" class="center-block deleteConfirmBtn margin-right7 YesBtn">
+                        </dx-button>
+                        <dx-button text="No" (click)="DontUnlockProject()" class="center-block deleteConfirmBtn Close">
+                        </dx-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dx-popup>
+
+<dx-popup id="ProjectCommentBox" class="popup" [width]="750" [height]="550" [showTitle]="true" title="Comments" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="IsCommentBox" [disabled]="IsCommentBoxDisabled">
+    <div *dxTemplate="let data of 'content'">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="col-md-2">
+                    <!-- <img [src]="userProfile.picture" alt="avatar" class="CommentUserImg"> -->
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <textarea rows="5" id="Comment" class="form-control" placeholder="Please write your comment here."></textarea>
+                    </div>
+                </div>
+                <div class="col-md-1 paddingLeft0">
+                    <button (click)="SaveProjectComment()" class="btn btn-icon btn-success mr-1 btn-sm pull-left commentSendBtn">
+                        <i class="fa fa-send-o"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row maxHeight350" id="style-1">
+            <div class="col-md-12" *ngFor="let comment of ProjectComments">
+                <div class="" *ngIf="comment.CreatedBy === userProfile.sub">
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img [src]="userProfile.picture" alt="avatar" class="CommentHistoryUserImg">
+                            </div>
+                            <span class="commentTime">{{comment.CreatedDate | date: 'MM/dd/yy hh:mm:ss'}} </span>
+                        </div>
+
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <div class="form-control commentsHistory"> {{comment.Comment}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" *ngIf="comment.CreatedBy != userProfile.sub">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <div class="form-control commentsHistory"> {{comment.Comment}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img [src]="comment.Picture" alt="avatar" class="CommentHistoryUserImg">
+                            </div>
+                            <span class="commentTime">{{comment.CreatedDate | date: 'MM/dd/yy hh:mm:ss'}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12" *ngIf="!ProjectComments?.length">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-10 marginTop20">
+                    <p class="NoComments">Be the first to add a comment to this project.</p>
+                </div>
+            </div>
+        </div>
+        <dx-button text="Close" (onClick)="CloseCommentPopup()" class="pull-right margin-left-5 Close">
+        </dx-button>
+    </div>
+
+</dx-popup>
+<!-- <dx-tooltip 
+target="toolTipClass"
+[(visible)]="defaultVisible"
+position= "top">
+<div *dxTemplate="let data = data of 'content'">
+    No Items
+</div>
+</dx-tooltip> -->
+<!-- <dx-data-grid [dataSource]="orders" [columns]="[
+'orderID', 
+  {
+      dataField: 'orderDate',
+      dataType: 'date'
+  }, 
+'customerName', 
+  {
+      cellTemplate: 'editColumn'
+  }
+]" 
+[filterRow]="{visible: true}" [headerFilter]="{visible: true}" [groupPanel]="{visible: true}" [summary]="
+{
+        totalItems: [{column: 'shipCity', summaryType: 'count'}],
+        groupItems: [{ summaryType: 'count' }]
+}" 
+[height]="'400px'" style="display: block">
+
+  <div *dxTemplate="let item of 'editColumn'">
+    <a class="dx-link" (click)="onEdit(item)">Edit</a>
+  </div>
+</dx-data-grid>
+<order-detail [order]="selectedOrder" (orderChanged)="onOrderChanged()"></order-detail> -->

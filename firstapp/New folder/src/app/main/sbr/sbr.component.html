@@ -1,0 +1,229 @@
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-xs-12 mb-2">
+      <h3 class="content-header-title mb-0">Blue Sheet Report</h3>
+      <div class="row breadcrumbs-top">
+        <div class="breadcrumb-wrapper col-xs-12">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a routerLink="/main/">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Blue Sheet Report
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Search Items
+              <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+            </h4>
+            <a class="heading-elements-toggle">
+              <i class="fa fa-ellipsis-v font-medium-3"></i>
+            </a>
+          </div>
+          <div class="card-body collapse in">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-md-2">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Quote Number</label>
+                          <input type="text" class="form-control input-sm custHeight" id="hidQuoteNumber" [(ngModel)]='QuoteNumber' name="QuoteNumber"
+                            style="height: 34px;">
+                        </fieldset>
+                      </div>
+                      <div class="col-md-2">
+                          <fieldset class="form-group">
+                            <label for="basicInput">Project Number</label>
+                            
+                            <input type="text" class="form-control input-sm Prjheight" [(ngModel)]='SearchByProjName' name="SearchByProjNumber" id="SearchByProjNum" style="height: 34px;">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-2">
+                            <fieldset class="form-group">
+                              <label for="basicInput">Division</label>
+                              <input type="hidden" id="hidDivisionID">                             
+                              <dx-tag-box id="searchDivision" *ngIf="GetDivisionList" class="Maxprdtheight" placeholder="Select Division(s)" [dataSource]="GetDivisionList"
+                                displayExpr="Name" [(ngModel)]='DivisionID' name="DivisionID" valueExpr="DivisionID" [searchEnabled]="true"
+                                (onValueChanged)="DivisionChangeEvent($event)" [value]="required">
+                              </dx-tag-box>
+                            </fieldset>
+                          </div>
+                          <div class="col-md-2">
+                              <fieldset class="form-group">
+                                <label for="basicInput">Product Line</label>
+                                <input type="hidden" id="hidProductlineID">
+                                <dx-tag-box id="searchProductLine" class="Maxprdtheight" placeholder="Select Product Line(s)" [dataSource]="GetProductLineName"
+                                  valueExpr="ProductLineID" [(ngModel)]='ProductLineID' (onValueChanged)="ProductLineChangeEvent($event)"
+                                  [searchEnabled]="true" name="ProductLineID" displayExpr="Name" [value]="required">
+                                </dx-tag-box>
+                              </fieldset>
+                            </div>
+                    <!-- <div class="col-md-2">
+                      <fieldset class="form-group">
+                        <label for="basicInput">Division</label>
+                        <input type="hidden" id="hidDivisionID">
+                        <dx-select-box id="searchDivision" [searchEnabled]="true" [dataSource]="GetDivisionList" valueExpr="DivisionID" [(ngModel)]='DivisionID'
+                          name="DivisionID" displayExpr="Name" (onValueChanged)="DivisionChangeEvent($event)">
+                        </dx-select-box>
+                      </fieldset>
+                    </div> 
+                     <div class="col-md-2">
+                      <fieldset class="form-group">
+                        <label for="basicInput">Product Line</label>
+                        <input type="hidden" id="hidProductlineID">
+                        <dx-select-box id="searchPrdLine" [searchEnabled]="true" [dataSource]="GetProdLinesByDiv" valueExpr="ProductLineID" [(ngModel)]='searchPrdLine'
+                          (onValueChanged)="ProductLineChangeEvent($event)" name="searchPrdLine" displayExpr="Name">
+                        </dx-select-box>
+                      </fieldset>
+                    </div> -->
+                    <div class="col-md-2">
+                      <fieldset class="form-group">
+                        <label for="basicInput">Contract Type</label>
+                        <input type="hidden" id="hidContractTypeID">
+                        <dx-select-box id="ContractTypeID" [searchEnabled]="true" [dataSource]="ContractType" (onValueChanged)="ContractTypeChangeEvent($event)"
+                          valueExpr="ContractTypeID" [(ngModel)]='ContractTypeID' name="ContractTypeID" displayExpr="Name">
+                        </dx-select-box>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                        <fieldset class="form-group">
+                            <label for="basicInput">Business Manager</label>
+                            <input type="hidden" id="BusinessManager">
+                            <dx-select-box id="BusinessManager" placeholder="Business Manager"  [searchEnabled]="true" [dataSource]="PITUserList" valueExpr="UserID"
+                        displayExpr="Name" (onValueChanged)="BusinessManagerChangeEvent($event)" [(ngModel)]='BusinessManager'>
+                        </dx-select-box>
+                      </fieldset>
+                      </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-2">
+                              <fieldset class="form-group-xs">
+                                <label for="basicInput">CSJ</label>
+                                <input type="text" class="form-control input-sm Prjheight" [(ngModel)]='SearchByContNumber' name="SearchByContNumber" id="SearchByContNumber" style="height: 34px;">
+                              </fieldset>
+                            </div>
+                             <!--  <div class="col-md-2">
+                                <fieldset class="form-group">
+                                  <label for="basicInput" class="height">Award Status </label>
+                                  <input type="hidden" id="hidEditQuoteStatus">
+                                  <dx-select-box [value]="EditQuoteStatus" [(ngModel)]='EditQuoteStatus' name="EditQuoteStatus" [dataSource]="AwardQuoteStatus"
+                                    valueExpr="id" displayExpr="Name" (onValueChanged)="EditQuoteStatusChangeEvent($event)"  >
+                                  </dx-select-box>
+                                </fieldset>
+                              </div> -->
+                          <div class="col-md-2">
+                              <fieldset class="form-group">
+                                <label for="basicInput">Letting Begin Date</label>
+                                <input type="hidden" id="hidStartDate">
+                                <dx-date-box [(ngModel)]="QuoteFrom" type="date" name="LettingFrom"  class="form-control input-sm dateField" (onValueChanged)="QuotesFromChangeEvent($event)">
+                                </dx-date-box>
+                              </fieldset>
+                            </div>
+                            <div class="col-md-2">
+                              <fieldset class="form-group">
+                                <label for="basicInput">Letting End Date</label>
+                                <input type="hidden" id="hidEndDate">
+                                <dx-date-box [(ngModel)]="QuoteTo" type="date" name="LettingTo" class="form-control input-sm dateField" (onValueChanged)="QuotesToChangeEvent($event)">
+                                </dx-date-box>
+                              </fieldset>
+                            </div> 
+                            <div class="col-md-6">
+
+                            </div>
+                      </div> 
+                  <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ClearFilters()'>Clear
+                    <i class="fa fa-times"></i>
+                  </a>
+                  <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='SearchSysproBudgetQuoteReport()'>Search
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <div class="content-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Blue Sheet Report
+                <!-- <a class="btn btn-outline-success btn-min-width btn- pull-right" (click)='ExportGridData()'>Export
+                </a> -->
+                <a class="btn btn-outline-success btn-min-width btn- pull-right btnalignment" (click)='PDFGridData()'>Gen PDF
+                </a>
+              </h4>
+              <a class="heading-elements-toggle">
+                <i class="fa fa-ellipsis-v font-medium-3"></i>
+              </a>
+            </div>
+            <div class="card-body collapse in">
+              <div class="card-block">
+                <div class="row">
+                  <div class="col-md-12">
+                    <dx-data-grid id="gridContainer" [dataSource]="SysprodataSource" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                      [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true">
+                      <dxo-export [enabled]="true" fileName="Blue Sheet Report" [allowExportSelectedData]="false"></dxo-export>
+                      <dxi-column dataField="QuoteNumber" caption="Quote#" [width]="50" cellTemplate="ManageQuote"></dxi-column>
+                      <dxi-column dataField="BusinessManager"></dxi-column>
+                      <dxi-column dataField="StartDate" caption="Date"></dxi-column>
+                      <dxi-column dataField="CustomerName" caption="Customer"></dxi-column>
+                      <dxi-column dataField="" caption="Id" [visible]="false"></dxi-column>
+                      <dxi-column dataField="" caption="PO" [visible]="false"></dxi-column>
+                      <dxi-column dataField="County"></dxi-column>
+                      <dxi-column dataField="ProjectNumber" caption="Project Number"></dxi-column>
+                      <dxi-column dataField="ControlNumber" caption="CSJ"></dxi-column>
+                      <dxi-column dataField="ContractType" caption="C.Type" [width]="50"></dxi-column>
+                      <dxi-column dataField="LettingDate"></dxi-column>
+                      <dxi-column dataField="WorkingDays" caption="W.Days" [width]="50"></dxi-column>
+                      <dxi-column dataField="PrimeContractor" caption="Prime Contractor" [visible]="false"></dxi-column>
+                      <dxi-column dataField="Materials" [customizeText]="CurrencyFormatter"></dxi-column>
+                      <dxi-column dataField="Freight" [customizeText]="CurrencyFormatter"></dxi-column>
+                      <dxi-column dataField="Subtotal" caption="Subtotal" [customizeText]="CurrencyFormatter"></dxi-column>
+                      <dxi-column dataField="Revenues" caption="Revenue"[customizeText]="CurrencyFormatter" sortOrder= "desc"></dxi-column>
+                      <dxi-column dataField="Estprofit" caption="Est.Profit" [customizeText]="CurrencyFormatter"></dxi-column>
+                      <dxi-column dataField="Estmargin" caption="Est.Margin %" [width]="70" [customizeText]="DecimalFormatter"></dxi-column>
+                      <!-- <dxi-column dataField="Estmargin" caption="EST MARGIN %"[customizeText]="DecimalFormatter"></dxi-column> -->
+                      <dxi-column dataField="Finish" [visible]="false"></dxi-column>
+                      <dxi-column dataField="ProductLine" [visible]="false" [groupIndex]="1"></dxi-column>
+                      <dxi-column dataField="DivisionName" caption="Division" [visible]="false" [groupIndex]="0"></dxi-column>
+                      
+                      <div *dxTemplate="let data of 'ManageQuote'">
+                        <div>
+                            <a style="color:#337ab7 !important" (click)='ExportGridData(data)'
+                              title="{{data.value}}">{{data.value}}</a>                           
+                        </div>
+                        
+                    </div>
+
+                      <!-- <dxi-column dataField="Description" caption="Description" [visible]="false"></dxi-column>                   
+                      <dxi-column dataField="ProjectName" caption="Project Name" [width]="330"></dxi-column>
+                      <dxi-column dataField="StartDate"></dxi-column>
+                      <dxi-column dataField="WorkingDays"></dxi-column>
+                      <dxi-column dataField="SubContractor"  caption="Sub-Contractor"></dxi-column>
+                      <dxi-column dataField="State" [width]="50"></dxi-column>
+                      <dxi-column dataField="City" [visible]="false"></dxi-column>
+                      <dxi-column dataField="Location"></dxi-column>
+                      <dxi-column dataField="Revenues"></dxi-column>
+                       --><dxo-remote-operations [sorting]="true" [paging]="true">
+                      </dxo-remote-operations>
+
+                      <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                      <dxo-paging [pageSize]="10"></dxo-paging>
+                      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true"></dxo-pager>
+                      <dxi-sort-by-group-summary-info summaryItem="sum" sortOrder="desc"></dxi-sort-by-group-summary-info>
+                    </dx-data-grid> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

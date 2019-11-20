@@ -1,0 +1,1370 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Project Information</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a routerLink="/main/prj">Project</a>
+          </li>
+          <li class="breadcrumb-item active" *ngIf="isDataFetched">{{ProjectData.ProjectName}}
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="content-header-right col-md-6 col-xs-12">
+    <input type="hidden" value="{{TodaysDate | date: 'MM/dd/yyyy hh:mm:ss'}}" id="today" />
+    <!-- <div role="group" aria-label="Button group with nested dropdown" class="btn-group float-md-right">
+            <div role="group" class="btn-group">
+              <button id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-outline-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings icon-left"></i></button>
+              <div aria-labelledby="btnGroupDrop1" class="dropdown-menu">
+                <a href="card-bootstrap.html" class="dropdown-item">Settings</a>
+                <a href="component-buttons-extended.html" class="dropdown-item">Settings EXT</a>
+              </div>
+            </div>
+          </div> -->
+  </div>
+  <div class="content-header-right col-md-6 col-xs-12">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <a *ngIf="isDataFetched" class="btn btn-info pull-right margin-left-5 pull-right marginRight20 backBtn" [routerLink]="['/main/prj']">Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-body">
+  <div class="row" *ngIf="isDataFetched">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">{{ProjectData.ProjectName}}
+            <button type="button" data-toggle="tooltip" title="Batch Email" *ngIf="ProjectData.QuoteCustomerCount > 0" (click)="OpenProjectLevelEmailModal()"
+              class="btn btn-icon btn-success mr-1 btn-sm openEmalBtn pull-right">
+              <i class="fa fa-envelope-o"></i>
+            </button>
+            <button type="button" data-toggle="tooltip" title="Batch Email" *ngIf="ProjectData.QuoteCustomerCount == 0" class="btn btn-icon btn-success mr-1 btn-sm disabled pull-right">
+              <i class="fa fa-envelope-o"></i>
+            </button>
+          </h4>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Contract Type</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.ContractName}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">State</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.StateName}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">County</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.CountyName}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Control No</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.ControlNumber}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Project No</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.ProjectNumber}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Highway</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.Highway}}>
+                    </fieldset>
+                  </div>
+                  <!-- <div class="col-md-2">
+                          <fieldset class="form-group-xs">
+                            <label for="basicInput">Syspro Project No</label>
+                            <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.ExternalSystemRefNo}}>
+                          </fieldset>
+                        </div> -->
+
+
+                </div>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Letting Date</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value="{{ProjectData.LettingDate | date: 'MM/dd/yyyy'}}">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Working Days</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.WorkingDays}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Engineer</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.Architect}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Engineer Phone#</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.PhoneNo}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Business Manager</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.BusinessManager}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">BM Email</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.BMEmail}}>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div class="col-md-12">
+                <div class="row">
+                  <!-- <div class="col-md-2">
+                                  <fieldset class="form-group-xs">
+                                    <label for="basicInput">Unlocked By</label>
+                                    <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.UnlockedBy}}>
+                                  </fieldset>
+                                </div>
+                                <div class="col-md-2">
+                                    <fieldset class="form-group-xs">
+                                      <label for="basicInput">Unlocked Date</label>
+                                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value="{{ProjectData.UnlockedDate | date: 'MM/dd/yyyy hh:mm:ss' }}">
+                                    </fieldset>
+                                  </div> -->
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Created By</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.CreatedBy}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Created Dt</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value="{{ProjectData.CreatedDate | date: 'MM/dd/yyyy'}}">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Revised By</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.LastModifiedBy}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Revised Dt</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value="{{ProjectData.LastModifiedDate | date: 'MM/dd/yyyy'}}">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Version</label>
+                      <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProjectData.Version}}>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Prime Contractor</label>
+                      <div class="" id="primeContractDiv">
+                        <input type="text" class="form-control input-sm" id="PrimeContractorField" readonly="readonly" value={{ProjectData.PrimeContractor}}
+                          (keypress)="SavePrimeContractorByEnter($event)">
+                      </div>
+                      <i class="fa fa-pencil-square-o" title="Add/Edit Prime Contractor" id="primeContractorEditBtn" (click)="EditPrimeContractor()"></i>
+                      <i class="fa fa-floppy-o hidden" title="Save" id="primeContractorSaveBtn" (click)="SavePrimeContractor()"></i>
+                      <i class="fa fa-times hidden" title="Cancel" id="primeContractorCancelBtn" (click)="CancelPrimeContractor()"></i>
+                      <i class="fa fa-spinner fa-spin hidden" title="Saving" id="SavingSubContractor"></i>
+                    </fieldset>
+                  </div>
+                  <!-- <div class="col-md-10">
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <div class="row">
+                        <label for="basicInput" class="col-md-12">Batch Email</label>
+                      </div>
+                      <button type="button" *ngIf="ProjectData.QuoteCustomerCount > 0" (click)="OpenProjectLevelEmailModal()" class="btn btn-icon btn-success mr-1 btn-sm openEmalBtn">
+                        <i class="fa fa-envelope-o"></i>
+                      </button>
+                      <button type="button" *ngIf="ProjectData.QuoteCustomerCount == 0" class="btn btn-icon btn-success mr-1 btn-sm disabled">
+                        <i class="fa fa-envelope-o"></i>
+                      </button>                      
+                    </fieldset>
+                  </div>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <dx-popup id="EmailNoITEMSPop" class="popup" [width]="500" [height]="210" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="true"
+    title="Info" [(visible)]="IsNoItemsVisible">
+    <div *dxTemplate="let data of 'content'">
+      <div class="row deleteConfirmMsg">
+        <div class="col-md-12 text-center">
+          <p>
+            There is no items exists. Please add Items.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12" style="text-align:center">
+              <!-- <dx-button text="Yes" (click)="YesUnlockProject()" class="center-block deleteConfirmBtn margin-right7 YesBtn">
+          </dx-button> -->
+              <dx-button text="Cancle" class="center-block deleteConfirmBtn Close" (click)="canclePop()">
+              </dx-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dx-popup>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="card-title">Project Quotes</h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-body collapse in">
+          <div class="row">
+            <div class="col-md-12">
+              <dx-accordion #accordion [dataSource]="ProjectDivisionList" [collapsible]="true" [multiple]="false" [animationDuration]="300"
+                *ngIf="IsProjectDivisionsData" [selectedItems]="[ProjectDivisionList[AccId]]" (onSelectionChanged)="AccordionselectionChanged($event)">
+                <div *dxTemplate="let item of 'title'">
+                  <h4 *ngIf="item.ProductLine != null">{{item.ProductLine + " " + "(" + item.Name + ")"}}
+                    <!-- <span *ngIf="item.IsProdLineAwarded" class="CRQt">
+                      {{item.AwardedCustomer}} has been awarded by {{item.AwardedBy}}
+                    </span> -->
+                    <span *ngFor="let qt of item.CustomerQuote">
+                      <span class="CRQt" *ngIf="qt.QuoteStatusID == 1"> {{qt.CustomerName}} has been Awarded by {{qt.AwardedBy}}</span>
+                      <span class="CRQtCancel" *ngIf="qt.QuoteStatusID == 2"> {{qt.CustomerName}} has been Canceled by {{qt.AwardedBy}}</span>
+                      <span class="CRQtLost" *ngIf="qt.QuoteStatusID == 3"> {{qt.CustomerName}} has been Lost by {{qt.AwardedBy}}</span>
+                    </span>
+                    <span *ngIf="UserPermissionsList.PL000009">
+                      <input type="button" class="btn btn-info pull-right batchLockBtn mr-1" (click)="UnlockConfirmMsgPopup(item.ProductLineID, item.DivisionID)"
+                        value="Lock All" />
+                    </span>
+                    <div style="width:180px" class="pull-right" *ngFor="let qt of item.CustomerQuote">
+                      <input type="button" class="btn btn-info pull-right awardBtn mr-1" *ngIf="qt.IsMasterQuote && qt.IsAllQuoteLocked && item.ReasonLost == null"
+                      (click)="OpenCustomerPopUpForAward(qt)" value="Award" />
+                      <input type="button" class="btn btn-info pull-right awardBtn disabled mr-1" *ngIf="qt.IsMasterQuote && (!qt.IsAllQuoteLocked || item.ReasonLost != null)"
+                        value="Award" />
+                      <span *ngIf="UserPermissionsList.PL000011">
+                        <input type="button" class="btn btn-info pull-right awardBtn mr-1" *ngIf="qt.IsMasterQuote && qt.Locked"
+                        (click)="OpenCustomerPopUp(qt.QuoteID, qt)" value="Replicate" />
+                        <input type="button" class="btn btn-info pull-right awardBtn disabled mr-1" *ngIf="qt.IsMasterQuote && !qt.Locked"
+                         value="Replicate" />
+                      </span>
+                    </div>
+                  </h4>
+                  <h4 *ngIf="item.ProductLine == null">{{ item.Name }}
+                    <!-- <span *ngIf="item.IsProdLineAwarded" class="CRQt">
+                          {{item.AwardedCustomer}} has been awarded by {{item.AwardedBy}}
+                      </span> -->
+                    <span *ngFor="let qt of item.CustomerQuote">
+                      <span class="CRQt" *ngIf="qt.QuoteStatusID == 1"> {{qt.CustomerName}} has been Awarded by {{qt.AwardedBy}}</span>
+                      <span class="CRQtCancel" *ngIf="qt.QuoteStatusID == 2"> {{qt.CustomerName}} has been Canceled by {{qt.AwardedBy}}</span>
+                      <span class="CRQtLost" *ngIf="qt.QuoteStatusID == 3"> {{qt.CustomerName}} has been Lost by {{qt.AwardedBy}}</span>
+                    </span>
+                    <span *ngIf="UserPermissionsList.PL000009">
+                      <input type="button" class="btn btn-info pull-right batchLockBtn" (click)="UnlockConfirmMsgPopup(item.ProductLineID, item.DivisionID)"
+                        value="Lock All" />
+                    </span>
+                    <div style="width:180px" class="pull-right" *ngFor="let qt of item.CustomerQuote">
+                      <input type="button" class="btn btn-info pull-right awardBtn mr-1" *ngIf="qt.IsMasterQuote && qt.IsAllQuoteLocked"
+                       (click)="OpenCustomerPopUpForAward(qt)" value="Award" />
+                      <input type="button" class="btn btn-info pull-right awardBtn disabled mr-1" *ngIf="qt.IsMasterQuote && !qt.IsAllQuoteLocked"
+                        value="Award" />
+                      <span *ngIf="UserPermissionsList.PL000011">
+                        <input type="button" class="btn btn-info pull-right awardBtn mr-1" *ngIf="qt.IsMasterQuote && qt.Locked"
+                         (click)="OpenCustomerPopUp(qt.QuoteID, qt)" value="Replicate" />
+                        <input type="button" class="btn btn-info pull-right awardBtn disabled mr-1" *ngIf="qt.IsMasterQuote && !qt.Locked"
+                         value="Replicate" />
+                      </span>
+                    </div>
+                  </h4>
+                </div>
+                <div *dxTemplate="let item2 of 'item'" style="width: 100%">
+                  <dx-data-grid #CustomerQuoteGrid id="projectDivGrid" [dataSource]="item2.CustomerQuote" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+                    [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true" [selectedRowKeys]="[]">
+                    <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="true">
+                    </dxo-pager>                    
+                    <dxi-column dataField="CustomerName" [allowFiltering]="true" [allowSorting]="true" cellTemplate="ManageCustomerName" caption="Customer Name"></dxi-column>
+                    <dxi-column dataField="CreatedBy" caption="Created By" [width]="150"></dxi-column>
+                    <dxi-column dataField="CreatedDate" dataType="date" caption="Created Dt" [width]="100"></dxi-column>
+                    <dxi-column dataField="LastModifiedBy" caption="Revised By" [width]="120"></dxi-column>
+                    <dxi-column dataField="LastUpdatedDate" dataType="date" caption="Revised Dt" [width]="100"></dxi-column>
+                    <dxi-column dataField="LockedByUserName" caption="Locked By" [width]="100"></dxi-column>
+                    <dxi-column dataField="QuoteLockedBy" caption="Locked By" [visible]="false"></dxi-column>
+                    <dxi-column dataField="" caption="Status" cellTemplate="StatusTemplate" [width]="75"></dxi-column>
+                    <dxi-column dataField="LockedDate" dataType="date" caption="Locked Dt" [visible]="false"></dxi-column>
+                    <dxi-column dataField="" dataType="date" caption="Locked UserID" [visible]="false"></dxi-column>
+                    <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="CustomerTemplate" caption="Replicate"
+                      alignment="center" [visible]="false"></dxi-column>
+                    <dxi-column dataField="" [allowFiltering]="false" [width]="80" [allowSorting]="false" cellTemplate="EmailProposal" caption="Email"
+                      alignment="center"></dxi-column>                      
+                   <!--  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplate" *ngIf="ProjectData.QuoteCustomerCount > 0" caption="Trip Report"  [width]="70">
+                    </dxi-column>
+                    <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplate" *ngIf="ProjectData.QuoteCustomerCount == 0" caption="Trip Report"  [width]="70">
+                    </dxi-column> -->
+
+                    <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="AwardQuote" caption="Award"
+                     alignment="center" [visible]="false"></dxi-column>
+                    <dxi-column dataField="" [allowFiltering]="false" [width]="90" [allowSorting]="false" cellTemplate="ManageQuote" caption="Manage"></dxi-column>
+                    <div *dxTemplate="let data of 'StatusTemplate'">
+                      <span class="colorGreen" *ngIf="!data.row.data.IsMasterQuote && data.row.data.Locked && data.row.data.QuoteStatusID == 1">Awarded</span>
+                      <span class="colorPink" *ngIf="!data.row.data.IsMasterQuote && data.row.data.Locked && data.row.data.QuoteStatusID == 2">Canceled</span>
+                      <span class="colorPink" *ngIf="!data.row.data.IsMasterQuote && data.row.data.Locked && data.row.data.QuoteStatusID == 3">Lost</span>
+                      <span class="colorPink" *ngIf="!data.row.data.IsMasterQuote && data.row.data.Locked && data.row.data.QuoteStatusID == 0"></span>
+                      <span class="colorGreen" *ngIf="!data.row.data.IsMasterQuote && !data.row.data.Locked && data.row.data.QuoteStatusID == 1">Awarded</span>
+                      <span class="colorPink" *ngIf="!data.row.data.IsMasterQuote && !data.row.data.Locked && data.row.data.QuoteStatusID == 2">Canceled</span>
+                      <span class="colorPink" *ngIf="!data.row.data.IsMasterQuote && !data.row.data.Locked && data.row.data.QuoteStatusID == 3">Lost</span>
+                      <span class="colorPink" *ngIf="!data.row.data.IsMasterQuote && !data.row.data.Locked && data.row.data.QuoteStatusID == 0"></span>
+                    </div>
+                    <div *dxTemplate="let data of 'CustomerTemplate'">
+                      <div *ngIf="UserPermissionsList.PL000011">
+                        <button type="button" *ngIf="data.row.data.IsMasterQuote && data.row.data.Locked" (click)="OpenCustomerPopUp(data.row.data.QuoteID, data)"
+                          class="btn btn-icon btn-success mr-1 btn-sm">
+                          <i class="fa fa-users"></i>
+                        </button>
+                        <button type="button" *ngIf="data.row.data.IsMasterQuote && !data.row.data.Locked" class="btn btn-icon btn-success mr-1 btn-sm disabled"
+                          data-toggle="tooltip" data-placement="left" title="Master quote is not locked">
+                          <i class="fa fa-users"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                   <!--  <div *dxTemplate="let data of 'cellTemplate'">
+                      <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="TripReportModal(data)">
+                        <i class="fa fa-file-word-o"></i>
+                      </button>
+                    </div> -->
+
+                    <div *dxTemplate="let data of 'EmailProposal'">
+                      <div *ngIf="UserPermissionsList.PL000013">
+                        <button type="button" *ngIf="!data.row.data.IsMasterQuote && data.row.data.Locked" (click)="OpenQuoteLevelEmailModal(data)"
+                          class="btn btn-icon btn-success mr-1 btn-sm openEmalBtn">
+                          <i class="fa fa-envelope-o"></i>
+                          <span class="tag tag-pill tag-default tag-danger tag-default tag-up emailCount">{{data.row.data.EmailCount}}</span>
+                        </button>
+                        <button type="button" *ngIf="!data.row.data.IsMasterQuote && !data.row.data.Locked" class="btn btn-icon btn-success mr-1 btn-sm openEmalBtn disabled">
+                          <i class="fa fa-envelope-o"></i>
+                          <span class="tag tag-pill tag-default tag-danger tag-default tag-up emailCount">{{data.row.data.EmailCount}}</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div *dxTemplate="let data of 'AwardQuote'">
+                      <button type="button" *ngIf="data.row.data.IsMasterQuote && data.row.data.IsAllQuoteLocked" (click)="OpenCustomerPopUpForAward(data)"
+                        class="btn btn-icon btn-success mr-1 btn-sm">
+                        <i class="fa fa-trophy"></i>
+                      </button>
+                      <button type="button" *ngIf="data.row.data.IsMasterQuote && !data.row.data.IsAllQuoteLocked" class="btn btn-icon btn-success mr-1 btn-sm disabled">
+                        <i class="fa fa-trophy"></i>
+                      </button>
+                    </div>
+                    <div *dxTemplate="let data of 'ManageQuote'">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <span *ngIf="!data.row.data.IsMasterQuote" (click)="OpenQuoteInfoPage(data)" class="btn btn-icon btn-success mr-1 btn-sm">
+                            <i class="fa fa-edit"></i>
+                          </span>
+                          <span *ngIf="data.row.data.IsMasterQuote" (click)="OpenQuoteInfoPage(data)" class="btn btn-icon btn-success mr-1 btn-sm">
+                            <i class="fa fa-eye"></i>
+                          </span>
+                        </div>
+                        <div class="col-md-6">
+                          <button type="button" *ngIf="!data.row.data.IsMasterQuote && !data.row.data.Locked && !data.row.data.IsAllQuoteLocked" (click)="DeleteConfirmPopup(data.row.data.QuoteCustomerID)"
+                            class="btn btn-icon btn-success mr-1 btn-sm DeleteQuoteBtn">
+                            <i class="fa fa-trash-o"></i>
+                          </button>
+                          <button type="button" *ngIf="!data.row.data.IsMasterQuote && data.row.data.Locked" class="btn btn-icon btn-success mr-1 btn-sm DeleteQuoteBtn disabled">
+                            <i class="fa fa-trash-o"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div *dxTemplate="let data of 'ManageCustomerName'">
+                      <div class="row" *ngIf="data.row.data.IsMasterQuote">
+                        <div class="col-md-12">
+                          <span class="MasterQt">M</span>
+                          <span> {{data.row.data.QuoteNumber}}</span>
+                          <span class="version">{{data.row.data.Version}}</span>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="!data.row.data.IsMasterQuote">
+                        <div class="col-md-12">
+                          <span class="CRQt">CR</span>
+                          <span> {{data.value}}
+                            <span class="version">{{data.row.data.Version}}</span>
+                          </span>
+                          <span *ngIf="data.row.data.IsAwarded" class="CRQt">
+                            <i class="fa fa-trophy"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </dx-data-grid>
+                </div>
+              </dx-accordion>
+              <div class="alert alert-info noRecordsAlert" *ngIf="!IsProjectDivisionsData && IsAlerts">
+                <p>
+                  <strong>Info!</strong> Sorry, there is no items or assembly for this project. Please add items to manage Division.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<dx-popup id="itemPopup" class="popup" [width]="900" [height]="480" [showTitle]="true" title="Items" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="itemPopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+    <dx-data-grid #itemsGrid id="itemListGrid" [dataSource]="ItemListDataSource" [(selectedRowKeys)]="selectedRows" [showBorders]="true"
+      [hoverStateEnabled]="true" (onSelectionChanged)="ItemSelectionChangedHandler(itemsGrid.selectedRowKeys)">
+      <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+      <dxo-paging [enabled]="true" [pageSize]="20"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 40, 60]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-selection mode="multiple" [deferred]="false" [allowSelectAll]="true"></dxo-selection>
+      <dxi-column caption="Description" dataField="Description" [width]="150"></dxi-column>
+      <dxi-column caption="Unit" dataField="UOM" [width]="80"></dxi-column>
+      <dxi-column caption="Unit Price" dataField="UnitPrice"></dxi-column>
+      <dxi-column caption="Item No" dataField="ItemNo"></dxi-column>
+      <dxi-column caption="Alt Code" dataField="AltCode"></dxi-column>
+
+
+      <dxi-column caption="Approx Quantity" dataField="ApproxQuantity"></dxi-column>
+      <dxi-column caption="Unit Price" dataField="UnitPrice"></dxi-column>
+      <dxi-column caption="Amount" dataField="Amount"></dxi-column>
+    </dx-data-grid>
+
+    <dx-button id="itemListCancelBtn" text="Cancel" (onClick)="CloseItemsPopup()" class="pull-right margin-left-5">
+    </dx-button>
+    <dx-button id="itemListSaveBtn" text="Save" [disabled]="IsDisabled" (onClick)="SaveItems()" class="pull-right">
+    </dx-button>
+  </div>
+</dx-popup>
+
+<dx-popup id="QuoteCustomerPopup" class="popup" [width]="1200" [height]="700" [showTitle]="true" title="Award Quote" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="QuoteCustomerPopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="QtCustomerDiv">
+    <div class="row" style="margin-bottom: 30px;" *ngIf="IsAwardQuoteDataFetched">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Master Quote: {{ProductLineMasterQuote[0].QuoteNumber}} - {{ProductLineMasterQuote[0].Version}}
+            </h4>
+          </div>
+          <div class="card-body collapse in">
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label>SGM(%)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].GlobalMarkup.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label>AGM(%)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].ActualGlobalMarkUp.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">T.Freight($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].TotalFreight.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label>TC w/o F($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].TotalCost.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">TBP($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].TotalBidPrice.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">Margin($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].ActualGlobalMargin.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <dx-data-grid #QuoteCustomerGrid id="QuoteCustomerListGrid" [dataSource]="ProductLineQuoteListDataSource" [(selectedRowKeys)]="selectedCustRowsForAward"
+      [showBorders]="true" [hoverStateEnabled]="true" (onRowPrepared)="onRowPreparedAwardQuote($event)" (onSelectionChanged)="QuoteCustomerSelectionChangedHandler($event)"
+      (onRowUpdated)="UpdateQuoteAward($event.key)" (onRowClick)="onRowAwardClick($event)" (onEditorPreparing)="onAwardEditorPreparing($event)"
+      (onEditingStart)="OnAwardEditingStart($event)">
+
+      <dxo-paging [enabled]="true" [pageSize]="20"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 40, 60]" [showInfo]="true">
+      </dxo-pager>
+      <!-- <dxo-selection mode="single" [deferred]="false" [allowSelectAll]="false"></dxo-selection>
+      <dxo-editing mode="popup">
+        <dxo-popup title="Award Info" [showTitle]="true" [height]="370" [width]="900">
+        </dxo-popup>
+        <dxo-form>
+          <dxi-item dataField="BidValue" editorType="dxTextBox" [editorOptions]="{ min:0 }">
+            <dxi-validation-rule type="required" message="Please Enter Bid Value."></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="AwardValue" editorType="dxTextBox" [editorOptions]="{ min:0 }">
+            <dxi-validation-rule type="required" message="Please Enter Award Value."></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="QuoteStatusID" editorType="dxTextBox" [editorOptions]="{ min:0 }">
+          </dxi-item>
+          <dxi-item dataField="AwardedDate" editorType="dxTextBox">
+            <dxi-validation-rule type="required" message="Please Select Award Date."></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="CRMNote" [colSpan]="2" editorType="dxTextBox">
+            <dxi-validation-rule type="required" message="Please Enter CRM Note."></dxi-validation-rule>
+          </dxi-item>
+        </dxo-form>
+      </dxo-editing>
+      <dxi-column [allowEditing]="false" [allowSorting]="false" [visible]="false" cellTemplate="selectCellTemplate" width="40px"></dxi-column>
+      <div *dxTemplate="let data of 'selectCellTemplate'">
+        <dx-radio-group [value]="selectedAwardQuote" valueExpr="QuoteID" [items]="[{QuoteID:data.data.QuoteID}]">
+        </dx-radio-group>
+      </div> -->
+      <dxi-column caption="Customer" dataField="" cellTemplate="CustomerTemplate" [width]="180"></dxi-column>
+      <!-- <dxi-column caption="Customer" [allowEditing]="false" dataField="CustomerName" [width]="180"></dxi-column> -->
+      <dxi-column caption="Quote#" [allowEditing]="false" dataField="QuoteNumber" [width]="70"></dxi-column>
+      <dxi-column caption="Version" [allowEditing]="false" dataField="Version" [width]="50"></dxi-column>
+      <dxi-column caption="SGM(%)" [allowEditing]="false" dataField="GlobalMarkup" [width]="70" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="AGM(%)" [visible]="false" [allowEditing]="false" dataField="ActualGlobalMarkUp" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="Freight($)" [visible]="false" [allowEditing]="false" dataField="FreightRate" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="T.Freight($)" [visible]="false" [allowEditing]="false" dataField="TotalFreight" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="TC W/O F($)" [visible]="false" [allowEditing]="false" dataField="TotalCost" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="TBP($)" [allowEditing]="false" dataField="TotalBidPrice" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="GM(%)" [allowEditing]="false" dataField="ActualGlobalMargin" [width]="85" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="Awarded Amount" [allowEditing]="false" dataField="AwardedAmount" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="Bid Value($)" dataType="number" dataField="TotalBidPrice" [visible]="false" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="Award Cost($)" dataField="AwardValue" [customizeText]="CurrencyFormatter"[width]="120"></dxi-column>
+      <dxi-column caption="AM(%)" dataField="AwardedMargin" [customizeText]="CurrencyFormatter"></dxi-column>
+      <dxi-column caption="Award Date" dataType="date" dataField="AwardedDate"></dxi-column>
+      <dxi-column caption="Status" dataField="QuoteStatusID" [visible]="false"></dxi-column>
+      <!-- <dxi-column caption="Sub Contractor" dataField="PrimeContractor"></dxi-column> -->
+      <dxi-column caption="CRM Note" dataField="CRMNote"></dxi-column>
+      <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplateAwardedDiv"
+        caption="Award Info" [width]="100">
+      </dxi-column>
+      <div *dxTemplate="let data of 'cellTemplateAwardedDiv'">
+        <button type="button" class="btn btn-success mr-1 btn-sm marginleft5" (click)="OpenAwardUpdatePopup(data)">
+          Add/Edit
+        </button>
+      </div>
+      <div *dxTemplate="let data of 'CustomerTemplate'">
+        <span *ngIf="!data.row.data.IsAwarded">
+          {{data.row.data.CustomerName}}
+        </span>
+        <span *ngIf="data.row.data.IsAwarded">
+          {{data.row.data.CustomerName}}
+          <span class="CRQt">
+            <i class="fa fa-trophy"></i>
+          </span>
+        </span>
+      </div>
+    </dx-data-grid>
+    <div class="row">
+      <div class="col-md-12">
+        <dx-button text="Cancel" (onClick)="CloseQuoteCustomerPopup()" class="pull-right margin-left-5">
+        </dx-button>
+        <!-- <dx-button text="Award" [disabled]="IsQtCstBtnDisabled" (onClick)="AwardCustomer()" class="pull-right AwardBtn">
+        </dx-button> -->
+      </div>
+    </div>
+
+
+  </div>
+</dx-popup>
+<dx-load-panel #loadPanelForAward shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#QtCustomerDiv' }" [(visible)]="AwardLoadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+
+<dx-popup id="AwardedPopup" class="popup" [width]="950" [height]="530" [showTitle]="true" title="Award Info" [dragEnabled]="false"
+[closeOnOutsideClick]="false" [(visible)]="AwardedInfoPopupVisible">
+<div *dxTemplate="let data of 'content'" id="AwardDiv">
+  <div class="row marginBottom10">
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        Total Bid Price
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <dx-number-box format="##0.00" id="awardBidValue" value={{EditAwardBidValue}} [disabled]="true"></dx-number-box>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        Awarded Amount
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <dx-number-box format="##0.00" id="awardAmount" value={{EditAwardedAmount}} (onFocusOut)="CalculateAwardMargine()"></dx-number-box>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row marginBottom10">
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        Awarded Cost <span class="text-danger">*</span>
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <dx-number-box id="AwardValue" value={{EditAwardValue}} (onFocusOut)="CalculateAwardMargin()"></dx-number-box>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        Award Margin
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <dx-number-box format="##0.00" id="AwardMarginValue" value={{AwardedMarginValue}} [disabled]="true"></dx-number-box>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row marginBottom10">
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        Awarded Date
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <dx-date-box style="width:100% !important" value={{EditAwardDate}} type="date" class="form-control" id="ToDate" name="ToDate">
+        </dx-date-box>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        Award Status
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <dx-select-box id="QuoteStatusDropDown" [(ngModel)]='EditQuoteStatus' name="EditQuoteStatus" [dataSource]="AwardQuoteStatus"
+          valueExpr="id" displayExpr="Name" [value]="EditQuoteStatus" [showClearButton]="true">
+        </dx-select-box>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row marginBottom10">
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        CRM Note
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <dx-text-area [height]="90" type="text" id="CRMNote" value={{EditCRMNotes}}></dx-text-area>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row marginBottom10">
+    <div class="col-md-12">
+      <fieldset class="form-group" id="notes">
+        Please note that if you are awarding only the part of a quote, you may need to adjust the Freight, Finish, and Commission to account for the Awarded Amount.
+      </fieldset>
+    </div>      
+  </div>
+  <dx-button id="AwardListCancelBtn" text="Cancel" (onClick)="CloseAwardPopup()" class="pull-right margin-left-5">
+  </dx-button>
+  <dx-button id="AwardListSaveBtn" text="Save" (onClick)="UpdateQuoteAward()" class="pull-right">
+  </dx-button>
+</div>
+</dx-popup>
+
+
+<dx-popup id="customerPopup" class="popup" [width]="950" [height]="480" [showTitle]="true" title="Replicate Master Quote"
+  [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="customerPopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="customerDiv">
+    <dx-data-grid #customerGrid id="customerListGrid" [dataSource]="CountyCustomerListDataSource" [(selectedRowKeys)]="selectedRows"
+      [showBorders]="true" [hoverStateEnabled]="true" (onSelectionChanged)="CustomerSelectionChangedHandler(customerGrid.selectedRowKeys)">
+      <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+      <dxo-paging [enabled]="true" [pageSize]="20"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[20, 40, 60]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-selection mode="multiple" [deferred]="false" [allowSelectAll]="true"></dxo-selection>
+      <dxi-column caption="Customer" dataField="Name" [width]="130"></dxi-column>
+      <dxi-column caption="Contact" dataField="Contacts" [width]="180"></dxi-column>
+      <dxi-column caption="Address" dataField="Address" [width]="110"></dxi-column>
+      <dxi-column caption="State" dataField="StateName" [width]="60"></dxi-column>
+      <dxi-column caption="City" dataField="City" [width]="70"></dxi-column>
+      <dxi-column caption="County" dataField="County" [width]="110"></dxi-column>
+      <dxi-column caption="ZIP" dataField="ZIPCode" [width]="70"></dxi-column>
+      <dxi-column caption="Phone" dataField="OfficePhone" [width]="70"></dxi-column>
+    </dx-data-grid>
+    <dx-button id="customerListCancelBtn" text="Cancel" (onClick)="CloseCustomerPopup()" class="pull-right margin-left-5">
+    </dx-button>
+    <dx-button id="customerListSaveBtn" text="Replicate" [disabled]="IsDisabled" (onClick)="SaveCustomer()" class="pull-right">
+    </dx-button>
+  </div>
+</dx-popup>
+<dx-load-panel #loadPanelForReplicate shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#customerDiv' }" [(visible)]="loadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+<dx-popup id="EmailPopup" class="popup" [width]="1100" [height]="650" [showTitle]="true" title="Email Proposal" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="emailPopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="emailDiv">
+    <dx-tab-panel #tabPanel id="EmailTabPanel" [dataSource]="emailTabsDataSource" [selectedIndex]="EmailTabSelectedIndex" (onSelectionChanged)="TabSelectionChanged2($event)">
+      <div *dxTemplate="let company of 'title'">
+        <span>{{company.text}}</span>
+      </div>
+      <div *dxTemplate="let company of 'item'">
+        <!--<div class="row" *ngIf="IsEmailByQuoteLevel && EmailList && IsEmailTab">
+        <div class="col-md-12">
+          <div class="row marginTop20">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-3">
+                  <label class="marginLeft10">To</label>
+                </div>
+              </div>
+              <div class="col-md-3" *ngFor="let item of QuoteEmailProposalContacts">
+                <span class="emailAddress">{{item.CustomerContactName}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+        <div class="tabpanel-item" *ngIf="IsUnlockedQuoteTab">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="panel-group padding20">
+                <div class="panel panel-default quotePanel">
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <i class="fa fa-maxcdn"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h2>{{MasterQuoteCount}}</h2>
+                        <p>Master</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="panel-group padding20">
+                <div class="panel panel-default quotePanel">
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <i class="fa fa-file-text-o"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h2>{{CustomerQuoteCount}}</h2>
+                        <p>Customer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="panel-group padding20">
+                <div class="panel panel-default quotePanel">
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <i class="fa fa-lock"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h2 class="colorRed" *ngIf="LockedQuoteCount == 0">{{LockedQuoteCount}}</h2>
+                        <h2 class="colorGreen" *ngIf="LockedQuoteCount > 0">{{LockedQuoteCount}}</h2>
+                        <p>Locked</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="panel-group padding20">
+                <div class="panel panel-default quotePanel">
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <i class="fa fa-unlock"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h2 class="colorRed" *ngIf="UnlockedQuoteCount > 0">{{UnlockedQuoteCount}}</h2>
+                        <h2 class="colorGreen" *ngIf="UnlockedQuoteCount == 0">{{UnlockedQuoteCount}}</h2>
+                        <p>Un-locked</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <dx-data-grid #UnlockedQuoteGrid id="gridUnlockedQuoteContainer" [dataSource]="UnlockedQuotesList" [allowColumnReordering]="true"
+            [hoverStateEnabled]="true" [(visible)]="IsEmailByProjectLevel" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+            [showBorders]="true" [selectedRowKeys]="selectedUnlockedQuoteRows" (onCellPrepared)="onCellPreparedforPrimary($event)"
+            (onSelectionChanged)="UnlockedQuotesSelectionChangedHandler(UnlockedQuoteGrid.selectedRowKeys)">
+            <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+            </dxo-pager>
+            <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+            <dxo-selection [showCheckBoxesMode]="checkBoxesMode" mode="multiple" [allowSelectAll]="true"></dxo-selection>
+            <dxi-column caption="Product Line" dataField="ProductLineName" [width]="150" cellTemplate="cellTemplateProductline"></dxi-column>
+            <dxi-column caption="Division" dataField="Name" [visible]="false"></dxi-column>
+            <dxi-column caption="Customer Name" dataField="CustomerName" [width]="220"></dxi-column>
+            <dxi-column caption="Primary Contact" dataField="CustomerContactName" cellTemplate="cellTemplatePrimary"></dxi-column>
+            <dxi-column caption="Quote#" dataField="QuoteNumber" [width]="100"></dxi-column>
+            <dxi-column caption="Version" dataField="Version" [width]="70" alignment="center"></dxi-column>
+            <!-- <dxi-column dataField="ProcessedDate" caption="Email" alignment="center" cellTemplate="cellTemplateIsEmailDate"></dxi-column> -->
+            <div *dxTemplate="let data of 'cellTemplatePrimary'">
+              <span *ngIf="data.row.data.CustomerContactName != null">{{data.text}}</span>
+              <span class="NoPrimary" *ngIf="data.row.data.CustomerContactName == ''">No Primary Contact</span>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplateProductline'">
+              <span *ngIf="data.row.data.ProductLineName">{{data.row.data.ProductLineName +""+"("+data.row.data.Name +")"}}</span>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplateIsEmailDate'">
+              <span class="mailSent" *ngIf="data.row.data.LastProcessedDate != null">{{data.row.data.LastProcessedDate}}</span>
+            </div>
+          </dx-data-grid>
+        </div>
+        <div class="tabpanel-item" *ngIf="IsEmailTab">
+          <div class="row EmailTemplate">
+            <div class="col-md-12">
+              <div class="form-group paddingBottom0 marginBottom0" *ngIf="IsEmailByQuoteLevel && EmailList">
+                <div class="row">
+                  <div class="col-md-1">
+                    <label *ngIf="IsEmailByQuoteLevel && EmailList" for="exampleInputPassword1">To :</label>
+                  </div>
+                  <div class="col-md-11">
+                    <dx-tag-box *ngIf="IsEmailByQuoteLevel && EmailList" [dataSource]="QuoteEmailList" [value]="QuoteEmailList" (onValueChanged)="GetEmailList($event)">
+                    </dx-tag-box>
+                    <!-- <input *ngIf="IsEmailByQuoteLevel && EmailList" type="text" id="QuoteLevEmailTo" class="form-control" value="{{QuoteEmailsByComma}}"
+                      />  -->
+                  </div>
+                </div>
+              </div>
+              <div class="form-group paddingBottom0 marginBottom0" *ngIf="IsEmailByQuoteLevel && EmailList">
+                <div class="row">
+                  <!-- <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label *ngIf="IsEmailByQuoteLevel && EmailList" for="exampleInputPassword1">CC
+                                <span *ngIf="IsEmailByQuoteLevel && EmailList" class="CCEmailMsg">
+                                  <i class="fa fa-info-circle colorWhite"></i> Emails must be seperated by Semicolon(;) ex : example1@abc.com;example2@abc.com </span>
+                              </label>
+                        </div>
+                        <div class="col-md-11">
+                              
+                        </div>
+                    </div>
+                  </div> -->
+                  <div class="col-md-1">
+                    <label *ngIf="IsEmailByQuoteLevel && EmailList" for="exampleInputPassword1">CC :</label>
+                  </div>
+                  <div class="col-md-1">
+
+                  </div>
+                  <div class="col-md-11">
+                    <input *ngIf="IsEmailByQuoteLevel && EmailList" placeholder="Emails must be seperated by Semicolon(;) ex : example1@abc.com;example2@abc.com"
+                      title="Emails must be seperated by Semicolon(;) ex : example1@abc.com;example2@abc.com" type="text" id="QuoteLevEmailCC"
+                      class="form-control" value="" (keyup)="emailCCKeyup()" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group paddingBottom0 marginBottom0">
+                <div class="row">
+                  <div class="col-md-1">
+                    <label *ngIf="EmailList" for="exampleInputPassword1">Sub :</label>
+                  </div>
+                  <div class="col-md-11">
+                    <input *ngIf="IsEmailByProjectLevel && EmailList" (focusout)="getEmailSubject($event)" type="text" id="ProjectLevEmailSub" class="form-control" value="{{EmailProposalContactsList[0].EmailSubject}}"
+                     />
+                    <input *ngIf="IsEmailByQuoteLevel && EmailList" type="text" id="QuoteLevEmailSub" class="form-control" value="{{QuoteEmailProposalContacts[0].EmailSubject}}"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group paddingBottom0">
+                <div class="row">
+                  <div class="col-md-1">
+                    <label *ngIf="EmailList" for="exampleInputPassword1">Body :</label>
+                  </div>
+                  <div class="col-md-11">
+                    <textarea rows="2" *ngIf="IsEmailByProjectLevel && EmailList" (focusout)="getEmailBody($event)" type="text" id="ProjectLevEmailBody" class="form-control maxHeight100"
+                    value="{{EmailProposalContactsList[0].EmailBody}}"></textarea>
+                    <textarea rows="2" *ngIf="IsEmailByQuoteLevel && EmailList" type="text" id="QuoteLevEmailBody" class="form-control maxHeight100"
+                      value="{{QuoteEmailProposalContacts[0].EmailBody}}"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="!EmailList && IsEmailTab && IsEmailByQuoteLevel">
+            <div class="col-md-12">
+              <label class="NoEmails">Either no contacts associated or emails are in queue.</label>
+            </div>
+          </div>
+          <dx-data-grid #BatchEmailGrid id="gridEmailContainer" [dataSource]="EmailProposalContactsList" [allowColumnReordering]="true"
+            [hoverStateEnabled]="true" [(visible)]="IsEmailByProjectLevel" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+            [showBorders]="true" [selectedRowKeys]="selectedQuoteRows" (onCellPrepared)="onCellPreparedforPrimary($event)"
+            (onSelectionChanged)="EmailContactsSelectionChangedHandler(BatchEmailGrid.selectedRowKeys)">
+            <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+            </dxo-pager>
+            <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+            <dxo-selection [showCheckBoxesMode]="checkBoxesMode" mode="multiple" [allowSelectAll]="true"></dxo-selection>
+            <dxi-column caption="Product Line" dataField="ProductLineName" [width]="150" cellTemplate="cellTemplateProductline"></dxi-column>
+            <dxi-column caption="Division" dataField="Name" [visible]="false"></dxi-column>
+            <dxi-column caption="Customer Name" dataField="CustomerName" [width]="190"></dxi-column>
+            <dxi-column caption="Primary Contact" dataField="CustomerContactName" cellTemplate="cellTemplatePrimary"></dxi-column>
+            <dxi-column caption="Quote#" dataField="QuoteNumber" [width]="100"></dxi-column>
+            <dxi-column caption="Version" dataField="Version" [width]="70" alignment="center"></dxi-column>
+            <dxi-column dataField="ProcessedDate" caption="Email" alignment="center" cellTemplate="cellTemplateIsEmailDate"></dxi-column>
+            <div *dxTemplate="let data of 'cellTemplatePrimary'">
+              <span *ngIf="data.row.data.CustomerContactName != null">{{data.text}}</span>
+              <span class="NoPrimary" *ngIf="data.row.data.CustomerContactName == ''">No Primary Contact</span>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplateProductline'">
+              <span *ngIf="data.row.data.ProductLineName">{{data.row.data.ProductLineName +""+"("+data.row.data.Name +")"}}</span>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplateIsEmailDate'">
+              <span class="mailSent" *ngIf="data.row.data.LastProcessedDate != null">{{data.row.data.LastProcessedDate}}</span>
+            </div>
+          </dx-data-grid>
+        </div>
+
+        <div class="tabpanel-item" *ngIf="IsEmailHistoryTab">
+          <dx-data-grid #emailGrid id="emailListGrid" [dataSource]="EmailListDataSourceList" [showBorders]="true" [hoverStateEnabled]="true">
+            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+            <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+            </dxo-pager>
+            <dxi-column caption="Customer Name" dataField="CustomerName"></dxi-column>
+            <dxi-column caption="Sent To" dataField="SentTo"></dxi-column>
+            <dxi-column caption="Sent By" dataField="RequestedByName"></dxi-column>
+            <dxi-column caption="Product Line" dataField="ProductLineName" [width]="80"></dxi-column>
+            <dxi-column caption="Quote No." dataField="QuoteNumber" [width]="80"></dxi-column>
+            <dxi-column caption="Queued Dt" dataField="RequestedDate" [width]="120"></dxi-column>
+            <dxi-column caption="Processed Dt" dataField="ProcessedDate" [width]="120"></dxi-column>
+            <dxi-column caption="Version" dataField="RequestedVersion" [width]="80"></dxi-column>
+            <dxi-column caption="Remarks" dataField="ErrorMessage"></dxi-column>
+            <dxi-column dataField="" [allowFiltering]="false" [width]="80" [allowSorting]="false" cellTemplate="cellTemplateIsProcessed"
+              caption="Sent">
+            </dxi-column>
+            <div *dxTemplate="let data of 'cellTemplateIsProcessed'">
+              <span class="mailSent" *ngIf="data.row.data.Processed">Yes</span>
+              <span class="mailNotSent" *ngIf="!data.row.data.Processed">No</span>
+            </div>
+          </dx-data-grid>
+        </div>
+      </div>
+    </dx-tab-panel>
+    <dx-button text="Close" (onClick)="CloseEmailPopup()" class="pull-right margin-left-5 margin-bottom20 Close">
+    </dx-button>
+    <dx-button text="Lock All" *ngIf="IsUnlockedQuoteTab" (onClick)="LockUnlockedBatchQuotes()"
+     class="pull-right margin-left-5 margin-bottom20 sendmail">
+    </dx-button>
+    <dx-button text="Send" *ngIf="IsEmailByQuoteLevel && IsEmailTab && EmailList" (onClick)="SendEmail()" [disabled]="IsDisabled"
+      class="pull-right margin-left-5 margin-bottom20 sendmail">
+    </dx-button>
+    <dx-button text="Send" *ngIf="IsEmailByProjectLevel && IsEmailTab && EmailList" (onClick)="SendEmailProjectLevel()" [disabled]="!IsDisabled"
+      class="pull-right margin-left-5 margin-bottom20 sendmail">
+    </dx-button>
+  </div>
+</dx-popup>
+<dx-load-panel #loadPanelForEmail shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#emailDiv' }" [(visible)]="emailLoadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+<dx-popup id="deleteQoutePopup" class="popup" [width]="355" [height]="135" [showTitle]="false" [dragEnabled]="false" [closeOnOutsideClick]="false"
+  [(visible)]="IsDeleteQoutePopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="row deleteConfirmMsg">
+      <div class="col-md-12 text-center">
+        <p>
+          Are you sure you want to delete this record?
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12" style="text-align:center">
+            <dx-button text="Yes" (click)="YesDeleteQuote(data)" class="center-block deleteConfirmBtn margin-right7">
+            </dx-button>
+            <dx-button text="No" (click)="NoDeleteQuote()" class="center-block deleteConfirmBtn">
+            </dx-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dx-popup>
+
+<dx-popup id="lockUnlockBatchQuotePopup" class="popup" [width]="500" [height]="210" [showTitle]="true" [dragEnabled]="false"
+  [closeOnOutsideClick]="true" title="Confirm" [(visible)]="IsUnlockQuotePopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="row deleteConfirmMsg">
+      <div class="col-md-12 text-center">
+        <p>
+          This will lock all the quotes under this Product Line(s). Are you sure you want to continue?
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12" style="text-align:center">
+            <dx-button text="Yes" (click)="YesUnlockBatchQuotes()" class="center-block deleteConfirmBtn margin-right7 YesBtn">
+            </dx-button>
+            <dx-button text="No" (click)="DontUnlockBatchQuotes()" class="center-block deleteConfirmBtn Close">
+            </dx-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dx-popup>
+
+<dx-popup id="RefreshPagePopup" class="popup" [width]="500" [height]="200" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="true"
+  title="Info" [(visible)]="RefreshPageAlert">
+  <div *dxTemplate="let data of 'content'">
+    <div class="row deleteConfirmMsg">
+      <div class="col-md-12 text-center">
+        <p>
+          {{AlertMessage}}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12" style="text-align:center">
+            <dx-button text="Ok" (click)="ReloadPage()" class="center-block deleteConfirmBtn margin-right7 YesBtn">
+            </dx-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dx-popup>
+
+<dx-popup id="QuoteCustomerPopup" class="popup" [width]="1000" [height]="500" [showTitle]="true" title="Award Quote" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="AwardQuotePopupVisible" [disabled]="IsPopupDisabled">
+  <div *dxTemplate="let data of 'content'" id="AwardQtCustomerDiv">
+    <div class="row" *ngIf="IsAwardQuoteDataFetched">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Master Quote: {{ProductLineMasterQuote[0].QuoteNumber}} - {{ProductLineMasterQuote[0].Version}}
+            </h4>
+          </div>
+          <div class="card-body collapse in">
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label>SGM(%)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].GlobalMarkup.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label>AGM(%)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].ActualGlobalMarkUp.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">T.Freight($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].TotalFreight.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label>TC w/o F($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].TotalCost.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">TBP($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].TotalBidPrice.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group-xs">
+                        <label for="basicInput">Margin($)</label>
+                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineMasterQuote[0].ActualGlobalMargin.toFixed(2)}}>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 30px;" *ngIf="IsAwardQuoteDataFetched">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Customer Quote: {{ProductLineQuoteListDataSource[0].QuoteNumber}} - {{ProductLineQuoteListDataSource[0].Version}}
+            </h4>
+          </div>
+          <div class="card-body collapse in">
+            <div class="card-block">
+              <form #award='ngForm' (ngSubmit)="SaveQuoteStatus(award.value)">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label>Bid Value</label>
+                          <input type="text" name="AwardBidValue" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineQuoteListDataSource[0].TotalBidPrice}}>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label>Award Value</label>
+                          <input type="text" [(ngModel)]='AwardValue' name="AwardValue" class="form-control input-sm" id="basicInput" value={{ProductLineQuoteListDataSource[0].AwardValue}}>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Award Margin</label>
+                          <input type="text" [(ngModel)]='AwardMargin' name="AwardMargin" class="form-control input-sm" id="basicInput" readonly="readonly" value={{ProductLineQuoteListDataSource[0].BidValue}}>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Awarded Date</label>
+                          <dx-date-box type="date" [(ngModel)]='AwardedDate' name="AwardedDate" style="width: 100% !important" class="form-control" [value]="ProductLineQuoteListDataSource[0].AwardedDate" id="ToDate"
+                          >
+                          </dx-date-box>
+                        </fieldset>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label>CRM Note</label>
+                          <textarea type="text" [(ngModel)]='CRMNote' name="CRMNote" class="form-control input-sm CRMNoteTextArea" id="basicInput" value={{ProductLineQuoteListDataSource[0].CRMNote}}></textarea>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Award Status</label>
+                          <dx-select-box [(ngModel)]='QuoteStatus' name="QuoteStatus" [dataSource]="AwardQuoteStatus" valueExpr="id" displayExpr="Name"
+                            [value]="ProductLineQuoteListDataSource[0].QuoteStatusID" [showClearButton]="true">
+                          </dx-select-box>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-6" style="padding-top: 30px;">
+                        <dx-button text="Cancel" (onClick)="CloseQuoteCustomerPopup()" class="pull-right margin-left-5">
+                        </dx-button>
+                        <button class="btn btn-default btn-min-width pull-right AwardBtn">Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dx-popup>
+<dx-load-panel #loadPanelForAwardModal shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#AwardQtCustomerDiv' }" [(visible)]="AwardLoadingVisible"
+  [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+<!-- Trip Report popup Begin  -->
+<!-- <dx-popup id="AwardedPopup" class="popup" [width]="950" [height]="830" [showTitle]="true" title="Trip Repor Info" [dragEnabled]="false"
+  [closeOnOutsideClick]="false" [(visible)]="TripReportPopupVisible">
+  <div *dxTemplate="let data of 'content'" id="AwardDiv">
+     <div class="row marginBottom10">
+      <div class="col-md-2">
+        <fieldset class="form-group">
+         Date Travelled 
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <dx-date-box style="width:100% !important" value={{EditAwardDate}} type="date" class="form-control" id="ToDate" name="ToDate">
+          </dx-date-box>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          People Tavelled
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <dx-text-area [height]="40" type="text" id="User" value={{EditCRMNotes}}></dx-text-area>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          	Itinerary
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <dx-text-area [height]="40" type="text" id="User" value={{EditCRMNotes}}></dx-text-area>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          Address
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <dx-text-area [height]="40" type="text" id="User" value={{EditCRMNotes}}></dx-text-area>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          County
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <dx-text-area [height]="40" type="County" id="User" value={{EditCRMNotes}}></dx-text-area>
+        </fieldset>
+      </div>
+      <div class="col-md-2">
+        <fieldset class="form-group">
+          State
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <dx-text-area [height]="40" type="StateName" id="User" value={{EditCRMNotes}}></dx-text-area>
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+        Customer Information
+        </fieldset>
+      </div>
+      <div class="col-md-12">
+        <fieldset class="form-group">
+          <dx-text-area [height]="45" [width]="899" type="text" id="CustomerInformation" value={{EditCustomerInformation}}></dx-text-area>          
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          Summary Of Meeting
+        </fieldset>
+      </div>
+      <div class="col-md-12">
+        <fieldset class="form-group">
+          <dx-text-area [height]="45" [width]="899" type="text" id="SummaryOfMeeting" value={{EditSummaryOfMeeting}}></dx-text-area>          
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          	Action Items
+        </fieldset>
+      </div>
+      <div class="col-md-12">
+        <fieldset class="form-group">
+          <dx-text-area [height]="45" [width]="899" type="text" id="SummaryOfMeeting" value={{EditSummaryOfMeeting}}></dx-text-area>          
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+         Additional Follow up Info with Customer
+        </fieldset>
+      </div>
+      <div class="col-md-12">
+        <fieldset class="form-group">
+          <dx-text-area [height]="45" [width]="899" type="text" id="SummaryOfMeeting" value={{EditSummaryOfMeeting}}></dx-text-area>          
+        </fieldset>
+      </div>
+      <div id="fileuploader-container">
+        <dx-file-uploader  selectButtonText="Select photo" labelText="" accept="image/*" uploadMode="useForm">
+        </dx-file-uploader>
+        
+    </div>
+    </div> 
+   <dx-button id="AwardListCancelBtn" text="Cancel" (onClick)="CloseAwardPopup()" class="pull-right margin-left-5">
+    </dx-button>
+    <dx-button id="AwardListSaveBtn" text="Save" (onClick)="UpdateQuoteAward()" class="pull-right">
+    </dx-button> 
+
+
+  </div>
+</dx-popup> -->
+<!-- Trip Report popup End -->

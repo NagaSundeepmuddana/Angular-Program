@@ -1,0 +1,199 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Lost Jobs Report</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Lost Jobs Report
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Search
+            <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <fieldset class="form-group-xs">
+                              <label for="basicInput">Quote Number</label>
+                              <input type="text" class="form-control input-sm custHeight" id="hidQuoteNumber" [(ngModel)]='QuoteNumber' name="QuoteNumber"
+                                style="height: 34px;" (onValueChanged)="QuoteNumberChangeEvent($event)">
+                            </fieldset>
+                          </div> 
+                      <div class="col-md-3">
+                        <fieldset class="form-group">
+                          <label for="basicInput">Division</label>
+                          <input type="hidden" id="hidDivisionID">
+                          <dx-tag-box id="searchDivision" *ngIf="GetDivisionList" class="Maxprdtheight" placeholder="Select Division(s)" [dataSource]="GetDivisionList"
+                            displayExpr="Name" [(ngModel)]='DivisionID' name="DivisionID" valueExpr="DivisionID" [searchEnabled]="true"
+                            (onValueChanged)="DivisionChangeEvent($event)" [value]="required">
+                          </dx-tag-box>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3">
+                        <fieldset class="form-group">
+                          <label for="basicInput">Product Line</label>
+                          <input type="hidden" id="hidProductlineID">
+                          <dx-tag-box id="searchProductLine" class="Maxprdtheight" placeholder="Select Product Line(s)" [dataSource]="GetProductLineName"
+                            valueExpr="ProductLineID" [(ngModel)]='ProductLineID' (onValueChanged)="ProductLineChangeEvent($event)"
+                            [searchEnabled]="true" name="ProductLineID" displayExpr="Name" [value]="required">
+                          </dx-tag-box>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3">
+                        <fieldset class="form-group">
+                          <label for="basicInput">Contract Type</label>
+                          <input type="hidden" id="hidContractTypeID">
+                          <dx-select-box id="ContractTypeID" [searchEnabled]="true" [dataSource]="ContractType" (onValueChanged)="ContractTypeChangeEvent($event)"
+                            valueExpr="ContractTypeID" [(ngModel)]='ContractTypeID' name="ContractTypeID" displayExpr="Name">
+                          </dx-select-box>
+                        </fieldset>
+                      </div>                                                              
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <fieldset class="form-group">
+                              <label for="basicInput">Project Name</label>
+                              <input type="text" class="form-control input-sm Prjheight" [(ngModel)]='SearchByProjName' name="SearchByProjName" id="SearchByProjName">
+                            </fieldset>
+                          </div> 
+                          <div class="col-md-3">
+                            <fieldset class="form-group">
+                              <label for="basicInput">State</label>
+                              <input type="hidden" id="hidStateID">
+                              <dx-select-box id="SearchState" [searchEnabled]="true" placeholder="Select By State" [dataSource]="CustomerState" valueExpr="StateID"
+                                [(ngModel)]='SearchState' name="SearchState" displayExpr="Name" (onValueChanged)="Stateselectedvalue($event)">
+                              </dx-select-box>
+                            </fieldset>
+                          </div>                    
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Letting Begin Date</label>
+                          <input type="hidden" id="hidStartDate">
+                          <dx-date-box [value]="QuoteFrom" [(ngModel)]='QuoteFrom' name="LettingFrom" class="form-control input-sm LettingWidth dateField"
+                            type="date" (onValueChanged)="QuotesFromChangeEvent($event)">
+                          </dx-date-box>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Letting End Date</label>
+                          <input type="hidden" id="hidEndDate">
+                          <dx-date-box [value]="QuoteTo" [(ngModel)]='QuoteTo' type="date" name="LettingTo" class="form-control input-sm LettingWidth dateField"
+                            (onValueChanged)="QuotesToChangeEvent($event)">
+                          </dx-date-box>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-3" style="margin-top: 24px;">
+
+                      </div>
+                    </div>
+                    <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ClearFilters()'>Clear
+                      <i class="fa fa-times"></i>
+                    </a>
+                    <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='SearchQuotesbyVendorReport()'>Search
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Lost Jobs Report
+                  <a class="btn btn-outline-success btn-min-width btn- pull-right btnalignment" (click)='PDFGridData()'>Gen PDF
+                  </a>
+                </h4>
+                <a class="heading-elements-toggle">
+                  <i class="fa fa-ellipsis-v font-medium-3"></i>
+                </a>
+              </div>
+              <div class="card-body collapse in">
+                <div class="card-block">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <dx-data-grid id="gridContainer" [dataSource]="QuoteVendordataSource" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                        [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true">
+                        <dxo-export [enabled]="true" fileName="ALL Quote Report By Div" [allowExportSelectedData]="false"></dxo-export>
+                        <dxi-column dataField="QuoteNumber" caption="Quote#" [width]="80"></dxi-column>
+                        <dxi-column dataField="LettingDate" caption="Letting Date" [width]="110"></dxi-column>
+                        <dxi-column dataField="DivisionName" caption="Division" [width]="95" [groupIndex]="0"></dxi-column>
+                        <dxi-column dataField="ProductLine" caption="Product Line" [width]="110"></dxi-column>
+                        <dxi-column dataField="ContractType" caption="C Type" [width]="50"></dxi-column>
+                        <dxi-column dataField="State" [width]="50"></dxi-column>
+                        <dxi-column dataField="County" caption="County" [width]="100"></dxi-column>                        
+                        <dxi-column dataField="ProjectName" caption="Project Name" [width]="300"></dxi-column> 
+                        <dxi-column dataField="BidValue" caption="Bid Value" [width]="120" [customizeText]="CurrencyFormatter" sortOrder="desc"></dxi-column>
+                        <dxi-column dataField="GlobalMargin" caption="GM %" [width]="70" [customizeText]="DecimalFormatter"></dxi-column>                        
+                        <dxi-column dataField="Customer" caption="Lost to Customer" [width]="220"></dxi-column>
+                        <dxi-column dataField="ReasonLost" caption="Reason Lost" [width]="90"></dxi-column>
+                        <dxi-column dataField="AvgGM" [visible]="false"></dxi-column>
+                        <dxo-remote-operations [sorting]="true" [paging]="true">
+                        </dxo-remote-operations>
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10,20,50,100]" [showInfo]="true"></dxo-pager>
+                        <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                        <dxo-summary>
+                            <dxi-group-item column="ProjectName" summaryType="" displayFormat="Total:" [showInGroupFooter]="true" [alignByColumn]="true"
+                            type="fixedPoint" [precision]="2">
+                            </dxi-group-item>
+                            <dxi-group-item column="BidValue" summaryType="sum" valueFormat="currency" displayFormat=" {0}" [showInGroupFooter]="true"
+                            type="fixedPoint" [precision]="2">
+                            </dxi-group-item>
+                            <dxi-group-item column="GlobalMargin" summaryType="" displayFormat=" " [showInGroupFooter]="true"
+                            type="fixedPoint" [precision]="2">
+                            </dxi-group-item>
+                            <dxi-total-item column="ProjectName" displayFormat="GRAND TOTAL:">
+                              </dxi-total-item>
+                              <dxi-total-item column="BidValue" displayFormat="{0}" summaryType="sum" [customizeText]="CurrencyFormatter" >
+                                <dxo-value-format type="fixedPoint" [precision]="2"></dxo-value-format> >
+                              </dxi-total-item> 
+                        </dxo-summary>
+                        <!-- <dxo-summary>
+                          <dxi-total-item column="ProjectName" displayFormat="GRAND TOTAL:">
+                          </dxi-total-item>
+                          <dxi-total-item column="BidValue" displayFormat="{0}" summaryType="sum">
+                            <dxo-value-format type="fixedPoint" [precision]="2"></dxo-value-format> >
+                          </dxi-total-item> 
+                          <dxi-group-item column="ProjectName" summaryType="" displayFormat="Total:" [showInGroupFooter]="true" [alignByColumn]="true"
+                            type="fixedPoint" [precision]="2">
+                          </dxi-group-item>
+                          <dxi-group-item column="BidValue" summaryType="sum" valueFormat="currency" displayFormat=" {0}" [showInGroupFooter]="true"
+                            type="fixedPoint" [precision]="2">
+                          </dxi-group-item>
+                        </dxo-summary> -->
+                      </dx-data-grid>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

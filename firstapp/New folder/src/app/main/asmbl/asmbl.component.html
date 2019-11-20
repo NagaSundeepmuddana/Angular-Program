@@ -1,0 +1,187 @@
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-xs-12 mb-2">
+        <h3 class="content-header-title mb-0">Assembly</h3>
+        <div class="row breadcrumbs-top">
+            <div class="breadcrumb-wrapper col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/main/">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Assembly
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body">
+    <!-- Product Lines Grid-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Assembly list
+                        <i class="fa fa-th"></i>
+                    </h4>
+                    <a class="heading-elements-toggle">
+                        <i class="fa fa-ellipsis-v font-medium-3"></i>
+                    </a>
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <dx-data-grid id="gridContainer" [dataSource]="AssembliesList" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+                                    (onRowInserted)="AddNewAssembly($event)" (onRowUpdated)="EditAssembly($event)" (onToolbarPreparing)="onToolbarPreparing($event)"
+                                    (onRowRemoving)="DeleteAssemblies($event)" (onRowRemoved)="AfterAssembliesDelete()" [showColumnLines]="true"
+                                    [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true">
+                                    <dxo-paging [pageSize]="10"></dxo-paging>
+                                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true">
+                                    </dxo-pager>
+                                    <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+                                        <dxo-popup title="Add/Edit Assembly" [showTitle]="true" [height]="450" [width]="900">
+                                        </dxo-popup>
+                                        <dxo-form>
+                                            <dxi-item dataField="DivisionID" editorType="dxTextBox">
+                                                <dxi-validation-rule type="required" message="Please select Division."></dxi-validation-rule>
+                                            </dxi-item>
+                                            <dxi-item dataField="Name" [editorOptions]="{ maxLength: 50, min:0 }" editorType="dxTextBox">
+                                                <dxi-validation-rule type="required" message="Please enter Assembly Name."></dxi-validation-rule>
+                                            </dxi-item>
+                                            <dxi-item dataField="AssemblyNo" [editorOptions]="{ maxLength: 20, min:0 }" editorType="dxTextBox">
+                                                <dxi-validation-rule type="required" message="Please enter Assembly Number."></dxi-validation-rule>
+                                            </dxi-item>
+                                            <dxi-item dataField="AltDescription" [editorOptions]="{ maxLength: 255, min:0 }" editorType="dxTextBox">
+                                            </dxi-item>
+                                            <dxi-item dataField="ExternalSystemRefNo" [editorOptions]="{ maxLength: 128, min:0 }"></dxi-item>
+                                        </dxo-form>
+                                    </dxo-editing>
+                                    <dxo-export [enabled]="true" fileName="AssembliesList" title="Only the chosen columns in the grid will be exported." [allowExportSelectedData]="true"></dxo-export>
+                                    <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                                    <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                                    <dxi-column dataField="AssemblyNo" [width]="150"></dxi-column>
+                                    <dxi-column dataField="Name" caption="Assembly Name"></dxi-column>
+                                    <dxi-column dataField="DivisionID" caption="Division" [setCellValue]="setStateValue">
+                                        <dxo-lookup [dataSource]="DivisionList" valueExpr="DivisionID" displayExpr="Name">
+                                        </dxo-lookup>
+                                    </dxi-column>
+                                    <dxi-column dataField="Description" [visible]="false"></dxi-column>
+                                    <dxi-column dataField="AltDescription" caption="Alt Desc" [width]="250"></dxi-column>
+                                    <dxi-column dataField="ExternalSystemRefNo" caption="Syspro ID" [width]="110"></dxi-column>
+                                    <dxi-column dataField="CreatedBy" caption="Created By" [visible]="false" [editorOptions]="{ maxLength: 128, min:0 }"></dxi-column>
+                                    <dxi-column dataField="CreatedDate" caption="Created Dt" [visible]="false" [width]="110" dataType="date"></dxi-column>
+                                    <dxi-column dataField="LastModifiedBy" caption="Revised By" [visible]="false" [editorOptions]="{ maxLength: 128, min:0 }"></dxi-column>
+                                    <dxi-column dataField="LastModifiedDate" caption="Revised Dt" [visible]="false" dataType="date"></dxi-column>
+                                    <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+                                    <dxi-column dataField="" [allowFiltering]="false" [width]="80" alignment="center" [allowSorting]="false" cellTemplate="cellTemplate" caption="Items"></dxi-column>
+                                    <div *dxTemplate="let data of 'cellTemplate'">
+                                        <button type="button" (click)="openItemsModal(data)" class="btn btn-icon btn-success mr-1 btn-sm">
+                                            <i class="fa fa-tasks"></i>
+                                        </button>
+                                    </div>
+                                </dx-data-grid>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Items Popup -->
+<dx-popup id="itemPopup" class="popup" [width]="1200" [height]="600" [showTitle]="true" title="Add Assembly Items" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="itemPopupVisible" [disabled]="IsPopupDisabled">
+    <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <dx-select-box id="productLine" placeholder="Select Product Line" [dataSource]="AsemblyProductLineList" valueExpr="ProductLineID"
+                            displayExpr="Name"  [(ngModel)]='ProductLineID'>
+                        </dx-select-box>
+                    </div>
+                    <!-- <div class="col-md-2">
+                            <dx-select-box class="selectItemsBy" [items]="ItemOrAssembly" [value]="ItemOrAssemblyValue" (onValueChanged)="FilterSelected($event)">
+                            </dx-select-box>
+                        </div> -->
+                    <div class="col-md-8">
+                        <div class="form-group serachItems">
+                            <input id="serachItemsOrAssemblyBox" class="form-control height32 serachItems" ng-model="name" [ngModel]="search" (ngModelChange)="SearchItems($event)"
+                                (document:click)="CloseMatAjax($event)" placeholder="Search and Add Items" />
+                            <div class="ItemSearchResult serachItems" *ngIf="flag">
+                                <div class="serachItems">
+                                    <ul *ngIf="IsItems" class="serachItems">
+                                        <li *ngFor="let item of ItemList" class="searchLI serachItems">
+                                            <div class="row serachItems">
+                                                <div class="col-md-8 serachItems">
+                                                    <a class="serachItems">{{item.ItemCode}} | {{item.Description}}</a>
+                                                </div>
+                                                <div class="col-md-4 serachItems">
+                                                    <div class="row serachItems">
+                                                        <div class="col-md-8 paddingRight5 serachItems">
+                                                            <input type="number" min="1" max="99999999" class="form-control width52 serachItems" id="Quantity" placeholder="Qty" />
+                                                        </div>
+                                                        <div class="col-md-4 serachItems">
+                                                            <span class="AddPItems serachItems" (click)="AddAssemblyItem(item)">
+                                                                <i class="fa fa-plus"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <ul *ngIf="IsNoRecord" id="NoItems">
+                                    <li>
+                                        <div class="row serachItems">
+                                            <div class="col-md-8 serachItems">
+                                                <a class="serachItems">No Item or Assembly found.</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <dx-data-grid id="gridAsseblyItemsContainer" [dataSource]="AssemblyItemList" [allowColumnReordering]="true" (onInitNewRow)="addnewItem(productline)"
+            (onRowRemoving)="DeleteAssembliesItems($event)" (onRowUpdated)="UpdateItemQty($event)" (onEditingStart)="logEvent('EditingStart')"
+            [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true">
+            <dxo-paging [pageSize]="5"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+            </dxo-pager>
+            <dxo-search-panel [visible]="true" [width]="230" placeholder="Search Assembly Items"></dxo-search-panel>
+            <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+            <dxo-editing mode="row" [allowDeleting]="true" [allowUpdating]="true"></dxo-editing>
+            <dxi-column caption="Item Code" dataField="ItemCode" [allowEditing]="false"></dxi-column>
+            <dxi-column caption="Description" dataField="Description" cellTemplate="cellTemplateDesc" [allowEditing]="false"></dxi-column>
+            <dxi-column caption="Product Line" dataField="ProductLine" cellTemplate="cellTemplateProductLine" [allowEditing]="false"></dxi-column>
+            <dxi-column caption="UOM" dataField="UOM" [allowEditing]="false" [width]="70"></dxi-column>
+            <dxi-column caption="Qty" [customizeText]="DecimalFormatter" dataField="Quantity" [width]="90"></dxi-column>
+            <dxi-column caption="Unit Price" [customizeText]="CurrencyFormatter" dataField="UnitPrice" [width]="90" [allowEditing]="false"></dxi-column>
+            <dxi-column caption="Weight" [customizeText]="DecimalFormatter" dataField="Weight" [width]="80" [allowEditing]="false"></dxi-column>
+            <dxi-column caption="Total Price" [customizeText]="CurrencyFormatter" [customizeText]="DecimalFormatter" dataField="TotalUnitPrice"
+                [width]="100" [allowEditing]="false"></dxi-column>
+            <div *dxTemplate="let data of 'cellTemplateProductLine'">
+                <span *ngIf="data.row.data.ProductLine">{{data.row.data.ProductLine +""+"("+data.row.data.Division +")"}}</span>
+            </div>
+            <div *dxTemplate="let data of 'cellTemplateDesc'">
+                <a class="Descclr" title="{{data.value}}">{{data.value | ellipsis: 12}}</a>
+            </div>
+            <dxi-column caption="Total Weight" [customizeText]="DecimalFormatter" dataField="TotalWeight" [allowEditing]="false"></dxi-column>
+            <dxo-summary>
+                <dxi-total-item column="TotalUnitPrice" [customizeText]="CurrencyFormatter" displayFormat="Total: {0}" summaryType="sum">
+                </dxi-total-item>
+                <dxi-total-item column="TotalWeight" [customizeText]="DecimalFormatter" displayFormat="Total Wt: {0}" summaryType="sum">
+                </dxi-total-item>
+            </dxo-summary>
+        </dx-data-grid>
+
+        <dx-button id="AsemblyItemsistCancelBtn" text="Close" (onClick)="CloseAsemblyItemsPopup()" class="pull-right Close">
+        </dx-button>
+    </div>
+</dx-popup>

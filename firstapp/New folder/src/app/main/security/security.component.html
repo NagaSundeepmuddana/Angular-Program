@@ -1,0 +1,114 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Security Management</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink='/main/dash'>Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#">Security Management</a>
+          </li>
+          <li class="breadcrumb-item active">Roles and Permissions</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="content-header-right col-md-6 col-xs-12">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Roles List</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+            <div class="row" *ngIf="isDataFetched">
+          <dx-data-grid id="rolesGridContainer" [dataSource]="roleInformation" [showBorders]="true"
+          (onToolbarPreparing)="onToolbarPreparing($event)" (onRowInserted)="AddNewRole($event)" (onRowUpdated)="UpdateRoles($event.key)" (onEditorPreparing)="RoleEditorPreparing($event)">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+            <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true">
+              <dxo-popup title="Role Info" [showTitle]="true" [width]="700" [height]="345" [position]="{ my: 'top', at: 'top', of: window }">
+              </dxo-popup>
+              <dxo-form>
+                <!-- <dxi-item itemType="group" [colSpan]="2">
+                  <dxi-item dataField="Name" [colSpan]="1">
+                    <dxi-validation-rule type="required" message="Please provide a role name"></dxi-validation-rule>
+                  </dxi-item>
+                </dxi-item> -->
+                <dxi-item dataField="Name" editorType="dxTextBox">
+                    <dxi-validation-rule type="required" message="Please Enter Roles name"></dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="Description" [colSpan]="2" editorType="dxTextBox"></dxi-item>
+              </dxo-form>
+            </dxo-editing>
+            <dxi-column dataField="Name" caption="Role Name"></dxi-column>
+            <dxi-column dataField="Description" caption="Description"></dxi-column>
+            <dxi-column dataField="CreatedBy" caption="Created By"></dxi-column>
+            <dxi-column dataField="CreatedDate" caption="Created Dt" dataType="date"></dxi-column>
+            <dxi-column dataField="LastModifiedBy" caption="Revised By"></dxi-column>
+            <dxi-column dataField="LastModifiedDate" caption="Revised Dt" dataType="date"></dxi-column>
+            <dxi-column dataField="" caption="Permissions" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="permissionCelltemplate"
+              [width]="80"></dxi-column>
+            <div *dxTemplate="let d of 'permissionCelltemplate'">
+              <div class="chart-cell">
+                <button *ngIf="UserPermissionsList.PL000082" type="button" class="btn btn-primary btn-icon btn-sm" (click)='openPermissionMapByRole(d)'>
+                  <i class="fa fa-id-card" aria-hidden="true"></i>
+                </button>
+                <button *ngIf="!UserPermissionsList.PL000082" type="button" class="btn btn-primary btn-icon btn-sm disabled">
+                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </dx-data-grid>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<dx-popup [width]="760" [height]="650" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="false"
+[(visible)]="roleInformationPopup" [showTitle]="true" title="Assign Permissions to Role">
+  <div *dxTemplate="let data of 'content'" id="RolesPermissionsDiv">
+    <div class="row">
+      <div class="col-md-12" *ngIf="isPermissionDataFetched">
+        <!-- <div class="card"> -->
+          <!-- <div class="card-header">
+            Permissions
+          </div> -->
+          <div class="card-block  p-0">
+            <dx-tree-list id="permissionsListid" [dataSource]="PermissionsListData" keyExpr="PermissionID" parentIdExpr="ParentPermissionID" [width]="700" [height]="350"
+              [showRowLines]="true" [columnAutoWidth]="true" [(selectedRowKeys)]="selectedRowKeys" (onSelectionChanged)="SelectedOrderRow($event)"
+              [expandedRowKeys]="[1]">
+              <!-- <dxo-search-panel [visible]="true"></dxo-search-panel> -->
+              <dxo-selection mode="multiple"[recursive]="recursiveSelectionEnabled" [allowSelectAll]="false" >
+              </dxo-selection>
+              <dxi-column dataField="Name" caption=" " [width]="250"[visible]="false"></dxi-column>
+              <dxi-column dataField="Description" caption="Select All"></dxi-column>
+              <dxi-column dataField="PermissionID" caption="PermissionID" [visible]="false"></dxi-column>
+              <!-- <dxi-column dataField="ModuleName" caption="Module Name"></dxi-column>
+                   -->
+            </dx-tree-list>
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <dx-button text="Close" (click)="closePermissionsByRolePopup()" class="center-block deleteConfirmBtn Close pull-right">
+          </dx-button>
+          <dx-button text="Save" (click)='savePermissionsByRole()' class="center-block deleteConfirmBtn margin-right7 YesBtn pull-right">
+          </dx-button>
+      </div>
+    </div>
+  </div>
+</dx-popup>
+
+<dx-load-panel #loadPanelForPermissions shadingColor="rgba(0,0,0,0.4)" [position]="{ of: '#RolesPermissionsDiv' }" [(visible)]="loadingVisible"
+[showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>

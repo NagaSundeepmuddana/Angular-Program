@@ -1,0 +1,79 @@
+.Itemclr{
+    color: #252525;
+  }
+  .Prjheight{
+    height: 35px !important;
+  }
+ /*  .LettingWidth{
+    width: 160px !important;
+  } */
+  .btnalignment{
+    margin-right: 8px !important;
+  }
+  .height{
+    padding-top: 0px !important;
+  }
+  .heightcheckbox{
+    padding-top: 0px !important;
+  }
+  label {
+    display: block;
+    padding-left: 15px;
+    padding-top: 0px !important;
+    text-indent: -15px;
+  }
+  .heightcheckbox {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    *overflow: hidden;
+  }
+  #gridContainer{
+    max-width: 100% !important;
+  }
+  .dateField{
+    width: 100% !important;
+  }
+
+  .fa-th, .fa-info-circle, .fa-university{
+    color:rgba(128, 128, 128, 0.48)
+  }
+
+  .nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+}
+.nav>li {
+    position: relative;
+    display: block;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.ItemSearchResult ul{
+  max-height: 400px;
+  overflow-x: hidden;
+  padding-left: 0px;
+  position: absolute;
+  width: 96%;
+  z-index: 1000;
+  margin-top: 2px;
+  border-radius: 4px;
+}
+.ItemSearchResult li{
+  background: #968f8f;
+  padding: 3px;
+  padding-left: 10px;
+  border-bottom: 1px solid white;
+}
+.ItemSearchResult a{
+  color: white;
+}

@@ -1,0 +1,138 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Notes</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Notes
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Notes list
+            <i class="fa fa-th"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid id="gridContainer" [dataSource]="NotesList" [allowColumnReordering]="true" (onEditingStart)="logEvent('EditingStart')"
+                  (onRowInserted)="AddNewNote($event)" (onRowUpdated)="EditNotes($event)" (onRowRemoving)="DeleteNotes($event)" (onEditorPreparing)="onNotesEditorPreparing($event)"
+                  (onRowRemoved)="AfterNotesDelete()" (onToolbarPreparing)="onToolbarPreparing($event)" [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+                  [showBorders]="true"
+                  (onInitNewRow)="initNewRow($event)">
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                  </dxo-pager>
+                  <dxo-editing mode="popup" [allowUpdating]="UserPermissionsList.PL000060" [allowDeleting]="UserPermissionsList.PL000061" [allowAdding]="UserPermissionsList.PL000059">
+                    <dxo-popup title="Add/Edit Note" [showTitle]="true" [height]="300" [width]="750">
+                    </dxo-popup>
+                    <dxo-form [colCount]="2" [formData]="options" class="col-md-11 col-sm-11 row">
+                      <dxi-item dataField="Name" editorType="dxTextBox"[editorOptions]="{ maxLength: 80, min:0 }">
+                        <dxi-validation-rule type="required" message="Please enter note Name."></dxi-validation-rule>
+                      </dxi-item>
+                      <dxi-item dataField="DefaultNote" editorType="dxTextBox">
+                      </dxi-item>
+                      <dxi-item dataField="Notes" [colCount]="4" [colSpan]="2" editorType="dxTextBox">
+                        <dxi-validation-rule type="required" message="Please enter note Description."></dxi-validation-rule>
+                      </dxi-item>
+                    </dxo-form>
+                  </dxo-editing>
+                  <dxo-export [enabled]="true" fileName="NotesList"></dxo-export>
+                  <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxi-column dataField="Name" cellTemplate="cellTemplateNoteName" [width]="100"></dxi-column>
+                  <dxi-column dataField="Notes" caption="Description" ></dxi-column>
+                  <dxi-column dataField="DefaultNote" caption="Default" dataType="boolean" [width]="70"></dxi-column>
+                  <dxi-column dataField="ProductLineName" [visible]="false"></dxi-column>
+                  <dxi-column dataField="CreatedBy" caption="Created By" [editorOptions]="{ maxLength: 128, min:0 }" [width]="130"></dxi-column>
+                  <dxi-column dataField="CreatedDate" caption="Created Dt" [width]="90"  dataType="date"></dxi-column>
+                  <dxi-column dataField="LastModifiedBy" caption="Revised By" [editorOptions]="{ maxLength: 128, min:0 }" [width]="130"></dxi-column>
+                  <dxi-column dataField="LastModifiedDate" caption="Revised Dt" [width]="90" dataType="date"></dxi-column>
+                  <dxi-column dataField="Active" caption="Acive/Inactive" [visible]="false"></dxi-column>
+                  <dxi-column dataField="" [allowFiltering]="false" alignment="center" [allowSorting]="false" cellTemplate="cellTemplate" caption="PL Map"
+                    [width]="70">
+                  </dxi-column>
+                      <div *dxTemplate="let data of 'cellTemplate'">
+                          <button type="button" class="btn btn-icon btn-success mr-1 btn-sm" (click)="openNotePrdLineMappingModal(data)">
+                            <i class="fa fa-product-hunt"></i>
+                          </button>
+                        </div>
+                        <!-- <div *dxTemplate="let data of 'cellTemplateNoteDec'">
+                          <a  class="Noteclr" title="{{data.value}}">{{data.value | ellipsis: 60}}</a>
+                        </div> -->
+                        <div *dxTemplate="let data of 'cellTemplateNoteName'">
+                          <a  class="Noteclr" title="{{data.value}}">{{data.value | ellipsis: 20}}</a>
+                        </div>
+                  <!-- <div *dxTemplate="let dt of 'cellTemplate'">
+                    <button *ngIf="!dt.row.data.DefaultNote" data-placement="right" type="button" title="This is not a Default Note. Please mark as Default to map ProductLines." class="btn btn-icon btn-success mr-1 btn-sm disabled"><i class="fa fa-product-hunt"></i></button>
+                    <button *ngIf="dt.row.data.DefaultNote" type="button" (click)="openProductLinesNotesModal(dt)" class="btn btn-icon btn-success mr-1 btn-sm ItemCount"><i class="fa fa-product-hunt"></i></button>
+                </div> -->
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+<!-- Notes to product line mapping -->
+<dx-popup [height]="600" [width]="1000" class="popup" title="Note - Product Lines Mapping" [dragEnabled]="true" [closeOnOutsideClick]="false"
+[(visible)]="NotestoPrdLineMapPopupVisible">
+<div *dxTemplate="let data of 'content'">
+  <div class="row marginBottom10">
+    <div class="col-md-8">
+      <fieldset class="form-group">
+        <label for="basicInput">Product Line</label>
+        <dx-tag-box id="ProductLineID" class="Maxprdtheight" [dataSource]="UnMappedPrdLineByDivision" placeholder="Select Product Line(s)" valueExpr="ProductLineID"
+           grouped="true" displayExpr="Name" searchEnabled="true" groupTemplate="group" [(ngModel)]='ProductLineID' name="ProductLineID"
+          (onValueChanged)="GetNoteProductLineBycommaList($event)">
+          <div *dxTemplate="let data of 'group'">
+            <div class='custom-icon'>
+              <span class='dx-icon-box icon'></span>
+              {{data.key}}
+            </div>
+          </div>
+        </dx-tag-box>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <dx-button style="margin-top: 25px;" class="pull-right margin-left-5 Add" text="Add PL" (onClick)="CreateNotePrdLineMapping()"></dx-button>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <dx-data-grid id="gridNotePrdLineContainer" [dataSource]="NoteProductLineList" [allowColumnReordering]="true"
+      [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" (onRowRemoved)="DeleteNotePrdLineMap($event)"
+      [showBorders]="true">
+      <dxo-editing mode="row" [allowDeleting]="true">
+      </dxo-editing>
+      <dxo-paging [pageSize]="5"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-search-panel [visible]="true" [width]="350" placeholder="Search..."></dxo-search-panel>
+      <dxi-column dataField="DivisionName" caption="Division"></dxi-column>
+      <dxi-column dataField="ProductLineName" caption="Product Line"></dxi-column>
+    </dx-data-grid>
+  </div>
+  <dx-button id="CustPrdMapCancelBtn" text="Close" (onClick)="CloseNotesPrdLinePopup()" class="pull-right Close">
+  </dx-button>
+</div>
+</dx-popup>

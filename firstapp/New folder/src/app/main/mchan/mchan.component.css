@@ -1,0 +1,16 @@
+.updateBtn{
+    height: 34px;
+    line-height: .7;
+    background-color: #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+    margin-right: 1%;
+}
+.canclebtn{
+    height: 34px;
+    line-height: .7;
+    background-color: white !important;
+    border-color: rgb(237, 241, 241) !important;
+    color:black;
+    margin-right: 2%;
+}

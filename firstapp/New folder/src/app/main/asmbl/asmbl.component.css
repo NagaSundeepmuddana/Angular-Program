@@ -1,0 +1,125 @@
+#asmblClear{
+  margin-right:-860px;
+  margin-left:15px;
+}
+.btn-danger{
+  min-width: 6.0rem !important;
+  background: rgba(235, 109, 74, 0.85) !important;
+  border-color: rgba(235, 109, 74, 0.98) !important;
+}
+/* .btn{
+min-width: 6.0rem !important;
+} */
+.fa-th{
+  color:rgba(128, 128, 128, 0.48)
+}
+.fa-search{
+  color:white;
+}
+.fa-times{
+  color:gray;
+}
+#itemListGrid{
+  max-height: 340px;
+  overflow-y: scroll;
+  margin-bottom: 20px !important;
+}
+.margin-left-4{
+  margin-left: 10px !important;
+  margin-top: 10px !important;
+}
+.margin-left-5{
+margin-left: 5px !important;
+}
+#Items{
+width: 200px !important;
+/* top: 70px; */
+position: absolute;
+z-index: 10000;
+/* margin-left: 210px !important; */
+}
+.paddingRight5{
+padding-right: 5px;
+}
+.Close{
+border-color: #FF6275 !important;
+background-color: #FF586B !important;
+color: #FFF !important;
+margin-left: 10px !important;
+margin-top: 10px !important;
+}
+.marginBottom10{
+margin-bottom: 10px;
+}
+.height32{
+max-height: 36px;
+width: 650px;
+margin: 0px;
+}
+.width52{
+width: 64px;
+max-height: 32px;
+margin-left: 100px;
+}
+#NoItems{
+overflow-x: hidden !important;
+}
+.ItemSearchResult ul{
+max-height: 389px;
+overflow-y: scroll;
+overflow-x: hidden;
+padding-left: 0px;
+position: absolute;
+width: 84%;
+z-index: 1000;
+margin-top: 2px;
+border-radius: 4px;
+}
+.ItemSearchResult li{
+background: #968f8f;
+padding: 3px;
+padding-left: 10px;
+border-bottom: 1px solid white;
+}
+.AddPItems{
+float: right;
+background: white;
+padding: 5px;
+cursor: pointer;
+padding-top: 4px;
+padding-bottom: 3px;
+}
+.ItemSearchResult a{
+color: white;
+}
+.colorRed{
+color: red;
+}
+.cursorPointer{
+cursor: pointer;
+}
+.Asmblclr{
+color: #252525;
+}
+.Descclr{
+color: #252525;
+}
+#gridAsseblyItemsContainer{
+max-height: 400px;
+margin-bottom: 20px !important;
+}
+#leftSidebar > ul {
+/* all of these are for demo only: */
+list-style: none;
+margin: 0;
+padding: 0;
+width: 100%;
+}
+.serachItems[type='number'] {
+-moz-appearance:textfield;
+}
+
+.serachItems::-webkit-outer-spin-button,
+.serachItems::-webkit-inner-spin-button {
+-webkit-appearance: none;
+}

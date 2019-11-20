@@ -1,0 +1,191 @@
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-xs-12 mb-2">
+        <h3 class="content-header-title mb-0">Quote</h3>
+        <div class="row breadcrumbs-top">
+            <div class="breadcrumb-wrapper col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a routerLink="/main/">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Quote
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="content-header-right col-md-6 col-xs-12">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+        <form #quote='ngForm' (ngSubmit)="GetQuotes(quote.value)">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Search Quotes
+                <i style="color:rgba(128, 128, 128, 0.48)"></i>
+              </h4>
+              <a class="heading-elements-toggle">
+                <i class="fa fa-ellipsis-v font-medium-3"></i>
+              </a>
+            </div>
+            <div class="card-body collapse in">
+              <div class="card-block">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">Quote Number</label>
+                          <input type="text" class="form-control input-sm custHeight" id="QuoteNumber" [(ngModel)]='QuoteNumber' name="QuoteNumber" style="height: 34px;">
+                        </fieldset>
+                      </div>
+                      <div class="col-md-2">
+                        <fieldset class="form-group">
+                          <label for="basicInput">Customer Name</label>
+                          <input type="hidden" id="hidCustomer">
+                          <input type="text" class="form-control input-sm custHeight" id="Customer" [(ngModel)]='Customer' name="Customer" style="height: 34px;" >
+                        </fieldset>
+                      </div>
+                      <div class="col-md-2">
+                        <fieldset class="form-group">
+                          <label for="basicInput">Project Name</label>
+                          <input type="hidden" id="hidProject">
+                          <input type="text" class="form-control input-sm custHeight" id="Project" [(ngModel)]='ProjectName' name="ProjectName"style="height: 34px;" >
+                        </fieldset>
+                      </div>
+                        <div class="col-md-2">
+                            <fieldset class="form-group">
+                              <label for="basicInput">Division</label>
+                              <input type="hidden" id="divisions">
+                              <dx-select-box id="divisions" [searchEnabled]="true" placeholder="Select Division" [dataSource]="DivisionList"
+                                valueExpr="DivisionID" [(ngModel)]='DivisionID' name="Division" displayExpr="Name">
+                              </dx-select-box>
+                            </fieldset>
+                          </div>
+                      <div class="col-md-2">
+                        <fieldset class="form-group">
+                          <label for="basicInput">State</label>
+                          <input type="hidden" id="hidStateID">
+                          <dx-select-box id="SearchState" [searchEnabled]="true" placeholder="Select By State" [dataSource]="CustomerState" valueExpr="StateID"
+                            [(ngModel)]='SearchState' name="State" displayExpr="Name" (onValueChanged)="Stateselectedvalue($event)">
+                          </dx-select-box>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-2">
+                        <fieldset class="form-group-xs">
+                          <label for="basicInput">County</label>
+                          <input type="hidden" id="hidCountyID">
+                          <dx-select-box id="SearchCounty" [searchEnabled]="true" placeholder="Select By County" [dataSource]="CountyByStateDataSource"
+                            valueExpr="CountyID" [(ngModel)]='CountyIDs' name="County" displayExpr="Name" style="width:120">
+                          </dx-select-box>
+                        </fieldset>
+                      </div> 
+                      </div>
+                      <div class="row">
+                      <div class="col-md-2">
+                        <fieldset class="form-group">
+                            <label for="basicInput">Letting Begin Date</label>
+                            <dx-date-box style="width:100% !important" type="date" class="form-control"  id="FromDate" [(ngModel)]='FromDate'
+                                name='FromDate'>
+                            </dx-date-box>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                        <fieldset class="form-group">
+                            <label for="basicInput">Letting End Date</label>
+                            <dx-date-box style="width:100% !important" type="date" class="form-control" id="ToDate" [(ngModel)]='ToDate'
+                                name="ToDate">
+                            </dx-date-box>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-2">
+                      <fieldset class="form-group">
+                        <label for="basicInput" class="height">Mailing Status</label>
+                        <input type="hidden" id="hidQuoteList">
+                        <dx-select-box [searchEnabled]="true" [dataSource]= "MailingStatus" valueExpr="id" displayExpr="text" name="SearchQuoteByMailingList" [(ngModel)]='MailingSelect' (onValueChanged)="MailingSelection($event)">
+                        </dx-select-box>
+                      </fieldset>
+                    </div>
+                    </div>
+                    <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='custClearParameters()'>Clear
+                      <i class="fa fa-times"></i>
+                    </a>
+                    <button class="btn btn-danger btn-min-width pull-right mr-1" [disabled]='!quote.valid'>Search
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Quote list
+                  </h4>
+                  <a class="heading-elements-toggle">
+                      <i class="fa fa-ellipsis-v font-medium-3"></i>
+                  </a>
+              </div>
+              <div class="card-body collapse in">
+                  <div class="card-block">
+                      <div class="row" *ngIf="isDataFetched">
+                          <dx-data-grid #grid id="QuoteGrid" [dataSource]="QuoteSearchList" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+                              [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true"
+                              [showBorders]="true" [rowAlternationEnabled]="true">
+                              <!-- <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel> -->
+                              <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                              <dxo-column-chooser [enabled]="false" mode="select"></dxo-column-chooser>
+                              <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="true">
+                              </dxo-pager>
+                              <dxi-column dataField="QuoteNumber" cellTemplate="ManageQuote" caption="Quote#" [width]="100"></dxi-column>
+                              <dxi-column dataField="Version" caption="Ver" [width]="50" alignment="center"></dxi-column>
+                              <dxi-column dataField="ProjectName" caption="Project Name" cellTemplate="ManageProject" ></dxi-column>
+                              <dxi-column dataField="CustomerName" caption="Customer Name"></dxi-column>
+                              <dxi-column dataField="DivisionName" caption="Division" [width]="70" alignment="center"></dxi-column>
+                              <!-- <dxi-column dataField="Emaildate" dataType="date" caption="Email" [width]="80"></dxi-column> -->
+                              <dxi-column dataField="StateID" caption="State" [width]="60" alignment="center"></dxi-column>
+                              <dxi-column dataField="CountyID" caption="County" [width]="100"></dxi-column>
+                              <dxi-column dataField="CreatedBy" caption="Created By" [width]="150"></dxi-column>
+                              <dxi-column dataField="CreatedDate"  dataType="date" caption="Created Dt" [width]="90"></dxi-column>
+                              <dxi-column dataField="LastProcessedDate" dataType="date" [width]="150" caption="Email" alignment="center" cellTemplate="cellTemplateIsEmailDate"></dxi-column> 
+                              <div *dxTemplate="let data of 'ManageQuote'">
+                                  <div *ngIf="UserPermissionsList.PL000008">
+                                      <a style="color:#337ab7 !important" *ngIf="!data.row.data.IsMasterQuote" [routerLink]="['/main/prjmng', data.row.data.QuoteID]"
+                                        title="{{data.value}}">{{data.value}}</a>
+                                      <a style="color:#337ab7 !important" *ngIf="data.row.data.IsMasterQuote" [routerLink]="['/main/prjmng', data.row.data.QuoteID]" [queryParams]="{mq:'true'}"
+                                        title="{{data.value}}">{{data.value}}</a>
+                                  </div>
+                                  <div *ngIf="!UserPermissionsList.PL000008">
+                                      <a style="color:rgba(0, 0, 0, 0.808) !important" class="noItems" title="{{data.value}}">{{data.value}}</a>
+                                  </div>
+                              </div>
+                              <div *dxTemplate="let data of 'ManageProject'">
+                                  <div *ngIf="UserPermissionsList.PL000008">
+                                      <a style="color:#337ab7 !important" *ngIf="data.row.data.Locked" [routerLink]="['/main/prjdts', data.row.data.ProjectID]"
+                                        title="{{data.value}}">{{data.value}}</a>
+                                      <a style="color:#337ab7 !important" *ngIf="!data.row.data.Locked"
+                                        title="{{data.value}}">{{data.value}}</a>
+                                  </div>
+                                  <div *ngIf="!UserPermissionsList.PL000008">
+                                      <a style="color:rgba(0, 0, 0, 0.808) !important" class="noItems" title="{{data.value}}">{{data.value}}</a>
+                                  </div>      
+                              </div>
+                              <div *dxTemplate="let data of 'cellTemplateIsEmailDate'">
+                                <!-- <span  *ngIf="data.row.data.LastProcessedDate == null"></span> -->
+                                <span class="mailSent" *ngIf="data.row.data.LastProcessedDate != null">{{data.row.data.LastProcessedDate}}</span>
+                              </div>
+                          </dx-data-grid>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ of: 'body' }" [(visible)]="quoteLoading" [showIndicator]="true"
+  [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+  </dx-load-panel>

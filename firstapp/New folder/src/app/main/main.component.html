@@ -1,0 +1,338 @@
+<!-- navbar-fixed-top-->
+<nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-light navbar-border">
+    <div class="navbar-wrapper">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav">
+          <li class="nav-item mobile-menu hidden-md-up float-xs-left">
+            <a href="#" class="nav-link nav-menu-main menu-toggle hidden-xs">
+              <i class="ft-menu font-large-1"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="index.html" class="navbar-brand">
+                <!--  <img alt="stack admin logo" src="./assets/images/logo/LogoSSPI.png" style="height:23px" class="brand-logo">
+                <h3 class="brand-text">Test Environment</h3> -->
+              <img alt="stack admin logo" src="./assets/images/logo/stack-logo.png" class="brand-logo">
+              <h2 class="brand-text">Price IT</h2>
+            </a>
+          </li>
+          <li class="nav-item hidden-md-up float-xs-right">
+            <a data-toggle="collapse" data-target="#navbar-mobile" class="nav-link open-navbar-container">
+              <i class="fa fa-ellipsis-v"></i>
+            </a>
+          </li>
+  
+        </ul>
+      </div>
+      <div class="navbar-container content container-fluid">
+        <div id="navbar-mobile" class="collapse navbar-toggleable-sm">
+          <ul class="nav navbar-nav">
+            <li class="nav-item hidden-sm-down">
+              <a href="#" class="nav-link nav-menu-main menu-toggle hidden-xs">
+                <i class="ft-menu"></i>
+              </a>
+            </li>
+  
+  
+          </ul>
+          <ul class="nav navbar-nav float-xs-right">
+  
+            <li class="dropdown dropdown-notification nav-item">
+              <a href="#" data-toggle="dropdown" class="nav-link nav-link-label">
+                <i class="ficon ft-bell"></i>
+                <span class="tag tag-pill tag-default tag-danger tag-default tag-up">{{NotificationCount}}</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                <li class="dropdown-menu-header">
+                  <h6 class="dropdown-header m-0">
+                    <span class="grey darken-2">Notifications</span>
+                    <span class="notification-tag tag tag-default tag-danger float-xs-right m-0">{{NotificationCount}} New</span>
+                  </h6>
+                </li>
+                <li class="list-group scrollable-container" class="NotificationSpace">
+                  <a href="javascript:void(0)" class="list-group-item" *ngFor="let item of Notifications">
+                    <div class="media">
+                      <div class="media-left valign-middle">
+                        <i class="ft-plus-square icon-bg-circle bg-cyan"></i>
+                      </div>
+                      <div class="media-body">
+                        <h6 class="media-heading">{{item.Subject}}</h6>
+                        <p class="notification-text font-small-3 text-muted">{{item.Message}}</p>
+                        <small>
+                          <!--<time datetime="2015-06-11T18:29:20+08:00" class="media-meta text-muted">30 minutes ago</time>-->
+                        </small>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <!--<li class="dropdown-menu-footer"><a href="javascript:void(0)" class="dropdown-item text-muted text-xs-center">Read all notifications</a></li>-->
+              </ul>
+            </li>
+            <li class="dropdown dropdown-user nav-item">
+              <a *ngIf='userProfile' href="#" data-toggle="dropdown" class="dropdown-toggle nav-link dropdown-user-link">
+                <span class="avatar avatar-online">
+                  <img *ngIf='userProfile' [src]="userProfile.picture" alt="avatar">
+                  <i></i>
+                </span>
+                <span class="user-name">{{userProfile.nickname}}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-divider">
+                </div>
+                <a class="dropdown-item" (click)='auth.logout()'>
+                  <i class="ft-power"></i> Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <!-- - var menuBorder = true-->
+  <div data-scroll-to-active="true" class="main-menu menu-fixed menu-light menu-accordion  menu-shadow">
+    <div class="main-menu-content">
+      <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+        <!-- <li class=" navigation-header">
+          <span>General</span>
+          <i data-toggle="tooltip" data-placement="right" data-original-title="General" class=" ft-minus"></i>
+        </li> -->
+        <li class=" nav-item">
+          <a routerLink="/main/dash" routerLinkActive="active">
+            <i class="ft-home"></i>
+            <span data-i18n="" class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class=" navigation-header">
+          <span>Application</span>
+          <i data-toggle="tooltip" data-placement="right" data-original-title="Application" class=" ft-minus"></i>
+        </li>
+
+       
+        <li class=" nav-item" >
+          <a routerLink="/main/prj" routerLinkActive="active">
+            <i class="ft-inbox"></i>
+            <span data-i18n="" class="menu-title">Projects</span>
+          </a>
+        </li>
+        <li class=" nav-item" >
+          <a routerLink="/main/qtsearch" routerLinkActive="active">
+            <i class="ft-file"></i>
+            <span data-i18n="" class="menu-title">Quotes</span>
+          </a>
+        </li>
+        <li class=" nav-item" >
+          <a routerLink="/main/prjstg" routerLinkActive="active">
+            <i class="ft-triangle"></i>
+            <span data-i18n="" class="menu-title">Staged Projects</span>
+          </a>
+        </li>
+        <!-- <li class=" nav-item"><a routerLink="/main/qte" routerLinkActive="active"><i class="ft-layers"></i><span data-i18n="" class="menu-title">Quotes</span></a></li> -->
+        <li class=" navigation-header">
+          <span>Application Admin</span>
+          <i data-toggle="tooltip" data-placement="right" data-original-title="Application Admin" class=" ft-minus"></i>
+        </li>
+        <!-- <li class=" nav-item"><a routerLink='/main/pcid' routerLinkActive='active'><i class="ft-filter"></i><span data-i18n="" class="menu-title">Project Categories</span></a></li> -->
+        <li class=" nav-item">
+          <a routerLink="/main/dvs" routerLinkActive="active">
+            <i class="ft-layers"></i>
+            <span data-i18n="" class="menu-title">Divisions</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/cust" routerLinkActive="active">
+            <i class="ft-sun"></i>
+            <span data-i18n="" class="menu-title">Customers</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/note" routerLinkActive="active">
+            <i class="ft-edit"></i>
+            <span data-i18n="" class="menu-title">Notes</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/tac" routerLinkActive="active">
+            <i class="ft-thumbs-up"></i>
+            <span data-i18n="" class="menu-title">Terms &amp; Conditions</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/frt" routerLinkActive="active">
+            <i class="ft-package"></i>
+            <span data-i18n="" class="menu-title">Freight</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/prc" routerLinkActive="active">
+            <i class="fa fa-life-ring"></i>
+            <span data-i18n="" class="menu-title">Process Run Control</span>
+          </a>
+        </li>
+        <!-- <li class=" nav-item"><a routerLink="/main/salesr" routerLinkActive="active"><i class="ft-github"></i><span data-i18n="" class="menu-title">Sales Representative</span></a></li> -->
+        <!-- <li class=" navigation-header"><span>Application</span><i data-toggle="tooltip" data-placement="right" data-original-title="Application" class=" ft-minus"></i></li>
+        <li class=" nav-item"><a routerLink="/main/prj" routerLinkActive="active"><i class="ft-inbox"></i><span data-i18n="" class="menu-title">Projects</span></a></li>
+        <li class=" nav-item"><a routerLink="/main/salesr" routerLinkActive="active"><i class="ft-github"></i><span data-i18n="" class="menu-title">Sales Representative</span></a></li>  -->
+  
+        <!-- <li class=" navigation-header"><span>Product Catalog Admin</span><i data-toggle="tooltip" data-placement="right" data-original-title="Product Catelog Admin" class=" ft-minus"></i></li>
+        <li class=" nav-item"><a routerLink="/main/prc" routerLinkActive="active"><i class="fa fa-life-ring"></i><span data-i18n="" class="menu-title">Process Run Control</span></a></li>
+        <li class=" nav-item"><a routerLink="/main/prdt" routerLinkActive="active"><i class="ft-server"></i><span data-i18n="" class="menu-title">Product Lines</span></a></li>
+        <li class=" nav-item"><a routerLink="/main/item" routerLinkActive="active"><i class="ft-square"></i><span data-i18n="" class="menu-title">Items</span></a></li>
+        <li class=" nav-item"><a routerLink="/main/asmbl" routerLinkActive="active"><i class="ft-triangle"></i><span data-i18n="" class="menu-title">Assemblies</span></a></li>
+        <li class=" navigation-header"><span>Security Admin</span><i data-toggle="tooltip" data-placement="right" data-original-title="Security Admin" class=" ft-minus"></i></li>
+        <li class=" nav-item"><a routerLink='/main/users'><i class="ft-users"></i><span data-i18n="" class="menu-title">Users</span></a></li>
+        <li class=" nav-item"><a href="#"><i class="ft-eye"></i><span data-i18n="" class="menu-title">Roles &amp; Permissions</span></a></li>
+        <li class=" navigation-header"><span>Reports</span><i data-toggle="tooltip" data-placement="right" data-original-title="Reports" class=" ft-minus"></i></li>
+        <li class=" nav-item"><a routerLink="/main/ldr" routerLinkActive="active"><i class="ft-file-text"></i><span data-i18n="" class="menu-title">Letting Date Report</span></a></li>
+        <li class=" nav-item"><a routerLink="/main/pcr" routerLinkActive="active"><i class="ft-file-text"></i><span data-i18n="" class="menu-title">Project Costing Report</span></a></li>
+        <li class=" nav-item"><a routerLink="/main/qr" routerLinkActive="active"><i class="ft-file-text"></i><span data-i18n="" class="menu-title">Quote Report</span></a></li> -->
+  
+        <li class=" navigation-header">
+          <span>Product Catalog Admin</span>
+          <i data-toggle="tooltip" data-placement="right" data-original-title="Product Catelog Admin" class=" ft-minus"></i>
+        </li>
+  
+        <li class=" nav-item">
+          <a routerLink="/main/prdt" routerLinkActive="active" >
+            <i class="ft-server"></i>
+            <span data-i18n="" class="menu-title">Product Lines</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/item" routerLinkActive="active">
+            <i class="ft-square"></i>
+            <span data-i18n="" class="menu-title">Items</span>
+          </a>
+        </li>
+        <!-- <li class=" nav-item">
+          <a routerLink="/main/asmbl" routerLinkActive="active">
+            <i class="ft-triangle"></i>
+            <span data-i18n="" class="menu-title">Assembilies</span>
+          </a>
+        </li> -->
+        <li class=" navigation-header">
+          <span>Security Admin</span>
+          <i data-toggle="tooltip" data-placement="right" data-original-title="Security Admin" class=" ft-minus"></i>
+        </li>
+        <li class=" nav-item">
+          <a routerLink='/main/users'>
+            <i class="ft-users"></i>
+            <span data-i18n="" class="menu-title">Users</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink='/main/security' routerLinkActive="active">
+            <i class="ft-eye"></i>
+            <span data-i18n="" class="menu-title">Roles &amp; Permissions</span>
+          </a>
+        </li>
+        <li class=" navigation-header">
+          <span>Reports</span>
+          <i data-toggle="tooltip" data-placement="right" data-original-title="Reports" class=" ft-minus"></i>
+        </li>
+        <!-- <li class=" nav-item">
+          <a routerLink="/main/ldr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Letting Date Report</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/pcr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Project Costing Report</span>
+          </a>
+        </li> -->
+        <li class=" nav-item">
+          <a routerLink="/main/sbr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Blue Sheet Report</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/qr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">All Quotes By Division</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/qrcn" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">All Quotes By Control#</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/aqr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Awarded Quotes</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/qbcr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Quotes by Customer</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/qbvr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Lost Job Report</span>
+          </a>
+        </li>
+       <!--  <li class=" nav-item">
+            <a routerLink="/main/cor" routerLinkActive="active">
+              <i class="ft-file-text"></i>
+              <span data-i18n="" class="menu-title">Quote History by Customer</span>
+            </a>
+          </li> -->
+          <li class=" nav-item">
+            <a routerLink="/main/qht" routerLinkActive="active">
+              <i class="ft-file-text"></i>
+              <span data-i18n="" class="menu-title">Quote History By Item</span>
+            </a>
+          </li>
+        <!-- <li class=" nav-item">
+          <a routerLink="/main/qbvr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Quotes by Vendor</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/cor" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Change Orders</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/cr" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Contacts</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/ser" routerLinkActive="active" >
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Specified Entities</span>
+          </a>
+        </li>
+        <li class=" nav-item">
+          <a routerLink="/main/pir" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Product Line Items</span>
+          </a>
+        </li> -->
+        <!-- <li class=" nav-item">
+          <a routerLink="/main/pair" routerLinkActive="active">
+            <i class="ft-file-text"></i>
+            <span data-i18n="" class="menu-title">Product Line Assembly</span>
+          </a>
+        </li> -->
+  
+      </ul>
+    </div>
+  </div>
+<div class="app-content content container-fluid">
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</div>

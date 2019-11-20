@@ -1,0 +1,8 @@
+body {
+    background: #7F00FF !important;
+    background: -webkit-linear-gradient(to right, #E100FF, #7F00FF) !important;
+    background: linear-gradient(to right, #E100FF, #7F00FF) !important;
+  }
+  .loginBox{
+    margin-left: 0px !important;
+  }

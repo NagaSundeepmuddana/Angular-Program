@@ -1,0 +1,27 @@
+.dx-item .dx-toolbar-item .dx-toolbar-button{
+    padding-right: 5px !important;
+}
+#permissionsListid{
+    max-height: 450px;
+    min-height: 450px;
+}
+.margin-left-5{
+    margin-left: 5px !important;
+}
+.Close{
+    border-color: #FF6275 !important;
+    background-color: #FF586B !important;
+    color: #FFF !important;
+    margin-left: 10px !important;
+    margin-top: 60px !important;
+}
+.reOrderBtn, .YesBtn, .UpDownBtn, .resetPW{
+    background-color:  #00B5B8 !important;
+    border-color: #00A5A8 !important;
+    color: white;
+    margin-top: 60px !important;;
+  }
+/* .dx-checkbox-icon:before{
+    background-color: #fff !important;
+  } */
+  

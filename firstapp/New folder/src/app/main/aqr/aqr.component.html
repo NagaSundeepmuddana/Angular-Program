@@ -1,0 +1,283 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Awarded Quote Report</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+            <!-- <a routerLink="/main/">Home</a> -->
+          </li>
+          <li class="breadcrumb-item active">Awarded Quote Report
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Search
+            <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Quote Number</label>
+                      <input type="text" class="form-control input-sm custHeight" id="hidQuoteNumber" [(ngModel)]='QuoteNumber' name="QuoteNumber" style="height: 34px;"
+                      (onValueChanged)="QuoteNumberChangeEvent($event)">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Business Manager</label>
+                      <input type="hidden" id="BusinessManager">
+                      <dx-select-box id="BusinessManager" placeholder="Business Manager" [searchEnabled]="true" [searchEnabled]="true" [dataSource]="PITUserList" valueExpr="UserID"
+                      displayExpr="Name" (onValueChanged)="BusinessManagerChangeEvent($event)" [(ngModel)]='BusinessManager'>
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput" class="height">Award Status </label>
+                      <input type="hidden" id="hidEditQuoteStatus">
+                      <dx-select-box [value]="EditQuoteStatus" [(ngModel)]='EditQuoteStatus' name="EditQuoteStatus" [dataSource]="AwardQuoteStatus"
+                        valueExpr="id" displayExpr="Name" (onValueChanged)="EditQuoteStatusChangeEvent($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Division</label>
+                      <input type="hidden" id="hidDivisionID">
+                      <!-- <dx-select-box id="searchDivision" [searchEnabled]="true" [dataSource]="GetDivisionList" valueExpr="DivisionID" [(ngModel)]='DivisionID'
+                        name="DivisionID" displayExpr="Name" (onValueChanged)="DivisionChangeEvent($event)">
+                      </dx-select-box> -->
+                      <dx-tag-box id="searchDivision" *ngIf="GetDivisionList" class="Maxprdtheight" placeholder="Select Division(s)" [dataSource]="GetDivisionList"
+                        displayExpr="Name" [(ngModel)]='DivisionID' name="DivisionID" valueExpr="DivisionID" [searchEnabled]="true"
+                        (onValueChanged)="DivisionChangeEvent($event)" [value]="required">
+                      </dx-tag-box>
+                    </fieldset>
+                  </div>
+                  <!-- <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Product Line</label>
+                      <input type="hidden" id="hidProductlineID">
+                      <dx-tag-box id="searchProductLine" *ngIf="GetProdLinesByDiv" class="Maxprdtheight" placeholder="Select Product Line(s)" [dataSource]="GetProdLinesByDiv"
+                        valueExpr="ProductLineID" [(ngModel)]='ProductLineID' (onValueChanged)="ProductLineChangeEvent($event)"
+                        [searchEnabled]="true" name="ProductLineID" displayExpr="Name" [value]="required">
+                      </dx-tag-box>
+                      <dx-select-box id="searchPrdLine" [searchEnabled]="true" [dataSource]="GetProdLinesByDiv" valueExpr="ProductLineID" [(ngModel)]='searchPrdLine'
+                        (onValueChanged)="ProductLineChangeEvent($event)" name="searchPrdLine" displayExpr="Name">
+                      </dx-select-box> 
+                    </fieldset>
+                  </div> -->
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Product Line</label>
+                      <input type="hidden" id="hidProductlineID">
+                      <dx-tag-box id="searchProductLine"  class="Maxprdtheight" placeholder="Select Product Line(s)" [dataSource]="GetProductLineName"
+                        valueExpr="ProductLineID" [(ngModel)]='ProductLineID' (onValueChanged)="ProductLineChangeEvent($event)"
+                        [searchEnabled]="true" name="ProductLineID" displayExpr="Name" [value]="required">
+                      </dx-tag-box>
+                      <!-- <dx-select-box id="searchProductLine" class="Maxprdtheight" [searchEnabled]="true" placeholder="Select By Product Line(s)" [dataSource]="GetProductLineName"
+                        valueExpr="ProductLineID" [(ngModel)]='ProductLineID' name="ProductLineID" displayExpr="Name" (onValueChanged)="ProductLineChangeEvent($event)" [value]="required">
+                      </dx-select-box> -->
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Contract Type</label>
+                      <input type="hidden" id="hidContractTypeID">
+                      <dx-select-box id="ContractTypeID" [searchEnabled]="true" [dataSource]="ContractType" (onValueChanged)="ContractTypeChangeEvent($event)"
+                        valueExpr="ContractTypeID" [(ngModel)]='ContractTypeID' name="ContractTypeID" displayExpr="Name">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <!-- <div class="col-md-3">
+                      <fieldset class="form-group">
+                          <label for="basicInput">Business Manager</label>
+                          <input type="hidden" id="BusinessManager">
+                          <dx-select-box id="BusinessManager" placeholder="Business Manager" [searchEnabled]="true" [searchEnabled]="true" [dataSource]="PITUserList" valueExpr="UserID"
+                      displayExpr="Name" (onValueChanged)="BusinessManagerChangeEvent($event)" [(ngModel)]='BusinessManager'>
+                      </dx-select-box>
+                    </fieldset>
+                  </div> -->
+                  <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Project Name</label>
+                      <input type="text" class="form-control input-sm Prjheight"  [(ngModel)]='SearchByProjName' name="SearchByProjName" id="SearchByProjName">
+                    </fieldset>
+                  </div>
+                  <!-- <div class="col-md-3">
+                        <fieldset class="form-group">
+                          <label for="basicInput">Syspro Number</label>
+                          <input type="text" class="form-control input-sm Prjheight" id="SearchSysproNumber">
+                        </fieldset>
+                      </div> -->
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Letting Begin Date</label>
+                      <input type="hidden" id="hidStartDate">
+                      <dx-date-box [value]="QuoteFrom" [(ngModel)]='QuoteFrom' name="LettingFrom" class="form-control input-sm LettingWidth dateField" type="date" (onValueChanged)="QuotesFromChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Letting End Date</label>
+                      <input type="hidden" id="hidEndDate">
+                      <dx-date-box [value]="QuoteTo" [(ngModel)]='QuoteTo' type="date" name="LettingTo" class="form-control input-sm LettingWidth dateField" (onValueChanged)="QuotesToChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Award Begin Date </label>
+                      <input type="hidden" id="hidawdStartDate">
+                      <dx-date-box [value]="AwardedFrom" [(ngModel)]='AwardedFrom' name="AwardedFrom" class="form-control input-sm LettingWidth dateField" type="date" (onValueChanged)="aqrQuotesFromChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-2">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Award End Date</label>
+                      <input type="hidden" id="hidawdEndDate">
+                      <dx-date-box [value]="AwardedTo" [(ngModel)]='AwardedTo' type="date" name="AwardedTo" class="form-control input-sm LettingWidth dateField" (onValueChanged)="aqrQuotesToChangeEvent($event)">
+                      </dx-date-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3" style="margin-top: 24px;">
+
+                  </div>
+                </div>
+                <div class="row">
+                  <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ClearFilters()'>Clear
+                    <i class="fa fa-times"></i>
+                  </a>
+                  <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='SearchAwardedQuoteReport()'>Search
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Awarded Quotes
+            <!-- <a class="btn btn-outline-success btn-min-width btn- pull-right" (click)='ExportGridData()'>Export
+              </a> -->
+            <a class="btn btn-outline-success btn-min-width btn- pull-right btnalignment" (click)='PDFGridData()'>Gen PDF
+            </a>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <dx-data-grid class="pitTable" id="gridContainer" [dataSource]="AwarddataSource" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                  [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true">
+                  <dxo-export [enabled]="true" fileName="Awarded Quote REPORTS" [allowExportSelectedData]="false"></dxo-export>
+                  <dxi-column dataField="QuoteNumber" caption="Quote#" [width]="50" ></dxi-column>
+                  <dxi-column dataField="QuoteDate" caption="Letting Date" [width]="100" ></dxi-column>
+                  <dxi-column dataField="BusinessManager" caption="Business Manager" [width]="120"></dxi-column>
+                  <dxi-column dataField="DivisionName" caption="Division"[width]="95" [groupIndex]="0" ></dxi-column>
+                  <dxi-column dataField="ProductLine" caption="Product Line" [width]="110"></dxi-column>
+                  <dxi-column dataField="ContractType" caption="C Type" [visible]="false"[width]="50"></dxi-column>
+                  <dxi-column dataField="State" [visible]="false"[width]="50"></dxi-column>
+                  <dxi-column dataField="ProjectName" caption="Project Name" [width]="330" ></dxi-column>
+                  <dxi-column dataField="BidValue" caption="Awarded Amount" [customizeText]="CurrencyFormatter" [width]="120" sortOrder="desc"></dxi-column>
+                  <dxi-column dataField="GlobalMargin" caption="AGM %" [customizeText]="DecimalFormatter" [width]="75"></dxi-column>
+                  <dxi-column dataField="GM" caption="Gross Margin" [width]="110" [customizeText]="CurrencyFormatter"></dxi-column>
+                  <dxi-column dataField="AwardValue" caption="Awarded Cost" [customizeText]="CurrencyFormatter" [width]="120" sortOrder="desc"></dxi-column>
+                  <dxi-column dataField="AwardedMargin" caption="AM %" [customizeText]="DecimalFormatter" [width]="75"></dxi-column>
+                  <dxi-column dataField="AwardedDate" caption="Awarded Date" [width]="100" [visible]="false" ></dxi-column>
+                  <!-- <dxi-column dataField="Customer"></dxi-column> -->
+                  <dxi-column dataField="Status" caption="Award" [width]="90"></dxi-column>
+                  <dxi-column dataField="SubContractor" caption="Sub-Contractor" [width]="120"></dxi-column>
+                  <dxi-column dataField="PrimeContractor" caption="Prime Contractor" [width]="120"></dxi-column>
+                  <dxi-column dataField="CRMNote" caption="CRM Note" [visible]="false" [width]="110"></dxi-column>
+                  
+                  <!-- <dxi-column dataField="SysproNum" caption="Syspro Number"></dxi-column> -->
+                  <dxo-remote-operations [sorting]="true" [paging]="true">
+                  </dxo-remote-operations>
+                  <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20,50,100]" [showInfo]="true"></dxo-pager>
+                  <dxo-summary>
+                    <dxi-total-item column="ProjectName" displayFormat="GRAND TOTAL:">
+                    </dxi-total-item>
+                    <dxi-total-item column="BidValue"  displayFormat="{0}"summaryType="sum" valueFormat="currency">
+                      <dxo-value-format type="fixedPoint"[precision]="2"></dxo-value-format>
+                    </dxi-total-item>
+                    <dxi-total-item column="AwardValue" displayFormat="{0}"summaryType="sum" valueFormat="currency">
+                      <dxo-value-format type="fixedPoint"[precision]="2"></dxo-value-format>
+                    </dxi-total-item>
+                    <dxi-total-item column="GM" displayFormat="{0}"summaryType="sum" valueFormat="currency">
+                      <dxo-value-format type="fixedPoint"[precision]="2"></dxo-value-format>
+                    </dxi-total-item>
+                    <dxi-total-item column="AvgGM2" showInColumn="GlobalMargin" summaryType="avg" displayFormat="{0}%">
+                      <dxo-value-format type="fixedPoint" [precision]="2" ></dxo-value-format> >
+                    </dxi-total-item>
+                    <dxi-total-item column="AvgGM3" showInColumn="AwardedMargin" summaryType="avg" displayFormat="{0}%">
+                      <dxo-value-format type="fixedPoint" [precision]="2" ></dxo-value-format> >
+                    </dxi-total-item>
+                    <dxi-group-item
+                     column="ProjectName"
+                     summaryType=""
+                     displayFormat="Totals:"
+                     [showInGroupFooter]="true"
+                     [alignByColumn]="true">
+                    </dxi-group-item>                  
+                    <dxi-group-item
+                     column="BidValue" 
+                     summaryType="sum"
+                      valueFormat="currency"
+                       displayFormat="{0}"
+                       [showInGroupFooter]="true"  type="fixedPoint"[precision]="2">
+                    </dxi-group-item>
+
+                    <dxi-group-item column="GM" summaryType="sum" valueFormat="currency" displayFormat="{0}" [showInGroupFooter]="true" type="fixedPoint"
+                      [precision]="2">
+                    </dxi-group-item>
+                    <dxi-group-item column="AvgGM" showInColumn="GlobalMargin" summaryType="max"  displayFormat="{0}" [showInGroupFooter]="true"
+                      type="fixedPoint" [precision]="2" [customizeText]="DecimalFormatter">
+                    </dxi-group-item>                   
+                    <dxi-group-item
+                     column="AwardValue"
+                      summaryType="sum"
+                       valueFormat="currency"
+                        displayFormat="{0}"
+                        [showInGroupFooter]="true"  type="fixedPoint"[precision]="2">
+                    </dxi-group-item>
+                  </dxo-summary>
+                  <dxi-sort-by-group-summary-info summaryItem="sum" sortOrder="desc"></dxi-sort-by-group-summary-info>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

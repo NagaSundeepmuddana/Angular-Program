@@ -1,0 +1,138 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-xs-12 mb-2">
+    <h3 class="content-header-title mb-0">Product Line items Reports</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-xs-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/main/">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Product Line items Reports
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Search
+            <i class="fa fa-search" style="color:rgba(128, 128, 128, 0.48)"></i>
+          </h4>
+          <a class="heading-elements-toggle">
+            <i class="fa fa-ellipsis-v font-medium-3"></i>
+          </a>
+        </div>
+        <div class="card-body collapse in">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <!-- <div class="col-md-2">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Type</label>
+                      <dx-select-box id="searchType" [searchEnabled]="true" [dataSource]="ItemType" valueExpr="Type" displayExpr="Name" [(ngModel)]='Type'
+                        name="Type">
+                      </dx-select-box>
+                    </fieldset>
+                  </div> -->
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Item Code</label>
+                      <input type="text" class="form-control input-sm ItemHeight" id="SearchByItemCode" placeholder="Search By Item Code">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group-xs">
+                      <label for="basicInput">Item Description</label>
+                      <input type="text" class="form-control input-sm ItemHeight" id="SearchByItemDescription" placeholder="Search By Item Description">
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Division</label>
+                      <input type="hidden" id="hidDivisionID">
+                      <dx-select-box id="searchDivision" [searchEnabled]="true" [dataSource]="GetDivisionList" valueExpr="DivisionID" [(ngModel)]='DivisionID'
+                        name="DivisionID" displayExpr="Name" (onValueChanged)="DivisionChangeEvent($event)">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <label for="basicInput">Product Line</label>
+                      <input type="hidden" id="hidProductlineID">
+                      <dx-select-box id="searchPrdLine" [searchEnabled]="true" [dataSource]="GetProdLinesByDiv" valueExpr="ProductLineID" [(ngModel)]='searchPrdLine'
+                        (onValueChanged)="ProductLineChangeEvent($event)" name="searchPrdLine" displayExpr="Name">
+                      </dx-select-box>
+                    </fieldset>
+                  </div>
+
+                </div>
+                <a class="btn btn-outline-secondary btn-min-width btn- pull-right" (click)='ClearFilters()'>Clear
+                  <i class="fa fa-times"></i>
+                </a>
+                <button class="btn btn-danger btn-min-width pull-right mr-1" (click)='SearchProductLineitemsReports()'>Search
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Product Line items
+              <a class="btn btn-outline-success btn-min-width btn- pull-right" (click)='ExportGridData()'>Export
+              </a>
+              <a class="btn btn-outline-success btn-min-width btn- pull-right btnalignment" (click)='PDFGridData()'>Gen PDF
+              </a>
+            </h4>
+            <a class="heading-elements-toggle">
+              <i class="fa fa-ellipsis-v font-medium-3"></i>
+            </a>
+          </div>
+          <div class="card-body collapse in">
+            <div class="card-block">
+              <div class="row">
+                <div class="col-md-12">
+                  <dx-data-grid id="gridContainer" [dataSource]="ProductlineItemsdataSource" [allowColumnReordering]="true" [rowAlternationEnabled]="true"
+                    [hoverStateEnabled]="true" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true">
+                    <dxi-column dataField="Type"></dxi-column>
+                    <dxi-column dataField="Item" caption="Item Code"></dxi-column>
+                    <dxi-column dataField="ItemDescription" caption="Item Desc"></dxi-column>
+                    <dxi-column dataField="DivisionName" caption="Division"></dxi-column>
+                    <dxi-column dataField="ProductLine"></dxi-column>
+                    <dxi-column dataField="ExternalSystemRefNo" caption="Ext Ref No"></dxi-column>
+                    <dxi-column dataField="Status"></dxi-column>
+                    <dxi-column dataField="Unit"></dxi-column>
+                    <dxi-column dataField="Weight"></dxi-column>
+                    <dxi-column dataField="UnitCost" caption="Unit Cost($)"></dxi-column>
+                    <dxi-column dataField="ListPrice" caption="List Price($)"></dxi-column>
+                    <dxi-column dataField="Vendor"></dxi-column>
+                    <dxi-column dataField="CreatedBy" [visible]="false" caption="Create By"></dxi-column>
+                    <dxi-column dataField="CreatedDate" [visible]="false" caption="Create Dt"></dxi-column>
+                    <dxi-column dataField="LastModifiedBy"  [visible]="false" caption="Revised By"></dxi-column>
+                    <dxi-column dataField="LastModifiedDate" [visible]="false" caption="Revised Dt"></dxi-column>
+                    <dxo-remote-operations [sorting]="true" [paging]="true">
+                    </dxo-remote-operations>
+                    <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20,50]" [showInfo]="true"></dxo-pager>
+                  </dx-data-grid>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

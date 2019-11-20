@@ -1,0 +1,191 @@
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-xs-12 mb-2">
+        <h3 class="content-header-title mb-0">Staging</h3>
+        <div class="row breadcrumbs-top">
+            <div class="breadcrumb-wrapper col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="http://localhost:4200/main">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Staged Projects
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="content-header-right col-md-6 col-xs-12">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Process Details
+                </h4>
+                <a class="heading-elements-toggle">
+                    <i class="fa fa-ellipsis-v font-medium-3"></i>
+                </a>
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput">Process Name</label>
+                                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{HeaderData.ProcessName}}>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-3">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput">Process Date</label>
+                                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{HeaderData.ProcessDate}}>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-3">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput">Total Projects</label>
+                                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{HeaderData.ToTalRecords}}>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-3">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput">Processed Projects</label>
+                                        <input type="text" class="form-control input-sm" id="basicInput" readonly="readonly" value={{HeaderData.Processed}}>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <dx-box direction="row" width="100%" [height]="20">
+                                <dxi-item class="rect" [ratio]="6">
+                                </dxi-item>
+                                <dxi-item class="rect prj-err" [ratio]="1">
+                                    Error Projects
+                                </dxi-item>
+                            </dx-box>
+                            <dx-box direction="row" width="100%" [height]="20">
+                                <dxi-item class="rect" [ratio]="6">
+                                </dxi-item>
+                                <dxi-item class="rect prj-exist" [ratio]="1">
+                                    Existing Projects
+                                </dxi-item>
+                            </dx-box>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Projects list
+                    <dx-button *ngIf="UserPermissionsList.PL000084" text="Approve Project" (onClick)="ApproveProject()" class="pull-right margin-left-5 approveProjectBtn">
+                    </dx-button>
+                    <dx-button *ngIf="!UserPermissionsList.PL000084" [disabled]="true" text="Approve Project" (onClick)="ApproveProject()" class="pull-right margin-left-5 approveProjectBtn">
+                    </dx-button>
+                    <!--
+                    <input type="button" class="btn btn-success btn-sm pull-right marginRight10" (click)="ApproveProject()" value="Approve Project"
+                    />  <input type="button" class="btn btn-success btn-sm pull-right marginRight10" (click)="ImportProjectMdlOpen()" value="Import Project"
+                    />-->
+                </h4>
+                <a class="heading-elements-toggle">
+                    <i class="fa fa-ellipsis-v font-medium-3"></i>
+                </a>
+            </div>
+            <div class="card-body collapse in">
+                <div class="card-block">
+                    <div class="row">
+                        <dx-data-grid #projectStgGrid id="projectStgGrid" [dataSource]="StagingProjectList" [allowColumnReordering]="true" [hoverStateEnabled]="true"
+                            (onRowRemoving)="DeleteProject($event)" (onRowInserted)="AddNewProject($event)" (onRowUpdated)="UpdateProject($event.key)"
+                            [showColumnLines]="true" [showRowLines]="true" [wordWrapEnabled]="true" [showBorders]="true" [selectedRowKeys]="selectedRows"
+                            (onCellPrepared)="onCellPrepared($event)" (onRowPrepared)="onRowPrepared($event)" (onSelectionChanged)="GridSelectChangedHandler(projectStgGrid.selectedRowKeys)">
+                            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+                            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="true">
+                            </dxo-pager>
+                            <dxo-editing mode="popup"></dxo-editing>
+                            <dxo-selection mode="multiple" [showCheckBoxesMode]="checkBoxesMode" [allowSelectAll]="true"></dxo-selection>
+                            <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+                            <dxi-column dataField="County" caption="County"></dxi-column>
+                            <dxi-column dataField="ControlNumber" caption="Control Number"></dxi-column>
+                            <dxi-column dataField="ProjectNumber" caption="Project Number"></dxi-column>
+                            <dxi-column dataField="Highway" caption="Location"></dxi-column>
+                            <dxi-column dataField="BidsReceivedUntil" caption="Letting Date"></dxi-column>
+                            <dxi-column dataField="Type" cellTemplate="cellTemplateType" caption="Type"></dxi-column>
+                            <dxi-column dataField="Length" caption="Length"></dxi-column>
+                            <dxi-column dataField="" [allowFiltering]="false" [width]="80" [allowSorting]="false" cellTemplate="cellTemplate" caption="Items"></dxi-column>
+                            <div *dxTemplate="let dt of 'cellTemplate'">
+                                <button type="button" (click)="OpenItemsModal(dt)" title="Items" class="btn btn-icon btn-success mr-1 btn-sm ItemCount">
+                                    <i class="fa fa-tasks"></i>
+                                </button>
+                            </div>
+                            <div *dxTemplate="let data of 'cellTemplateType'">
+                                <a class="Itemclr" title="{{data.value}}">{{data.value | ellipsis: 15}}</a>
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dx-popup id="itemPopup" class="popup" [width]="1100" [height]="550" [showTitle]="true" title="Project Items" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="itemPopupVisible" [disabled]="IsPopupDisabled">
+    <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+        <dx-data-grid #itemsGrid id="itemListGrid" (onRowPrepared)="onRowPreparedItems($event)" [dataSource]="ProjectStagingItemsListDataSource"
+            [showBorders]="true" [hoverStateEnabled]="true">
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10]" [showInfo]="true">
+            </dxo-pager>
+            <dxo-editing mode="row"></dxo-editing>
+            <dxi-column caption="Item No" dataField="ItemNo" [width]="120"></dxi-column>
+            <dxi-column caption="Des CD" dataField="DESCode" [width]="80"></dxi-column>
+
+            <dxi-column caption="Description" dataField="Description" [width]="450"></dxi-column>
+            <dxi-column caption="UOM" dataField="UOM" [width]="80"></dxi-column>
+            <dxi-column caption="Approx Qty" dataField="ApproxQuantity" [width]="150"></dxi-column>
+            <dxi-column caption="Bid Price" dataField="BidPrice" [width]="150"></dxi-column>
+        </dx-data-grid>
+    </div>
+</dx-popup>
+
+<dx-popup id="FileUploadPopup" class="popup" [width]="1100" [height]="550" [showTitle]="true" title="Import Project FIle"
+    [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="FileUploadPopupVisible" [disabled]="IsPopupDisabled">
+    <div *dxTemplate="let data of 'content'" id="itemsSaveCancelDiv">
+        <dx-box direction="row" width="100%" [height]="20">
+            <dxi-item class="rect prj-msg" [ratio]="1">
+            </dxi-item>
+            <dxi-item class="rect prj-msg" [ratio]="6">
+                Please import only one project at a time.
+            </dxi-item>
+            <dxi-item class="rect prj-msg" [ratio]="1">
+            </dxi-item>
+        </dx-box>
+        <div class="widget-container">
+            <dx-file-uploader #fileUploader uploadUrl="{{endpoint}}" [multiple]="false" accept="txt" [(value)]="value" uploadMode="useButtons"
+                uploadButtonText="Upload File" onUploaded="uploadmsg()">
+            </dx-file-uploader>
+            <div class="content">
+                <div *ngIf="value.length > 0">
+                    <h4>Selected Files</h4>
+                </div>
+                <div *ngFor="let file of value">
+                    <div class="selected-item">
+                        Name:
+                        <span>{{file.name}}</span>
+                        <br /> Size:
+                        <span>{{file.size}}</span>bytes
+                        <br /> Type:
+                        <span>{{file.type}}</span>
+                        <br /> Last Modified Date:
+                        <span>{{file.lastModifiedDate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dx-popup>
