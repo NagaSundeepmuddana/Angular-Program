@@ -1,0 +1,317 @@
+1 Full Stack Application
+    70% concept
+
+Template Forms
+Reactive Forms
+Login-logout(JWT)
+Test Application
+------
+Deployment
+> Nginx
+> Docker
+> Git
+----------------
+> Html/Css/Bootrstrap
+> JavaScript
+> https://code.visualstudio.com/
+> NodeJs > https://nodejs.org/en/
+> GitHub Account > https://github.com/
+> Follow > https://github.com/Aakashdeveloper
+
+Open Source
+
+
+package.json
+
+Json>JavaScript Object Notation
+[
+    {
+        name:"John",
+        class:"AI"
+    },
+    {
+        name:"Eva",
+        class:"UI"
+    }
+]
+
+/************************
+    Step For Package.json
+**************************/
+> Navigate to the folder using cmd/Terminal
+> npm init
+> "Answer all Questions"
+> type "yes"
+
+// Local package
+// Global package=> build, start, compile
+
+/************************
+    Step to install localpackage
+**************************/
+> Navigate to the folder using cmd/Terminal
+> npm install <packagename>/npm i <packagename>
+  npm install <packagename> --save
+
+   npm i karma --save-dev
+
+/************************
+    Step to install globalpackage
+**************************/
+Win
+> Start cmd as admin
+> npm i -g @aakashdeveloper/create-node-app
+
+Mac/Linux
+> Start your Terminal
+> sudo npm i -g @aakashdeveloper/create-node-app
+
+/************************
+    Step to setup angular app
+**************************/
+Win
+> Start cmd as admin
+> npm i -g @angular/cli
+---------------------------
+> Navigate to the folder using cmd
+> ng new <app name>
+> cd <app name>
+> npm start
+> localhost:4200
+
+Mac/Linux
+> Start your Terminal
+> sudo npm i -g @angular/cli
+------------------------------
+> Navigate to the folder using cmd
+> ng new <app name>
+> cd <app name>
+> npm start
+> localhost:4200
+
+
+grid basic
+alerts
+button
+glyphicon
+panels
+navbar
+Forms
+modal
+table
+
+Module=>Parent of the app
+Component=> Logic html & css
+Pipe=> run time Data Change
+Service=> All external connection
+Directive=> Small portion of page
+Inbuilt/Structorl / custome
+Routing=>Navigate between pages
+
+
+
+angular.json => main.ts => app.module.ts => app.component.ts
+            Make HTML Available
+
+            Index.html
+
+/////Data Binding///////
+One Way => 
+            Data Binding    {{}}
+            Property Binding []
+            Event Binding ()
+Two Way Binding    [()]
+
+
+//Data type
+String  ="",''
+Number  =76786
+Boolean = true/ false
+
+*ngIf = Boolean
+if true will show
+if false will hide
+
+
+///////////
+var a = 10
+a > 10 ? "hi":"bie"
+
+a>10? a+1:a-1
+
+https://www.codecademy.com/learn
+
+
+external Css < styletag < inline Css
+
+
+///////////////////
+var a = 10
+var b = "my age is "+a > my age is 10
+var c = `my age is ${a}` > my age is 10
+
+Math.floor(Math.random()*(max-min))+min
+
+Math.floor(Math.random()*(10-1))+1
+
+
+/*********************
+        Pipe
+************************/
+uppercase
+lowercase
+curreny
+date
+percentage
+titlecase
+
+/***********************
+    Filter & map &IndexOf
+***************************/
+
+var a = ['a','b','c','g']
+undefined
+a.indexOf('c')
+2
+a.indexOf('z')
+-1
+a.indexOf('h')
+-1
+a.indexOf('g')
+3
+
+var a = [1,2,3,4,5]
+
+a.filter((a) => { return a%2==0 })
+a.map((a) => {return a*2})
+a.filter((a) => {return a*2})
+
+
+function add(a,b){
+    return a+b
+}
+
+add(1,2)
+
+var add = (a,b) => { return a+b }
+
+
+var b = [0,1,2,3]
+//only return values for which condition is true
+b.filter((data) => {return data*1})
+[1,2,3]
+
+// Map will return all value
+b.map((data) => {return data*1})
+[0,1,2,3]
+
+
+/////////
+component
+module
+Binding
+css
+Directive
+custome pipe
+pipe
+interface
+constructor
+bootstrap
+--------
+input/output
+services
+Routing
+Directive
+Gaurd 
+
+-----
+template form
+reactive form
+login/logout
+testing
+deployment
+
+
+
+
+/********
+    Git
+******
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/Aakashdeveloper/testgit.git
+git push -u origin master
+
+
+git add .
+git commit -m "a"
+git push
+
+
+input => Property (to recive value from parant to child)
+out => Event (to send value from child to parant(Callback))
+
+
+var a = 10
+var b = "my age is " + 10
+var c = `my age is ${a}`
+
+/********
+    CLI
+******
+
+ng g c home /ng generate component home
+ng g s home /ng generate service home
+ng g p home /ng generate pipe home
+ng g d home /ng generate directive home
+ng g m home /ng generate module home
+
+
+git checkout -b testbranch
+
+
+ng-untouched ng-pristine ng-valid
+ng-touched   ng-dirty    ng-invalid
+
+
+// Regex
+^([0-9]{10})$
+
+^([a-zA-Z0-9]+)$
+
+^([a-zA-Z0-9]+)@([a-zA-Z0-9]+)\.([a-zA-Z]{2,5})$
+
+npm i -g json-server
+
+json-server --watch db.json --port 8900
+
+
+Register
+Login
+Profile page
+Admin user can add new admin user
+All other user will be normal user
+Admin use can see all the users
+Without login no one can got to profile page
+
+
+////To Build Application
+> npm run build
+
+/usr/local/etc/nginx/nginx.conf
+C:\nginx\conf\sites-enabled
+
+server {
+        listen       8081;
+        server_name  localhost;
+
+        location / {
+	     root   /var/www/react-app;
+         index  index.html index.htm;
+        }
+    }
+
+docker build -t . novang
+docker image ls 
+docker run -p 8086:4200 imageid
