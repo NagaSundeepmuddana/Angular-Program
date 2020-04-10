@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
     "@types/jquery": "^3.2.16",
-    "auth0-js": "^8.9.3",
+    "auth0-js": "^9.13.2",
     "core-js": "^2.4.1",
     "devextreme": "^17.1.5",
     "devextreme-angular": "^17.1.5",
